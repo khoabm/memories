@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memories · Kí ức</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50' y='50' font-size='90' text-anchor='middle' dominant-baseline='central' dy='.05em'>🎂</text></svg>" />
+    <meta name="description" content="Một góc nhỏ lưu giữ những kí ức đẹp." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body>
+    <!-- Background -->
+    <div class="bg-layer" aria-hidden="true"></div>
+    <div class="bg-grain" aria-hidden="true"></div>
+
+    <!-- ============ HEADER / NAVBAR ============ -->
+    <header class="site-header">
+        <a href="#hero" class="logo">
+            <span class="logo-mark">✦</span>
+            <span class="logo-text">Memories</span>
+        </a>
+        <nav class="site-nav">
+            <a href="#top" data-nav>Đếm ngược</a>
+            <a href="#story" data-nav>Kỉ niệm</a>
+        </nav>
+    </header>
+
+    <!-- ============ SECTION 1: HERO + COUNTDOWN ============ -->
+    <section id="top" id="hero" class="hero">
+        <div class="hero-inner">
+            <p class="hero-eyebrow reveal">— một góc nhỏ cho những kí ức —</p>
+
+            <h1 class="hero-title reveal">
+                Những ngày tháng<br />
+                <em>chúng ta đã đi qua</em>
+            </h1>
+
+            <p class="hero-sub reveal">
+                Nơi chúng ta sẽ cùng lưu giữ từng khoảnh khắc<br />
+                và cả những điều chưa được hoàn thiện.
+            </p>
+
+            <section id="countdown" class="countdown reveal" aria-label="Đếm ngược">
+                <div class="countdown-grid">
+                    <div class="cd-item">
+                        <span class="cd-num" id="cd-days">00</span>
+                        <span class="cd-label">Ngày</span>
+                    </div>
+                    <div class="cd-item">
+                        <span class="cd-num" id="cd-hours">00</span>
+                        <span class="cd-label">Giờ</span>
+                    </div>
+                    <div class="cd-item">
+                        <span class="cd-num" id="cd-mins">00</span>
+                        <span class="cd-label">Phút</span>
+                    </div>
+                    <div class="cd-item">
+                        <span class="cd-num" id="cd-secs">00</span>
+                        <span class="cd-label">Giây</span>
+                    </div>
+                </div>
+
+                <p class="countdown-note" id="countdown-note">
+                    Đếm ngược về sinh nhật Bé Be ♥ <strong>09 · 10 · 2026</strong>
+                </p>
+            </section>
+
+            <div class="intro reveal">
+                <p>Hãy cuộn xuống — để đồng hành cùng Bí Bi và Bé Be.</p>
+                <span class="scroll-hint" aria-hidden="true">
+                    <svg class="scroll-arrow" viewBox="0 0 24 24" width="14" height="14">
+                        <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ SECTION 2: PARALLAX STORY ============ -->
+    <section id="story" class="parallax-wrap" aria-label="Câu chuyện">
+
+        <!-- ===== STAGE 1 — Ngày đầu tiên ===== -->
+        <article class="parallax-stage" data-reveal>
+            <div class="stage-bg" data-speed="0.25" aria-hidden="true">
+                <img src="./assets/images/parallax/para1.jpg" alt="" loading="lazy" decoding="async"
+                    onerror="this.style.display='none'" />
+            </div>
+
+            <div class="stage-content">
+                <p class="story-eyebrow">Chương I</p>
+                <h2 class="story-title">Ngày đầu tiên</h2>
+                <p class="story-text">
+                    Chuyến đi đầu tiên không chỉ là một điểm đến,<br />
+                    mà là dấu mốc mở ra cả một hành trình dài.
+                </p>
+            </div>
+        </article>
+
+        <!-- ===== STAGE 2 — Những ngày bình yên ===== -->
+        <article class="parallax-stage" data-reveal>
+            <div class="stage-bg" data-speed="0.25" aria-hidden="true">
+                <img src="./assets/images/parallax/para2.jpg" alt="" loading="lazy" decoding="async"
+                    onerror="this.style.display='none'" />
+            </div>
+
+            <div class="stage-content">
+                <p class="story-eyebrow">Chương II</p>
+                <h2 class="story-title">Đi cùng nhau</h2>
+                <p class="story-text">
+                    Bắt đầu từ một cái nắm tay thật khẽ,<br />
+                    anh hứa sẽ cùng em đi hết những ngày bình yên — và cả những ngày giông bão.
+                </p>
+            </div>
+        </article>
+
+        <!-- ===== STAGE 3 — Những ngày bình yên ===== -->
+        <article class="parallax-stage" data-reveal>
+            <div class="stage-bg" data-speed="0.25" aria-hidden="true">
+                <img src="./assets/images/parallax/para.jpg" alt="" loading="lazy" decoding="async"
+                    onerror="this.style.display='none'" />
+            </div>
+
+            <div class="stage-content">
+                <p class="story-eyebrow">Chương III</p>
+                <h2 class="story-title">Những kỉ niệm</h2>
+                <p class="story-text">
+                    Có những kỉ niệm được lưu lại trong từng tấm hình,<br />
+                    và cũng có những kỉ niệm chỉ lặng lẽ ở lại trong tim —
+                    nhưng tất cả đều là một phần của hành trình ta đã đi qua.
+                </p>
+            </div>
+        </article>
+
+        <!-- ===== STAGE 4 — Điều còn ở lại ===== -->
+        <article class="parallax-stage" data-reveal>
+            <div class="stage-bg" data-speed="0.25" aria-hidden="true">
+                <img src="./assets/images/parallax/para4.jpg" alt="" loading=" lazy" decoding="async"
+                    onerror="this.style.display='none'" />
+            </div>
+
+            <div class="stage-content">
+                <p class="story-eyebrow">Chương IV</p>
+                <h2 class="story-title">Điều còn ở lại</h2>
+                <p class="story-text">
+                    Ta đã cãi nhau, đã im lặng, đã từng muốn dừng lại,<br />
+                    vậy mà sáng hôm sau, vẫn chọn đi tiếp cùng nhau.
+                </p>
+            </div>
+        </article>
+
+        <!-- ===== STAGE N — Điều còn ở phía trước ===== -->
+        <article class="parallax-stage" data-reveal>
+            <div class="stage-bg" data-speed="0.25" aria-hidden="true">
+                <img src="./assets/images/parallax/paraN.jpg" alt="" loading=" lazy" decoding="async"
+                    onerror="this.style.display='none'" />
+            </div>
+
+            <div class="stage-content">
+                <p class="story-eyebrow">Chương N</p>
+                <h2 class="story-title">Điều còn ở phía trước</h2>
+                <p class="story-text">
+                    Có những kỉ niệm ta chưa kịp viết,<br />
+                    những chương chưa kịp đặt tên — vẫn đang chờ ta đi tiếp.
+                </p>
+            </div>
+        </article>
+
+    </section>
+
+    <!-- ============================================================
+     PLACEHOLDER: TIMELINE CHƯA MỞ KHÓA
+     - Hiển thị mặc định khi trang load
+     - Sẽ bị JS XÓA khi countdown = 0
+     - Không chứa nội dung kỉ niệm thật
+     ============================================================ -->
+    <section id="timeline-locked" class="timeline-locked" aria-label="Chưa mở khóa">
+        <div class="locked-inner">
+            <div class="locked-icon" aria-hidden="true">
+                <svg viewBox="0 0 64 64" width="56" height="56" fill="none">
+                    <!-- Thân ổ khóa -->
+                    <rect x="12" y="28" width="40" height="30" rx="5" stroke="currentColor" stroke-width="2.5"
+                        fill="rgba(231, 183, 160, 0.08)" />
+                    <!-- Quai ổ khóa -->
+                    <path d="M22 28 V20 A10 10 0 0 1 42 20 V28" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" />
+                    <!-- Lỗ khoá -->
+                    <circle cx="32" cy="42" r="3.5" fill="currentColor" />
+                    <rect x="30.5" y="45" width="3" height="7" rx="1.5" fill="currentColor" />
+                </svg>
+            </div>
+
+            <p class="locked-eyebrow">Chưa đến lúc đâu</p>
+
+            <h2 class="locked-title">
+                Chờ em ở đây vào ngày
+            </h2>
+
+            <p class="locked-date">09 · 10 · 2026</p>
+
+            <p class="locked-note">
+                Hãy chờ xem những điều gì đang chờ mình nhé.
+            </p>
+        </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="site-footer">
+        <p>© <span id="year"></span> Memories · Made with care.</p>
+    </footer>
+    <!-- Template: nav link "Kỉ niệm" (chỉ render khi unlock) -->
+    <template id="nav-timeline-template">
+        <a href="#timeline" data-nav>Kỉ niệm</a>
+    </template>
+    <!-- ============================================================
+     Template: MODAL VIDEO PLAYER
+     - Chỉ render khi user mở video
+     - JS sẽ clone và chèn vào <body>
+     ============================================================ -->
+    <template id="video-modal-template">
+        <div class="video-modal" role="dialog" aria-modal="true" aria-label="Trình phát video">
+            <div class="video-modal-backdrop" data-close></div>
+
+            <div class="video-modal-body">
+                <button class="video-modal-close" type="button" aria-label="Đóng" data-close>
+                    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                        <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" />
+                    </svg>
+                </button>
+
+                <div class="video-modal-player">
+                    <video id="videoModalPlayer" controls playsinline preload="metadata"></video>
+                </div>
+            </div>
+        </div>
+    </template>
+    <!-- ============================================================
+     Template: TIMELINE
+     - Trình duyệt KHÔNG render nội dung <template>
+     - Không tồn tại trong DOM cho đến khi countdown = 0
+     - JS sẽ clone và chèn vào trước <footer>
+     ============================================================ -->
+    <template id="timeline-template">
+        <section id="timeline" class="timeline-section" aria-label="Kỉ niệm">
+            <header class="timeline-head">
+                <p class="timeline-eyebrow">Hành lang kỉ niệm</p>
+                <h2 class="timeline-title">Những khoảnh khắc - những nơi chúng ta đã đi qua</h2>
+                <p class="timeline-sub">
+                    Mỗi khung hình là một khoảnh khắc — chạm nhẹ để nhớ lại.
+                </p>
+            </header>
+
+            <div class="timeline-scroller" id="timelineScroller">
+                <ol class="timeline-track">
+                    <li class="tl-card" tabindex="0">
+                        <div class="tl-photo">
+                            <img src="./assets/images/memories/da_lat_1.jpg" alt="Kỉ niệm 1" loading="lazy" />
+                        </div>
+                        <div class="tl-info">
+                            <time class="tl-date">Đà Lạt - Mùa hè 2025</time>
+                            <h3 class="tl-name">Chuyến đi đầu tiên</h3>
+                            <p class="tl-desc">Ngày mà mọi thứ bắt đầu — với một chuyến du lịch đầu tiên.</p>
+                        </div>
+                        <span class="tl-tape" aria-hidden="true"></span>
+                    </li>
+
+                    <li class="tl-card" tabindex="0">
+                        <div class="tl-photo">
+                            <img src="./assets/images/memories/da_lat_2.jpg" alt="Kỉ niệm 2" loading="lazy" />
+                        </div>
+                        <div class="tl-info">
+                            <time class="tl-date">Đà Lạt - Mùa hè 2025</time>
+                            <h3 class="tl-name">Tiệm nướng Campi</h3>
+                            <p class="tl-desc">Cùng nhau nướng thịt dưới một ngày trời đầy mưa.</p>
+                        </div>
+                        <span class="tl-tape" aria-hidden="true"></span>
+                    </li>
+
+                    <li class="tl-card tl-card--video" tabindex="0" data-video="./assets/videos/thit_nuong.mp4">
+                        <div class="tl-photo">
+                            <img src="./assets/images/memories/da_lat_2.jpg" alt="Kỉ niệm video" loading="lazy" />
+                            <span class="tl-play-badge" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" width="20" height="20">
+                                    <path d="M8 5v14l11-7z" fill="currentColor" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="tl-info">
+                            <time class="tl-date">Đà Lạt - Mùa hè 2025</time>
+                            <h3 class="tl-name">Nướng thịt cùng nhau</h3>
+                            <p class="tl-desc">Khi mình cùng nướng thịt dưới mưa.</p>
+                        </div>
+                        <span class="tl-tape" aria-hidden="true"></span>
+                    </li>
+
+                    <li class="tl-card" tabindex="0">
+                        <div class="tl-photo">
+                            <img src="./assets/images/memories/da_lat_3.JPG" alt="Kỉ niệm 3" loading="lazy" />
+                        </div>
+                        <div class="tl-info">
+                            <time class="tl-date">Đà Lạt - Mùa hè 2025</time>
+                            <h3 class="tl-name">Cà phê ở Thôn 13</h3>
+                            <p class="tl-desc">Đường khó đi nhưng lại rất thoải mái khi có em.</p>
+                        </div>
+                        <span class="tl-tape" aria-hidden="true"></span>
+                    </li>
+
+                    <li class="tl-card" tabindex="0">
+                        <div class="tl-photo">
+                            <img src="./assets/images/memories/xuan_2026_1.JPG" alt="Kỉ niệm 4" loading="lazy" />
+                        </div>
+                        <div class="tl-info">
+                            <time class="tl-date">Hồ Chí Minh - Mùa xuân 2026</time>
+                            <h3 class="tl-name">Quận 1</h3>
+                            <p class="tl-desc">Những bức hình Xuân đầu tiên cùng em.</p>
+                        </div>
+                        <span class="tl-tape" aria-hidden="true"></span>
+                    </li>
+
+                    <li class="tl-card" tabindex="0">
+                        <div class="tl-photo">
+                            <img src="./assets/images/memories/xuan_2026_2.JPG" alt="Kỉ niệm 5" loading="lazy" />
+                        </div>
+                        <div class="tl-info">
+                            <time class="tl-date">Hồ Chí Minh - Mùa xuân 2026</time>
+                            <h3 class="tl-name">Cà phê Cô Ba</h3>
+                            <p class="tl-desc">Cùng em chụp hình ở quán cà phê.</p>
+                        </div>
+                        <span class="tl-tape" aria-hidden="true"></span>
+                    </li>
+
+                    <li class="tl-card tl-card--video" tabindex="0" data-video="./assets/videos/co_ba.mp4">
+                        <div class="tl-photo">
+                            <img src="" alt="Kỉ niệm video" loading="lazy" />
+                            <span class="tl-play-badge" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" width="20" height="20">
+                                    <path d="M8 5v14l11-7z" fill="currentColor" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="tl-info">
+                            <time class="tl-date">Hồ Chí Minh - Mùa xuân 2026</time>
+                            <h3 class="tl-name">Cà phê Cô Ba</h3>
+                            <p class="tl-desc">Phải chờ mãi mới được mấy cảnh qua đường.</p>
+                        </div>
+                        <span class="tl-tape" aria-hidden="true"></span>
+                    </li>
+
+                    <li class="tl-card tl-final" tabindex="0">
+                        <div class="tl-final-inner">
+                            <p class="tl-final-eyebrow">Và cuối cùng</p>
+                            <h3 class="tl-final-title">Best wishes</h3>
+                            <a href="./wishes.html" class="tl-final-btn" id="bestWishesBtn">
+                                <span>Gửi em những điều tốt đẹp nhất</span>
+                                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                                    <path d="M5 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </a>
+                        </div>
+                        <span class="tl-tape" aria-hidden="true"></span>
+                    </li>
+                </ol>
+
+                <button class="tl-nav tl-nav-prev" aria-label="Trước" type="button">‹</button>
+                <button class="tl-nav tl-nav-next" aria-label="Sau" type="button">›</button>
+            </div>
+
+            <div class="timeline-progress" aria-hidden="true">
+                <span class="timeline-progress-bar" id="tlProgressBar"></span>
+            </div>
+        </section>
+    </template>
+    <script src="./js/main.js"></script>
+</body>
+
+</html>
