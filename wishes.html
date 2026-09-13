@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Best Wishes · Memories</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50' y='50' font-size='90' text-anchor='middle' dominant-baseline='central' dy='.05em'>🎂</text></svg>" />
+    <meta name="description" content="Một lời chúc nhỏ, gửi đến bạn." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/wishes.css" />
+</head>
+
+<body class="wishes-page">
+    <template id="wishes-content-template">
+
+        <!-- Background dùng lại từ style.css -->
+        <div class="bg-layer" aria-hidden="true"></div>
+        <div class="bg-grain" aria-hidden="true"></div>
+
+        <!-- Hiệu ứng tim / sao bay nhẹ -->
+        <div class="floating-layer" id="floatingLayer" aria-hidden="true"></div>
+
+        <!-- Nút quay lại -->
+        <a href="./index.html" class="back-link" aria-label="Quay lại">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <path d="M19 12H5M11 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>Quay lại</span>
+        </a>
+
+        <!-- Card chính -->
+        <main class="wishes-wrap">
+            <article class="wishes-card" aria-label="Lời chúc">
+
+                <!-- Stamp ảnh nhỏ ở góc -->
+                <figure class="wishes-stamp" aria-hidden="true">
+                    <img src="https://picsum.photos/seed/stamp/240/240" alt="" loading="lazy"
+                        onerror="this.style.display='none'" />
+                </figure>
+
+                <!-- Tiêu đề thiệp -->
+                <header class="wishes-head">
+                    <p class="wishes-eyebrow">Best wishes</p>
+                    <h1 class="wishes-title">
+                        Gửi đến bạn —<br />
+                        <em>người đã đi cùng tôi</em>
+                    </h1>
+                </header>
+
+                <!-- Nội dung gõ chữ — 3 đoạn -->
+                <div class="wishes-body" id="wishesBody">
+                    <!-- Mỗi đoạn có data-text chứa nội dung thật -->
+                    <p class="wishes-line" data-text="Có những điều khó nói thành lời, nên tôi viết chúng vào đây."></p>
+                    <p class="wishes-line"
+                        data-text="Cảm ơn bạn vì đã đi cùng tôi qua những ngày tháng ấy — qua cả những lúc vui, và cả những lúc chẳng biết phải nói gì.">
+                    </p>
+                    <p class="wishes-line"
+                        data-text="Chúc bạn luôn bình yên. Và nhớ rằng — bạn được yêu thương, theo một cách rất riêng.">
+                    </p>
+                </div>
+            </article>
+        </main>
+    </template>
+
+    <script>
+        (function () {
+            var TARGET_DATE = new Date("2026-10-09T00:00:00+07:00");
+            if (Date.now() < TARGET_DATE.getTime()) {
+                window.location.replace("./index.html#hero");
+                return;
+            }
+            // Đã đến ngày → clone template vào DOM
+            var tpl = document.getElementById("wishes-content-template");
+            document.body.appendChild(tpl.content.cloneNode(true));
+        })();
+    </script>
+
+    <script src="./js/wishes.js"></script>
+</body>
+
+</html>
