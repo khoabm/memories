@@ -15,7 +15,7 @@
   const STORAGE_KEY = 'memories.week1.puzzle';
   const THRESHOLD_RATIO = 0.4; // khoảng cách tâm < 40% tile-size
   const DRAG_START_PX = 5; // ngưỡng phân biệt click vs drag
-
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   // Danh sách 3 ảnh — thay src sau
   const WEEK1_IMAGES = [
     {
