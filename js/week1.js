@@ -6,30 +6,33 @@
    ========================================================= */
 
 (function () {
-  'use strict';
+  ('use strict');
 
   /* =========================================================
        CONFIG
        ========================================================= */
-  const WEEK1_UNLOCK = new Date('2025-09-20T00:00:00+07:00');
+  const WEEK1_UNLOCK = new Date('2026-09-20T00:00:00+07:00');
   const STORAGE_KEY = 'memories.week1.puzzle';
   const THRESHOLD_RATIO = 0.4; // khoảng cách tâm < 40% tile-size
+  const DRAG_START_PX = 5; // ngưỡng phân biệt click vs drag
 
   // Danh sách 3 ảnh — thay src sau
   const WEEK1_IMAGES = [
     {
       id: 1,
-      label: 'Đà Lạt 2025',
-      src: './assets/images/puzzle/puzzle1.jpg',
-      date: '15/08/2025',
-      correctOrder: 0, // 0 = quá khứ
-    },
-    {
-      id: 2,
       label: 'Xuân 2026',
       src: './assets/images/puzzle/puzzle2.jpg',
       date: '11/02/2026',
       correctOrder: 1,
+      caption: 'Bộ ảnh xuân đầu tiên',
+    },
+    {
+      id: 2,
+      label: 'Đà Lạt 2025',
+      src: './assets/images/puzzle/puzzle1.jpg',
+      date: '15/08/2025',
+      correctOrder: 0,
+      caption: 'Chuyến du lịch đầu tiên',
     },
     {
       id: 3,
@@ -37,8 +40,22 @@
       src: './assets/images/puzzle/puzzle3.jpg',
       date: '18/07/2026',
       correctOrder: 2,
+      caption: 'Vẫn còn ở đây',
     },
   ];
+
+  const WEEK1_HERO = {
+    src: './assets/images/puzzle/thumb_nail_3.jpg',
+    eyebrow: 'Khởi đầu',
+    title: 'Khoảnh khắc',
+    intro: [
+      'Mọi câu chuyện đều bắt đầu từ một khoảnh khắc rất nhỏ.',
+      'Có những khởi đầu tưởng chừng như rất nhỏ nhưng lại để lại những kỉ niệm khó phai. Có những lần chỉ là 1 thoáng tình cờ — nhưng rồi nó trở thành điểm khởi đầu cho tất cả',
+      'Có những điều tưởng chừng là khó khăn nhưng đồng hành cùng chúng ta bước tiếp',
+      'Ba tấm ảnh - ba dấu mốc. Chúng không hoàn hảo, không rực rỡ — nhưng chúng thật quý giá. Tuy có những thiếu sót nhưng chắc chắn đó không phải là lần cuối cùng',
+      'Mong em được sống trong những kỉ niệm đáng nhớ nhất - Mỗi kỉ niệm sẽ theo chúng ta đến cuối cùng',
+    ],
+  };
 
   /* =========================================================
        STATE
@@ -312,7 +329,7 @@
       const imageData = WEEK1_IMAGES[imageIndex];
       img.src = imageData.src;
       img.alt = imageData.label;
-    //   img.hidden = false;
+      //   img.hidden = false;
       slot.classList.add('is-filled');
 
       // Điền ngày tháng
@@ -343,14 +360,19 @@
   function bindSortDragDrop(state) {
     const pool = section.querySelector('#sortPool');
     if (!pool) return;
-
+    pool.addEventListener('dragstart', (e) => e.preventDefault());
     let sortDragState = null;
 
     // ---- Pointer down trên pool ----
     pool.addEventListener('pointerdown', (e) => {
       const item = e.target.closest('.week-sort-item');
       if (!item) return;
-
+      if (dragState) {
+        cleanupDrag();
+      }
+      document.querySelectorAll('.puzzle-tile[data-returning]').forEach((c) => {
+        c.remove();
+      });
       if (window.MemAudio) window.MemAudio.unlock();
 
       e.preventDefault();
@@ -571,7 +593,7 @@
     if (img) {
       img.src = imageData.src;
       img.alt = imageData.label;
-    //   img.hidden = false;
+      //   img.hidden = false;
     }
     slot.classList.add('is-filled');
 
@@ -602,7 +624,8 @@
       }
       return;
     }
-
+    clone.dataset.returning = '1';
+    clone.style.pointerEvents = 'none';
     const fromRect = clone.getBoundingClientRect();
     const dx = startRect.left - fromRect.left;
     const dy = startRect.top - fromRect.top;
@@ -643,6 +666,198 @@
     setTimeout(() => {
       render(loadState());
     }, 1800);
+  }
+  /* =========================================================
+    FLIP — Chuyển ảnh từ slot Phase 2 sang polaroid Phase 3
+    ========================================================= */
+
+  /**
+   * Chụp vị trí 3 ảnh trong slot Phase 2 (trước khi clear DOM).
+   * @returns {Array<{imageIndex, rect}>|null}
+   */
+  function capturePolaroidFlipData() {
+    if (!section) return null;
+
+    const slots = section.querySelectorAll('.week-sort-slot.is-filled');
+    if (!slots.length) return null;
+
+    const data = [];
+    slots.forEach((slot) => {
+      const img = slot.querySelector('[data-sort-slot-img]');
+      if (!img || img.hidden) return;
+
+      // Tìm imageIndex từ state.sortPlaced
+      // Nhưng vì renderAlbum gọi sau clearSection → cần capture trước
+      // → dùng dataset trên slot
+      const slotIndex = parseInt(slot.dataset.slotIndex, 10);
+
+      // Tìm ảnh có correctOrder = slotIndex
+      const imageIdx = WEEK1_IMAGES.findIndex((im) => im.correctOrder === slotIndex);
+      if (imageIdx < 0) return;
+
+      data.push({
+        imageIndex: imageIdx,
+        rect: slot.getBoundingClientRect(),
+      });
+    });
+
+    return data.length === 3 ? data : null;
+  }
+
+  /**
+   * Chạy FLIP: 3 polaroid bay từ vị trí slot cũ về vị trí mới.
+   */
+  function playPolaroidFlip(flipData) {
+    if (prefersReduced) {
+      staggerPolaroids();
+      return;
+    }
+
+    const polaroids = section.querySelectorAll('.album-polaroid');
+
+    polaroids.forEach((pol, i) => {
+      // Tìm flipData tương ứng
+      const sorted = WEEK1_IMAGES.map((img, idx) => ({ ...img, idx })).sort(
+        (a, b) => a.correctOrder - b.correctOrder,
+      );
+
+      const sortedIdx = i;
+      const imageData = sorted[sortedIdx];
+      if (!imageData) return;
+
+      // Tìm flip entry khớp imageIndex
+      const flipEntry = flipData.find((d) => d.imageIndex === imageData.idx);
+      if (!flipEntry) return;
+
+      // Vị trí đích
+      const finalRect = pol.getBoundingClientRect();
+
+      // Delta: vị trí cũ → vị trí mới
+      const dx = flipEntry.rect.left - finalRect.left;
+      const dy = flipEntry.rect.top - finalRect.top;
+      const scale = flipEntry.rect.width / finalRect.width;
+
+      // Đặt về vị trí cũ + ẩn
+      pol.style.transition = 'none';
+      pol.style.transform = `translate3d(${dx}px, ${dy}px, 0) rotate(${i * 2 - 2}deg) scale(${scale})`;
+      pol.style.opacity = '0';
+
+      // Sau 1 frame → animate về vị trí mới
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          pol.style.transition =
+            'transform .9s cubic-bezier(0.22, 1, 0.36, 1), ' + 'opacity .5s ease-out';
+
+          // Stagger nhẹ
+          setTimeout(() => {
+            pol.style.transform = '';
+            pol.style.opacity = '1';
+          }, i * 100);
+        });
+      });
+    });
+  }
+
+  /**
+   * Fallback: chỉ fade-in lần lượt nếu không có FLIP data.
+   */
+  function staggerPolaroids() {
+    const polaroids = section.querySelectorAll('.album-polaroid');
+    polaroids.forEach((pol, i) => {
+      pol.style.opacity = '0';
+      pol.style.transform = 'translate3d(0, 20px, 0)';
+
+      setTimeout(() => {
+        pol.style.transition = 'opacity .7s ease-out, transform .8s cubic-bezier(0.22, 1, 0.36, 1)';
+        pol.style.opacity = '1';
+        pol.style.transform = '';
+      }, i * 120);
+    });
+  }
+  /* =========================================================
+    PHASE 3 — ALBUM (Lá thư cũ)
+    ========================================================= */
+  function renderAlbum(state) {
+    if (!section) return;
+
+    // Lấy FLIP snapshot trước khi clear DOM
+    const flipData = capturePolaroidFlipData();
+
+    clearSection();
+
+    const clone = cloneTemplate('week1-album-template');
+    if (!clone) return;
+
+    section.appendChild(clone);
+
+    // Header
+    const eyebrow = section.querySelector('[data-album-eyebrow]');
+    const title = section.querySelector('[data-album-title]');
+    if (eyebrow) eyebrow.textContent = WEEK1_HERO.eyebrow;
+    if (title) title.textContent = WEEK1_HERO.title;
+
+    // Hero
+    const heroImg = section.querySelector('[data-album-hero]');
+    if (heroImg) {
+      heroImg.src = WEEK1_HERO.src;
+      heroImg.alt = WEEK1_HERO.title;
+    }
+
+    // Đoạn văn
+    const body = section.querySelector('[data-album-body]');
+    if (body) {
+      body.innerHTML = '';
+      WEEK1_HERO.intro.forEach((text) => {
+        const p = document.createElement('p');
+        p.textContent = text;
+        body.appendChild(p);
+      });
+    }
+
+    // 3 polaroid — theo thứ tự correctOrder
+    const polaroidsWrap = section.querySelector('[data-album-polaroids]');
+    if (polaroidsWrap) {
+      polaroidsWrap.innerHTML = '';
+
+      // Sort ảnh theo correctOrder (0 → 2)
+      const sorted = WEEK1_IMAGES.map((img, idx) => ({ ...img, idx })).sort(
+        (a, b) => a.correctOrder - b.correctOrder,
+      );
+
+      sorted.forEach((img) => {
+        const pol = buildPolaroid(img);
+        if (pol) polaroidsWrap.appendChild(pol);
+      });
+    }
+
+    // FLIP animation nếu có data từ Phase 2
+    if (flipData && flipData.length) {
+      playPolaroidFlip(flipData);
+    } else {
+      // Stagger thường nếu không có FLIP data
+      staggerPolaroids();
+    }
+
+    // Bind nút... (không có nút nào)
+  }
+
+  /* ---------- Build 1 polaroid ---------- */
+  function buildPolaroid(imageData) {
+    const clone = cloneTemplate('week1-album-polaroid-template');
+    if (!clone) return null;
+
+    const img = clone.querySelector('[data-polaroid-img]');
+    const caption = clone.querySelector('[data-polaroid-caption]');
+    const date = clone.querySelector('[data-polaroid-date]');
+
+    if (img) {
+      img.src = imageData.src;
+      img.alt = imageData.caption || imageData.label;
+    }
+    if (caption) caption.textContent = imageData.caption || '';
+    if (date) date.textContent = imageData.date || '';
+
+    return clone;
   }
   /* =========================================================
        Bắt đầu 1 puzzle — chuyển từ queue sang puzzle state
@@ -878,21 +1093,23 @@
   /* =========================================================
        PUZZLE — Drag & Drop (Pointer Events)
        ========================================================= */
-  /* =========================================================
-       PUZZLE — Drag & Drop (Pointer Events) — v2
-       ========================================================= */
-  const DRAG_START_PX = 5; // ngưỡng phân biệt click vs drag
-
   let dragState = null; // { tile, clone, offsetX, offsetY, startX, startY }
 
   function bindPuzzleDragDrop(state, imageData) {
     const pool = section.querySelector('#puzzlePool');
     const board = section.querySelector('#puzzleBoard');
     if (!pool || !board) return;
-
+    pool.addEventListener('dragstart', (e) => e.preventDefault());
+    board.addEventListener('dragstart', (e) => e.preventDefault());
     // ---- Pointer down trên pool ----
     pool.addEventListener('pointerdown', (e) => {
       if (window.MemAudio) window.MemAudio.unlock();
+      if (dragState) {
+        cleanupDrag();
+      }
+      document.querySelectorAll('.puzzle-tile[data-returning]').forEach((c) => {
+        c.remove();
+      });
       const tile = e.target.closest('.puzzle-tile');
       if (!tile) return;
       if (tile.classList.contains('is-placed')) return;
@@ -1115,11 +1332,6 @@
   /* =========================================================
        Animation bay về pool
        ========================================================= */
-  /* =========================================================
-       Animation bay về pool
-       - Clone bay từ vị trí hiện tại về vị trí cũ trong pool
-       - Mảnh gốc hiện lại sau khi clone biến mất
-       ========================================================= */
   function animateReturn(tile, startRect) {
     const clone = dragState && dragState.clone;
 
@@ -1131,6 +1343,8 @@
       }
       return;
     }
+    clone.dataset.returning = '1';
+    clone.style.pointerEvents = 'none';3
 
     // Lấy vị trí hiện tại của clone (đang ở vị trí con trỏ)
     const fromRect = clone.getBoundingClientRect();
@@ -1319,10 +1533,9 @@
       return;
     }
 
-    // Đã sắp xếp xong → Phase 3 (sẽ làm sau)
+    // Đã sắp xếp xong → Phase 3
     if (allCompleted && state.sortDone) {
-      // Tạm thời render queue như placeholder
-      renderQueue(state);
+      renderAlbum(state);
       return;
     }
 
