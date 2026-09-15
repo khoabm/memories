@@ -177,7 +177,10 @@
         </article>
 
     </section>
-
+    <!-- ============ SECTION 2.5: WEEK 1 — MINI GAME + CONTENT ============ -->
+    <section id="week-1" class="week-section" aria-label="Khởi đầu - Cho những lần đầu tiên">
+        <!-- Nội dung sẽ render bằng JS dựa trên trạng thái -->
+    </section>
     <!-- ============================================================
      PLACEHOLDER: TIMELINE CHƯA MỞ KHÓA
      - Hiển thị mặc định khi trang load
@@ -382,6 +385,281 @@
             </div>
         </section>
     </template>
+    <!-- ============================================================
+     TEMPLATE: WEEK 1 — LOCKED (chưa đến ngày)
+     ============================================================ -->
+    <template id="week1-locked-template">
+        <div class="week-locked">
+            <div class="week-locked-icon" aria-hidden="true">
+                <svg viewBox="0 0 64 64" width="56" height="56" fill="none">
+                    <rect x="12" y="28" width="40" height="30" rx="5" stroke="currentColor" stroke-width="2.5"
+                        fill="rgba(231, 183, 160, 0.08)" />
+                    <path d="M22 28 V20 A10 10 0 0 1 42 20 V28" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" />
+                    <circle cx="32" cy="42" r="3.5" fill="currentColor" />
+                    <rect x="30.5" y="45" width="3" height="7" rx="1.5" fill="currentColor" />
+                </svg>
+            </div>
+
+            <p class="week-locked-eyebrow">Dành cho em</p>
+            <h2 class="week-locked-title">Khởi đầu</h2>
+            <p class="week-locked-date">Mở khóa: 20 · 09 · 2026</p>
+            <div class="week-locked-countdown" aria-label="Đếm ngược mở khóa">
+                <div class="week-cd-grid">
+                    <div class="week-cd-item">
+                        <span class="week-cd-num" data-cd="days">00</span>
+                        <span class="week-cd-label">Ngày</span>
+                    </div>
+                    <div class="week-cd-item">
+                        <span class="week-cd-num" data-cd="hours">00</span>
+                        <span class="week-cd-label">Giờ</span>
+                    </div>
+                    <div class="week-cd-item">
+                        <span class="week-cd-num" data-cd="mins">00</span>
+                        <span class="week-cd-label">Phút</span>
+                    </div>
+                    <div class="week-cd-item">
+                        <span class="week-cd-num" data-cd="secs">00</span>
+                        <span class="week-cd-label">Giây</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- ============================================================
+        TEMPLATE: WEEK 1 — QUEUE (đã đến ngày, chưa xong 3 ảnh)
+        ============================================================ -->
+    <template id="week1-queue-template">
+        <div class="week-queue">
+            <header class="week-head">
+                <p class="week-eyebrow">Khởi đầu</p>
+                <h2 class="week-title">Có những lần đầu mãi không thể nào quên</h2>
+                <p class="week-hint">
+                    Chạm vào một khung để ôn lại kỉ niệm nhé
+                </p>
+            </header>
+
+            <div class="week-slots" id="weekSlots">
+                <!-- 3 slot sẽ render bằng JS -->
+            </div>
+
+            <p class="week-progress" id="weekProgress">
+                Tiến độ: <strong>0/3</strong>
+            </p>
+        </div>
+    </template>
+
+    <!-- ============================================================
+        TEMPLATE: WEEK 1 — PUZZLE (đang chơi 1 ảnh)
+        ============================================================ -->
+    <template id="week1-puzzle-template">
+        <div class="week-puzzle">
+            <header class="week-puzzle-head">
+                <button class="week-back" type="button" data-back>
+                    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                        <path d="M19 12H5M11 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span>Quay lại</span>
+                </button>
+
+                <p class="week-puzzle-label">
+                    Đang ghép: <strong data-image-label>Ảnh</strong>
+                </p>
+
+                <button class="week-audio-toggle" type="button" data-audio-toggle aria-label="Bật/tắt âm thanh">
+                    <svg class="icon-on" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                        <path d="M11 5L6 9H2v6h4l5 4V5z" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linejoin="round" />
+                        <path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor"
+                            stroke-width="1.8" stroke-linecap="round" />
+                    </svg>
+                    <svg class="icon-off" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                        <path d="M11 5L6 9H2v6h4l5 4V5z" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linejoin="round" />
+                        <path d="M22 9l-6 6M16 9l6 6" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" />
+                    </svg>
+                </button>
+            </header>
+
+            <div class="week-puzzle-stage">
+                <!-- Board 9 ô trống -->
+                <div class="week-puzzle-board" id="puzzleBoard" aria-label="Bảng ghép">
+                    <!-- 9 ô trống sẽ render bằng JS -->
+                </div>
+
+                <!-- Pool chứa 9 mảnh rời -->
+                <div class="week-puzzle-pool" id="puzzlePool" aria-label="Các mảnh ghép">
+                    <!-- 9 mảnh xáo trộn sẽ render bằng JS -->
+                </div>
+            </div>
+
+            <p class="week-puzzle-progress" id="puzzleProgress">
+                Tiến độ: <strong>0/9</strong> ô đúng
+            </p>
+        </div>
+    </template>
+    <!-- ============================================================
+     TEMPLATE: WEEK 1 — PHASE 2 (Sắp xếp theo thời gian)
+     - Hiển thị khi cả 3 ảnh đã ghép xong
+     - Kéo ảnh từ pool → slot theo thứ tự quá khứ → hiện tại
+     ============================================================ -->
+    <template id="week1-sort-template">
+        <div class="week-sort">
+            <header class="week-sort-head">
+                <p class="week-sort-eyebrow">Bước 2 · Sắp xếp</p>
+                <h2 class="week-sort-title">
+                    Em có nhớ<br />
+                    Thời điểm của những <em>lần đầu tiên</em>
+                </h2>
+            </header>
+
+            <!-- Pool: 3 ảnh chưa sắp xếp -->
+            <div class="week-sort-pool-wrap">
+                <p class="week-sort-label">Những khoảnh khắc kỉ niệm</p>
+                <div class="week-sort-pool" id="sortPool" aria-label="Những kỉ niệm">
+                    <!-- 3 ảnh sẽ render bằng JS -->
+                </div>
+            </div>
+
+            <!-- Slots: 3 ô đích -->
+            <div class="week-sort-slots-wrap">
+                <p class="week-sort-label">Vào lúc nào nhỉ</p>
+                <div class="week-sort-slots" id="sortSlots" aria-label="Mốc thời gian">
+                    <!-- 3 slot sẽ render bằng JS -->
+                </div>
+
+                <!-- Trục thời gian -->
+                <div class="week-sort-axis" aria-hidden="true">
+                    <span class="week-sort-axis-label">Quá khứ</span>
+                    <span class="week-sort-axis-line"></span>
+                    <span class="week-sort-axis-label">Hiện tại</span>
+                </div>
+            </div>
+
+            <!-- Nút tiếp tục (ẩn mặc định) -->
+            <!-- <div class="week-sort-actions">
+                <button class="week-sort-continue" type="button" data-sort-continue hidden>
+                    <span>Tiếp tục</span>
+                    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                        <path d="M5 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+            </div> -->
+        </div>
+    </template>
+
+    <!-- ============================================================
+     TEMPLATE: PHASE 2 — ẢNH TRONG POOL
+     ============================================================ -->
+    <template id="week1-sort-item-template">
+        <div class="week-sort-item" tabindex="0" role="button">
+            <div class="week-sort-item-photo">
+                <img src="" alt="" data-sort-img />
+            </div>
+        </div>
+    </template>
+
+    <!-- ============================================================
+     TEMPLATE: PHASE 2 — SLOT ĐÍCH
+     ============================================================ -->
+    <template id="week1-sort-slot-template">
+        <div class="week-sort-slot" data-sort-slot>
+            <div class="week-sort-slot-inner">
+                <svg class="week-sort-slot-placeholder" viewBox="0 0 64 64" width="32" height="32" aria-hidden="true">
+                    <rect x="8" y="14" width="48" height="36" rx="4" fill="none" stroke="currentColor"
+                        stroke-width="1.8" opacity="0.5" />
+                    <circle cx="22" cy="26" r="4" fill="none" stroke="currentColor" stroke-width="1.8" opacity="0.5" />
+                    <path d="M8 42l14-12 10 10 8-8 16 14" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linejoin="round" opacity="0.5" />
+                </svg>
+                <img alt="" data-sort-slot-img />
+            </div>
+            <p class="week-sort-slot-date" data-sort-slot-date>
+                <span class="week-sort-slot-date-placeholder">--/--/----</span>
+            </p>
+        </div>
+    </template>
+    <!-- ============================================================
+         TEMPLATE: WEEK 1 — PHASE 3 (Album ảnh mở đầu — lá thư cũ)
+         - Hiển thị khi cả 3 ảnh đã sắp xếp xong
+         ============================================================ -->
+    <template id="week1-album-template">
+        <div class="week-album">
+            <!-- Lá thư -->
+            <article class="week-album-letter">
+                <!-- Nếp gấp -->
+                <div class="letter-fold letter-fold-h" aria-hidden="true"></div>
+                <div class="letter-fold letter-fold-v" aria-hidden="true"></div>
+
+                <!-- Nội dung thư -->
+                <div class="letter-content">
+                    <header class="letter-head">
+                        <p class="letter-eyebrow" data-album-eyebrow>Chương I</p>
+                        <h2 class="letter-title" data-album-title>Khởi đầu</h2>
+                        <div class="letter-ornament" aria-hidden="true">✦</div>
+                    </header>
+
+                    <!-- Ảnh hero -->
+                    <figure class="letter-hero" data-album-hero-wrap>
+                        <img src="" alt="" data-album-hero />
+                    </figure>
+
+                    <!-- Đoạn văn -->
+                    <div class="letter-body" data-album-body>
+                        <!-- JS render 2 đoạn -->
+                    </div>
+
+                    <!-- 3 polaroid -->
+                    <div class="letter-polaroids" data-album-polaroids>
+                        <!-- JS render 3 polaroid -->
+                    </div>
+
+                    <!-- Ký tên -->
+                    <p class="letter-sign" aria-hidden="true">— ✦ —</p>
+                </div>
+            </article>
+        </div>
+    </template>
+
+    <!-- ============================================================
+         TEMPLATE: PHASE 3 — POLAROID
+         ============================================================ -->
+    <template id="week1-album-polaroid-template">
+        <figure class="album-polaroid">
+            <div class="album-polaroid-photo">
+                <img src="" alt="" data-polaroid-img />
+            </div>
+            <figcaption class="album-polaroid-caption">
+                <span class="album-polaroid-name" data-polaroid-caption></span>
+                <span class="album-polaroid-date" data-polaroid-date></span>
+            </figcaption>
+        </figure>
+    </template>
+    <!-- ============================================================
+        TEMPLATE: WEEK 1 — SLOT (mỗi slot trong queue)
+        Dùng chung cho cả slot chưa xong và đã xong.
+        JS sẽ set class + nội dung tùy trạng thái.
+        ============================================================ -->
+    <template id="week1-slot-template">
+        <button class="week-slot" type="button" data-slot>
+            <span class="week-slot-thumb">
+                <img src="" alt="" data-slot-img />
+                <span class="week-slot-question" data-slot-question aria-hidden="true">?</span>
+            </span>
+            <span class="week-slot-badge" data-slot-badge aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18">
+                    <path d="M5 13l4 4L19 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </span>
+        </button>
+    </template>
+    <script src="./js/audio.js"></script>
+    <script src="./js/week1.js"></script>
     <script src="./js/main.js"></script>
 </body>
 
