@@ -182,7 +182,7 @@
         <!-- Nội dung sẽ render bằng JS dựa trên trạng thái -->
     </section>
     <!-- ============ SECTION 2.6: WEEK 2 — CĂN PHÒNG KÍ ỨC ============ -->
-    <section id="week-2" class="week2-section" aria-label="Chương II — Đi qua">
+    <section id="week-2" class="week2-section" aria-label="Lắng đọng - Cho những vùng ký ức ta chọn im lặng">
         <!-- Nội dung sẽ render bằng JS dựa trên trạng thái -->
     </section>
     <!-- ============================================================
@@ -678,9 +678,9 @@
                 </svg>
             </div>
 
-            <p class="week2-locked-eyebrow">Chương II</p>
-            <h2 class="week2-locked-title">Đi qua</h2>
-            <p class="week2-locked-date">Mở khóa: 27 · 09 · 2026</p>
+            <p class="week2-locked-eyebrow">Lắng đọng</p>
+            <h2 class="week2-locked-title">Cho những vùng <em>ký ức</em> ta chọn im lặng</h2>
+            <p class="week2-locked-date">Mở khóa: 26 · 09 · 2026</p>
 
             <div class="week2-locked-countdown" aria-label="Đếm ngược mở khóa">
                 <div class="week2-cd-grid">
@@ -712,7 +712,7 @@
         <div class="week2-room" data-room>
             <!-- Text hướng dẫn trên cùng -->
             <p class="week2-hint" data-week2-hint>
-                Có điều gì đó tôi chưa muốn nhớ...
+                Có điều gì đó chúng ta chưa muốn nhớ...
             </p>
 
             <!-- Khung phòng -->
@@ -1210,7 +1210,43 @@
             <span class="choice-text" data-choice-text></span>
         </button>
     </template>
+    <!-- ============================================================
+     LOADING SCREEN
+     - Hiện khi vào trang
+     - Ẩn khi asset critical load xong
+     ============================================================ -->
+    <div class="loading-screen" id="loadingScreen" aria-hidden="true">
+        <div class="loading-inner">
+
+            <!-- Vòng tròn loading + ornament -->
+            <div class="loading-circle-wrap">
+                <svg class="loading-circle" viewBox="0 0 120 120" aria-hidden="true">
+                    <!-- Vòng tròn nền (mờ) -->
+                    <circle class="loading-circle-track" cx="60" cy="60" r="52" fill="none" stroke="currentColor"
+                        stroke-width="3" />
+
+                    <!-- Vòng tròn loading (đầy dần) -->
+                    <circle class="loading-circle-progress" cx="60" cy="60" r="52" fill="none" stroke="currentColor"
+                        stroke-width="3" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="326.7"
+                        transform="rotate(-90 60 60)" />
+                </svg>
+
+                <!-- Ornament ✦ ở giữa -->
+                <span class="loading-ornament" aria-hidden="true">✦</span>
+            </div>
+
+            <!-- Brand text -->
+            <p class="loading-brand">
+                Chờ xíu — kỉ niệm của bạn<br />đang được nạp vào!
+            </p>
+
+            <!-- % progress -->
+            <p class="loading-percent" data-loading-percent>0%</p>
+
+        </div>
+    </div>
     <script src="./js/audio.js"></script>
+    <script src="./js/preloader.js"></script>
     <script src="./js/week1.js"></script>
     <script src="./js/week2.js"></script>
     <script src="./js/main.js"></script>

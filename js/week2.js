@@ -9,41 +9,48 @@
   /* =========================================================
      CONFIG
      ========================================================= */
-  const WEEK2_UNLOCK = new Date('2025-09-27T00:00:00+07:00');
+  const WEEK2_UNLOCK = new Date('2026-09-26T00:00:00+07:00');
   const STORAGE_KEY = 'memories.week2.progress';
+  const ANSWER_SHEET_URL = "https://script.google.com/macros/s/AKfycbwVB3tFsz8Xk0jt0hdn9-1i9uVvibft6PSFDQGgD2rT8z6E71WQzfIOxjFXEVK_ln2y/exec";
 
   // 3 lá thư — tạm placeholder, sẽ điền nội dung ở 8D
   const WEEK2_LETTERS = [
     {
       id: 1,
-      hint: 'Có điều gì đó tôi chưa muốn nhớ...',
+      hint: 'Có những điều chúng ta không muốn nhắc...',
       messages: [
-        { text: 'Anh xin lỗi...', time: '22:45' },
-        { text: 'Anh đã không ở đó khi em cần.', time: '22:47' },
-        { text: 'Và anh biết — em đã chờ rất lâu.', time: '22:50' },
+        { text: 'Chúng ta đã nói vấn đề này nhiều lần rồi mà...', time: '18/09 18:40' },
+        { text: 'Vì sao chúng ta không thực hiện điều mình hứa?', time: '18/09 18:43' },
+        { text: 'Chúng ta đã cố gắng để rồi cũng cãi vã thì cố gắng làm gì?', time: '18/09 18:50' },
+        { text: 'Có những thứ thật đơn giản nhưng sao mãi vẫn cứ sai', time: '18/09 18:57' },
       ],
     },
     {
       id: 2,
-      hint: 'Có điều tôi đã cố quên...',
+      hint: 'Có điều chúng ta đã cố quên...',
       messages: [
-        { text: 'Anh đã im lặng quá lâu.', time: '03:12' },
-        { text: 'Không phải vì anh không quan tâm.', time: '03:15' },
-        { text: 'Mà vì anh không biết phải bắt đầu từ đâu.', time: '03:18' },
+        { text: 'Sao chúng ta không du di cho nhau?', time: '19/09 14:00' },
+        { text: 'Lúc nào chúng ta không tính toán trước cho hành động của mình.', time: '19/09 14:12' },
+        { text: 'Đã bao giờ chúng ta vì nhau mà cố gắng chưa?.', time: '19/09 14:14' },
+        { text: 'Nếu không nghĩ cho tương lai, thì liệu có tương lai nào để tiếp tục.', time: '19/09 14:17' },
       ],
     },
     {
       id: 3,
-      hint: 'Có điều tôi cần nhớ lại...',
+      hint: 'Có điều chúng ta cần nhớ lại...',
       messages: [
-        { text: 'Nhưng em vẫn ở đây.', time: '21:08' },
-        { text: 'Và anh nhận ra —', time: '21:10' },
-        { text: 'anh không muốn đi tiếp mà không có em.', time: '21:12' },
+        { text: 'Nhưng anh vẫn ở đây.', time: '22/09 13:05' },
+        { text: 'Nhưng em vẫn ở đây.', time: '22/09 13:11' },
+        { text: 'Chúng ta là những mảnh ghép không hoàn thiện của nhau.', time: '22/09 13:12' },
+        { text: 'Tuy ai cũng có cái lý của mình nhưng chỉ cần chúng ta cố gắng vì nhau.', time: '22/09 13:15' },
+        { text: 'Anh chưa bao giờ muốn ai đúng ai sai.', time: '22/09 13:18' },
+        { text: 'Nhưng rồi chúng ta cũng sẽ cần chọn giữa niềm vui bản thân hoặc niềm vui của chung.', time: '22/09 13:22' },
+        { text: 'Anh cũng sẽ muốn đi tiếp một cuộc sống có em bên cạnh.', time: '22/09 13:30' },
+        { text: 'Em sẽ muốn chúng ta như nào?.', time: '22/09 13:38' },
       ],
       choices: [
-        'Anh xin lỗi — vì đã để em phải chịu đựng một mình.',
-        'Anh không hứa sẽ không làm em buồn nữa — nhưng anh hứa sẽ ở lại.',
-        'Cảm ơn em — vì vẫn còn ở đây.',
+        'Chúng ta cần xóa bỏ sự khác biệt của nhau.',
+        'Chúng ta nên tập chấp nhận khác biệt của nhau.'
       ],
     },
   ];
@@ -270,7 +277,8 @@
 
     // 3. Bỏ text hint
     const hint = section.querySelector('[data-week2-hint]');
-    if (hint) hint.remove();
+    hint.textContent = 'Qua tất cả cơn bão rồi trời cũng sẽ sáng lại!';
+    // if (hint) hint.remove();
 
     // 4. Bỏ progress
     const progress = section.querySelector('[data-week2-progress]');
@@ -712,6 +720,36 @@ let isPlayingMessages = false;
     messageTimer = setTimeout(showNext, 400);
   }
 
+  /* =========================================================
+    GỬI ĐÁP ÁN LÊN GOOGLE SHEET
+    ========================================================= */
+  function sendAnswerToSheet(answerIndex, answerText) {
+    if (!ANSWER_SHEET_URL || ANSWER_SHEET_URL.includes("YOUR_SCRIPT_ID")) {
+      console.warn("[week2] ANSWER_SHEET_URL chưa được cấu hình.");
+      return;
+    }
+
+    try {
+      // ✅ Dùng no-cors để tránh CORS preflight
+      fetch(ANSWER_SHEET_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          answerIndex: answerIndex,
+          answerText: answerText,
+        }),
+      }).catch((err) => {
+        // Silent fail — không ảnh hưởng user experience
+        console.warn("[week2] Không gửi được đáp án:", err);
+      });
+    } catch (err) {
+      console.warn("[week2] Lỗi gửi đáp án:", err);
+    }
+  }
+
   /* ---- Hiện câu hỏi + 3 lựa chọn (thư 3) ---- */
   function showQuestion(questionWrap, choicesWrap, choices, state, submitBtn, closeBtn) {
     if (!questionWrap || !choicesWrap) return;
@@ -752,6 +790,7 @@ let isPlayingMessages = false;
     if (submitBtn) {
       submitBtn.addEventListener('click', () => {
         if (selectedIndex === null) return;
+        sendAnswerToSheet(selectedIndex, choices[selectedIndex]);
 
         // Lưu lựa chọn
         state.userAnswer = selectedIndex;
