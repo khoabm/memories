@@ -1158,27 +1158,37 @@
             <div class="week2-overlay-backdrop" data-overlay-close></div>
 
             <div class="week2-overlay-body">
-                <!-- Header: text gợi ý -->
+                <!-- Header — cố định -->
                 <header class="week2-letter-head">
-                    <p class="week2-letter-hint" data-letter-hint>
-                        Có điều gì đó tôi chưa muốn nhớ...
-                    </p>
+                    <p class="week2-letter-hint" data-letter-hint>...</p>
                 </header>
 
-                <!-- Khung thư dạng tin nhắn -->
-                <div class="week2-letter-chat" data-letter-chat>
-                    <!-- Tin nhắn sẽ render bằng JS -->
-                </div>
+                <!-- Vùng scroll chung — chứa cả chat + question -->
+                <div class="week2-letter-scroll" data-letter-scroll>
+                    <!-- Chat -->
+                    <div class="week2-letter-chat" data-letter-chat>
+                        <!-- Tin nhắn render bằng JS -->
+                    </div>
 
-                <!-- Phần câu hỏi (chỉ thư 3, chỉ chế độ chơi) -->
-                <div class="week2-letter-question" data-letter-question hidden>
-                    <p class="question-label">Bạn muốn nói gì?</p>
-                    <div class="question-choices" data-question-choices>
-                        <!-- 3 lựa chọn sẽ render bằng JS -->
+                    <!-- Question -->
+                    <div class="week2-letter-question" data-letter-question hidden>
+                        <p class="question-label">Bạn muốn nói gì?</p>
+                        <div class="question-choices" data-question-choices></div>
+
+                        <div class="week2-letter-feeling-wrap">
+                            <label class="week2-letter-feeling-label" for="week2FeelingInput">
+                                Hoặc ghi cảm nhận của em
+                            </label>
+                            <textarea class="week2-letter-feeling" id="week2FeelingInput" data-letter-feeling rows="3"
+                                maxlength="500" placeholder="Viết điều em muốn nói..."></textarea>
+                            <p class="week2-letter-feeling-count">
+                                <span data-feeling-count>0</span>/500
+                            </p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Nút đóng / gửi -->
+                <!-- Actions — sticky ở đáy -->
                 <div class="week2-letter-actions">
                     <button class="week2-letter-submit" type="button" data-letter-submit hidden>
                         <span>Gửi & Đóng</span>
@@ -1190,7 +1200,22 @@
             </div>
         </div>
     </template>
+    <!-- ============================================================
+        TEMPLATE: WEEK 2 — REPLAY INFO (hiện lựa chọn + cảm nhận)
+        ============================================================ -->
+    <template id="week2-replay-info-template">
+        <div class="week2-replay-info">
+            <div class="week2-replay-section">
+                <p class="week2-replay-label">Lựa chọn của em</p>
+                <p class="week2-replay-choice" data-replay-choice></p>
+            </div>
 
+            <div class="week2-replay-section" data-replay-feeling-wrap hidden>
+                <p class="week2-replay-label">Cảm nhận của em</p>
+                <p class="week2-replay-feeling" data-replay-feeling></p>
+            </div>
+        </div>
+    </template>
     <!-- ============================================================
      TEMPLATE: WEEK 2 — 1 TIN NHẮN
      ============================================================ -->

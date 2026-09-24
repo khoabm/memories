@@ -11,46 +11,51 @@
      ========================================================= */
   const WEEK2_UNLOCK = new Date('2026-09-26T00:00:00+07:00');
   const STORAGE_KEY = 'memories.week2.progress';
-  const ANSWER_SHEET_URL = "https://script.google.com/macros/s/AKfycbwVB3tFsz8Xk0jt0hdn9-1i9uVvibft6PSFDQGgD2rT8z6E71WQzfIOxjFXEVK_ln2y/exec";
+  const ANSWER_SHEET_URL = "https://script.google.com/macros/s/AKfycbwwT_VgbPdYAxBJlJatLSsfD9EQJ7HmTvWztUQupFC9H0KekFpMMtqj9-zkWQ3n0bik/exec";
 
   // 3 lá thư — tạm placeholder, sẽ điền nội dung ở 8D
   const WEEK2_LETTERS = [
     {
       id: 1,
-      hint: 'Có những điều chúng ta không muốn nhắc...',
+      hint: 'Có những vết mực trên trang giấy đã cũ...',
       messages: [
-        { text: 'Chúng ta đã nói vấn đề này nhiều lần rồi mà...', time: '18/09 18:40' },
-        { text: 'Vì sao chúng ta không thực hiện điều mình hứa?', time: '18/09 18:43' },
-        { text: 'Chúng ta đã cố gắng để rồi cũng cãi vã thì cố gắng làm gì?', time: '18/09 18:50' },
-        { text: 'Có những thứ thật đơn giản nhưng sao mãi vẫn cứ sai', time: '18/09 18:57' },
+        { text: 'Có những điều chúng ta không hề muốn nhắc lại.', time: '18/09 18:40' },
+        { text: 'Những nỗi đau mà ta không muốn ai khơi gợi lên.', time: '18/09 18:43' },
+        { text: 'Nhưng chúng vẫn ở đó như một phần của những kỉ niệm.', time: '18/09 18:50' },
+        { text: 'Để nhắc ta về những sai lầm không được lặp lại.', time: '18/09 18:57' },
       ],
     },
     {
       id: 2,
-      hint: 'Có điều chúng ta đã cố quên...',
+      hint: 'Có vết thương ta tưởng đã lành...',
       messages: [
-        { text: 'Sao chúng ta không du di cho nhau?', time: '19/09 14:00' },
-        { text: 'Lúc nào chúng ta không tính toán trước cho hành động của mình.', time: '19/09 14:12' },
-        { text: 'Đã bao giờ chúng ta vì nhau mà cố gắng chưa?.', time: '19/09 14:14' },
-        { text: 'Nếu không nghĩ cho tương lai, thì liệu có tương lai nào để tiếp tục.', time: '19/09 14:17' },
+        { text: 'Có những lời hứa vẫn còn là lời hứa', time: '19/09 14:00' },
+        { text: 'Điều mà ta tưởng rằng đã đúng vẫn chưa thành.', time: '19/09 14:12' },
+        { text: 'Cố gắng hết mình hay là nên bỏ qua', time: '19/09 14:14' },
+        { text: 'Muốn có một tương lai thật đẹp. Thì chúng ta cần hoàn thiện hơn ở hiện tại', time: '19/09 14:17' },
       ],
     },
     {
       id: 3,
-      hint: 'Có điều chúng ta cần nhớ lại...',
+      hint: 'Có những trang sử cần phải được viết tiếp...',
       messages: [
-        { text: 'Nhưng anh vẫn ở đây.', time: '22/09 13:05' },
-        { text: 'Nhưng em vẫn ở đây.', time: '22/09 13:11' },
-        { text: 'Chúng ta là những mảnh ghép không hoàn thiện của nhau.', time: '22/09 13:12' },
-        { text: 'Tuy ai cũng có cái lý của mình nhưng chỉ cần chúng ta cố gắng vì nhau.', time: '22/09 13:15' },
-        { text: 'Anh chưa bao giờ muốn ai đúng ai sai.', time: '22/09 13:18' },
-        { text: 'Nhưng rồi chúng ta cũng sẽ cần chọn giữa niềm vui bản thân hoặc niềm vui của chung.', time: '22/09 13:22' },
-        { text: 'Anh cũng sẽ muốn đi tiếp một cuộc sống có em bên cạnh.', time: '22/09 13:30' },
-        { text: 'Em sẽ muốn chúng ta như nào?.', time: '22/09 13:38' },
+        { text: 'Xin chào em. Bí Bi đây.', time: '22/09 13:05' },
+        { text: 'Anh biết là có những khó khăn đã qua và vẫn còn.', time: '22/09 13:11' },
+        { text: 'Nhưng anh mong là em và anh có thể hiểu những khó khăn đó là cần thiết.', time: '22/09 13:12' },
+        { text: 'Có những điều chúng ta phải chọn không phải là vì bản thân mình', time: '22/09 13:15' },
+        { text: 'Rồi thì, em vẫn ở đây và anh cũng ở đây', time: '22/09 13:18' },
+        { text: 'Xin lỗi em vì những khó khăn đã gây ra cho em', time: '22/09 13:22' },
+        { text: 'Nhưng mong em hiểu là ai cũng có cái lý của mình.', time: '22/09 13:24' },
+        { text: 'Cảm ơn em vì những điều mà em đã làm suốt thời gian qua', time: '22/09 13:26' },
+        { text: 'Anh cũng muốn được đi tiếp một cuộc sống có em bên cạnh.', time: '22/09 13:30' },
+        { text: 'Muốn cảm nhận được những điều ta làm vì nhau thay cho cái tôi của bản thân', time: '22/09 13:32' },
+        { text: 'Có những lựa chọn cần được em hiểu cho', time: '22/09 13:38' },
       ],
       choices: [
-        'Chúng ta cần xóa bỏ sự khác biệt của nhau.',
-        'Chúng ta nên tập chấp nhận khác biệt của nhau.'
+        'Chúng ta nên tự sống cuộc đời của mình.',
+        'Anh nên thay đổi nhiều hơn về tính cách.',
+        'Em nên thay đổi nhiều hơn về cách nghĩ.',
+        'Chúng ta nên thay đổi về cả tính cách lẫn suy nghĩ.',
       ],
     },
   ];
@@ -62,10 +67,11 @@
      ========================================================= */
   function defaultState() {
     return {
-      phase: 1, // 1 / 2 / 3 (đang chơi thư mấy)
+      phase: 1,
       lettersRead: [false, false, false],
-      userAnswer: null, // 0 / 1 / 2 (lựa chọn ở thư 3)
-      isReplayMode: false, // true khi đã xong, đang đọc lại
+      userAnswer: null,
+      userFeeling: "",            // ← THÊM
+      isReplayMode: false,
       completedAt: null,
     };
   }
@@ -84,11 +90,17 @@
 
       const state = {
         phase: parsed.phase,
-        lettersRead:
-          Array.isArray(parsed.lettersRead) && parsed.lettersRead.length === 3
-            ? parsed.lettersRead.map(Boolean)
-            : [false, false, false],
-        userAnswer: typeof parsed.userAnswer === 'number' ? parsed.userAnswer : null,
+        lettersRead: Array.isArray(parsed.lettersRead) && parsed.lettersRead.length === 3
+          ? parsed.lettersRead.map(Boolean)
+          : [false, false, false],
+        userAnswer: typeof parsed.userAnswer === "number" &&
+          parsed.userAnswer >= 0 &&
+          parsed.userAnswer <= 2
+          ? parsed.userAnswer
+          : null,
+        userFeeling: typeof parsed.userFeeling === "string"
+          ? parsed.userFeeling
+          : "",
         isReplayMode: !!parsed.isReplayMode,
         completedAt: parsed.completedAt || null,
       };
@@ -554,7 +566,7 @@
    ========================================================= */
   let currentOverlay = null;
   let messageTimer = null;
-let isPlayingMessages = false; 
+  let isPlayingMessages = false;
 
   function openLetterOverlay(letterIndex, state, options = {}) {
     const { replay = false } = options;
@@ -599,16 +611,17 @@ let isPlayingMessages = false;
     document.body.classList.add('modal-open');
 
     // ---- Hiện tin nhắn lần lượt ----
-    playMessages(
-      chat,
-      letterData.messages,
-      () => {
-        if (!replay && letterIndex === 2 && letterData.choices) {
-          showQuestion(questionWrap, choicesWrap, letterData.choices, state, submitBtn, closeBtn);
-        }
-      },
-      { instant: replay },
-    );
+    playMessages(chat, letterData.messages, () => {
+      // Chế độ chơi — thư 3 — hiện câu hỏi + textarea
+      if (!replay && letterIndex === 2 && letterData.choices) {
+        showQuestion(questionWrap, choicesWrap, letterData.choices, state, submitBtn, closeBtn);
+      }
+
+      // Chế độ replay — thư 3 — hiện lựa chọn + cảm nhận
+      if (replay && letterIndex === 2 && state.userAnswer !== null) {
+        showReplayInfo(chat, state, letterData);
+      }
+    }, { instant: replay });
 
     // ---- Bind nút Đóng ----
     const handleClose = () => {
@@ -618,14 +631,14 @@ let isPlayingMessages = false;
         return;
       }
 
-        if (isPlayingMessages) {
-          // Optional: hiệu ứng "rung nhẹ" nút Đóng để feedback
-          if (closeBtn) {
-            closeBtn.classList.add('is-shake');
-            setTimeout(() => closeBtn.classList.remove('is-shake'), 400);
-          }
-          return;
+      if (isPlayingMessages) {
+        // Optional: hiệu ứng "rung nhẹ" nút Đóng để feedback
+        if (closeBtn) {
+          closeBtn.classList.add('is-shake');
+          setTimeout(() => closeBtn.classList.remove('is-shake'), 400);
         }
+        return;
+      }
 
       // Chế độ chơi — đánh dấu + chuyển phase
       state.lettersRead[letterIndex] = true;
@@ -653,6 +666,40 @@ let isPlayingMessages = false;
 
     // ESC để đóng
     document.addEventListener('keydown', escCloseOverlay);
+  }
+
+  /* =========================================================
+   HIỆN LẠI LỰA CHỌN + CẢM NHẬN (CHẾ ĐỘ REPLAY)
+   ========================================================= */
+  function showReplayInfo(chatContainer, state, letterData) {
+    if (!chatContainer) return;
+
+    const tpl = document.getElementById("week2-replay-info-template");
+    if (!tpl) return;
+
+    const clone = tpl.content.cloneNode(true);
+
+    // Lựa chọn
+    const choiceEl = clone.querySelector("[data-replay-choice]");
+    if (choiceEl && letterData.choices && state.userAnswer !== null) {
+      choiceEl.textContent = letterData.choices[state.userAnswer];
+    }
+
+    // Cảm nhận
+    const feelingWrap = clone.querySelector("[data-replay-feeling-wrap]");
+    const feelingEl = clone.querySelector("[data-replay-feeling]");
+
+    if (state.userFeeling && state.userFeeling.length > 0) {
+      if (feelingEl) feelingEl.textContent = state.userFeeling;
+      if (feelingWrap) feelingWrap.hidden = false;
+    } else {
+      if (feelingWrap) feelingWrap.hidden = true;
+    }
+
+    chatContainer.appendChild(clone);
+
+    // Scroll xuống cuối
+    chatContainer.scrollTop = chatContainer.scrollHeight;
   }
 
   /* ---- Hiện tin nhắn lần lượt ---- */
@@ -721,32 +768,49 @@ let isPlayingMessages = false;
   }
 
   /* =========================================================
-    GỬI ĐÁP ÁN LÊN GOOGLE SHEET
-    ========================================================= */
-  function sendAnswerToSheet(answerIndex, answerText) {
+     GỬI ĐÁP ÁN + CẢM NHẬN LÊN GOOGLE SHEET
+     ========================================================= */
+  function sendAnswerToSheet(payload) {
     if (!ANSWER_SHEET_URL || ANSWER_SHEET_URL.includes("YOUR_SCRIPT_ID")) {
-      console.warn("[week2] ANSWER_SHEET_URL chưa được cấu hình.");
+      console.warn("[week2] ANSWER_SHEET_URL chưa cấu hình.");
       return;
     }
 
+    const data = JSON.stringify({
+      answerIndex: payload.answerIndex,
+      answerText: payload.answerText,
+      feeling: payload.feeling || "",
+      letterMessages: payload.letterMessages || [],   // ← THÊM
+      timestamp: new Date().toISOString(),
+    });
+
+    // ✅ Cách 1 — sendBeacon (ưu tiên, gửi được khi user tắt tab)
+    if (navigator.sendBeacon) {
+      try {
+        const blob = new Blob([data], { type: "text/plain;charset=utf-8" });
+        const ok = navigator.sendBeacon(ANSWER_SHEET_URL, blob);
+        if (ok) {
+          console.log("[week2] Đã gửi qua sendBeacon.");
+          return;
+        }
+      } catch (err) {
+        console.warn("[week2] sendBeacon lỗi:", err);
+      }
+    }
+
+    // ✅ Cách 2 — fetch fallback
     try {
-      // ✅ Dùng no-cors để tránh CORS preflight
       fetch(ANSWER_SHEET_URL, {
         method: "POST",
         mode: "no-cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          answerIndex: answerIndex,
-          answerText: answerText,
-        }),
+        keepalive: true,             // ← Cho phép gửi khi tab đóng
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: data,
       }).catch((err) => {
-        // Silent fail — không ảnh hưởng user experience
-        console.warn("[week2] Không gửi được đáp án:", err);
+        console.warn("[week2] fetch gửi lỗi:", err);
       });
     } catch (err) {
-      console.warn("[week2] Lỗi gửi đáp án:", err);
+      console.warn("[week2] Gửi lỗi:", err);
     }
   }
 
@@ -755,64 +819,86 @@ let isPlayingMessages = false;
     if (!questionWrap || !choicesWrap) return;
 
     questionWrap.hidden = false;
-    choicesWrap.innerHTML = '';
+    choicesWrap.innerHTML = "";
 
-    const tpl = document.getElementById('week2-choice-template');
+    const tpl = document.getElementById("week2-choice-template");
     if (!tpl) return;
+
+    const feelingInput = questionWrap.querySelector("[data-letter-feeling]");
+    const feelingCount = questionWrap.querySelector("[data-feeling-count]");
 
     let selectedIndex = null;
 
+    // ---- Render 3 lựa chọn ----
     choices.forEach((text, index) => {
       const clone = tpl.content.cloneNode(true);
-      const btn = clone.querySelector('[data-choice]');
-      const textEl = clone.querySelector('[data-choice-text]');
+      const btn = clone.querySelector("[data-choice]");
+      const textEl = clone.querySelector("[data-choice-text]");
 
       if (textEl) textEl.textContent = text;
 
-      btn.addEventListener('click', () => {
-        // Bỏ chọn cái cũ
-        choicesWrap.querySelectorAll('.question-choice').forEach((b) => {
-          b.classList.remove('is-selected');
+      btn.addEventListener("click", () => {
+        choicesWrap.querySelectorAll(".question-choice").forEach((b) => {
+          b.classList.remove("is-selected");
         });
-        // Chọn cái mới
-        btn.classList.add('is-selected');
+        btn.classList.add("is-selected");
         selectedIndex = index;
 
-        // Hiện nút "Gửi & Đóng"
+        // Hiện nút Gửi
         if (submitBtn) submitBtn.hidden = false;
-        if (closeBtn) closeBtn.hidden = true; // Ẩn "Đóng" — buộc chọn rồi gửi
+        if (closeBtn) closeBtn.hidden = true;
       });
 
       choicesWrap.appendChild(clone);
     });
 
-    // ---- Bind nút "Gửi & Đóng" ----
+    // ---- Textarea counter ----
+    if (feelingInput && feelingCount) {
+      feelingInput.addEventListener("input", () => {
+        feelingCount.textContent = String(feelingInput.value.length);
+
+        // Cảnh báo gần limit
+        if (feelingInput.value.length >= 450) {
+          feelingCount.parentElement.classList.add("is-near-limit");
+        } else {
+          feelingCount.parentElement.classList.remove("is-near-limit");
+        }
+      });
+    }
+
+    // ---- Bind nút Gửi ----
     if (submitBtn) {
-      submitBtn.addEventListener('click', () => {
+      submitBtn.addEventListener("click", () => {
         if (selectedIndex === null) return;
-        sendAnswerToSheet(selectedIndex, choices[selectedIndex]);
 
-        // Lưu lựa chọn
+        const feelingText = feelingInput ? feelingInput.value.trim() : "";
+
+        // ✅ BƯỚC 1: Lưu localStorage TRƯỚC (synchronous, không thể mất)
         state.userAnswer = selectedIndex;
-
-        // Đánh dấu đã đọc thư 3
+        state.userFeeling = feelingText;
         state.lettersRead[2] = true;
-
-        // Chuyển sang chế độ đọc lại
         state.isReplayMode = true;
         state.completedAt = Date.now();
 
         saveState(state);
 
-        // Đóng overlay
+        // ✅ BƯỚC 2: Gửi Sheet (async, không chặn)
+        const letterData = WEEK2_LETTERS[2];   // Thư 3
+        sendAnswerToSheet({
+          answerIndex: selectedIndex,
+          answerText: choices[selectedIndex],
+          feeling: feelingText,
+          letterMessages: (letterData && letterData.messages) || [],   // ← THÊM
+        });
+
+        // ✅ BƯỚC 3: Đóng overlay + chuyển replay
         closeLetterOverlay();
 
-        // Chuyển sang màn đọc lại sau 500ms
         setTimeout(() => {
           render(loadState());
         }, 500);
 
-        // Âm thanh hoàn thành (nếu có)
+        // Âm thanh
         if (window.MemAudio) {
           window.MemAudio.playComplete();
         }

@@ -15,7 +15,6 @@
     "./assets/images/parallax/para.jpg",
     "./assets/images/parallax/para1.jpg",
     "./assets/images/parallax/para2.jpg",
-    "./assets/images/parallax/para3.jpg",
     "./assets/images/parallax/para4.jpg",
     "./assets/images/parallax/paraN.jpg",
   ];
