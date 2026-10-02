@@ -185,6 +185,323 @@
     <section id="week-2" class="week2-section" aria-label="Lắng đọng - Cho những vùng ký ức ta chọn im lặng">
         <!-- Nội dung sẽ render bằng JS dựa trên trạng thái -->
     </section>
+    <!-- ============ SECTION 2.7: WEEK 3 — 7 NGÀY CHUẨN BỊ ============ -->
+    <section id="week-3" class="week3-section" aria-label="Chương III — 7 ngày">
+        <!-- Nội dung render bằng JS -->
+    </section>
+    <!-- ============================================================
+     TEMPLATE: WEEK 3 — NGÀY 4 (Lật tìm cặp)
+     ============================================================ -->
+    <template id="week3-day4-template">
+        <div class="week3-day4" data-day4>
+
+            <header class="week3-day-head">
+                <p class="week3-day-eyebrow">Ngày 4</p>
+                <h3 class="week3-day-title">Điều còn nhớ</h3>
+                <p class="week3-day-hint">Lật thẻ để ghép lại những câu còn dang dở</p>
+            </header>
+
+            <!-- Grid thẻ -->
+            <div class="week3-day4-grid" data-day4-grid>
+                <!-- JS render 6 thẻ -->
+            </div>
+
+            <!-- Text kết — ẩn khi chưa xong -->
+            <div class="week3-day4-content" data-day4-content hidden>
+                <p class="week3-day4-message" data-day4-message></p>
+            </div>
+
+        </div>
+    </template>
+
+    <!-- ============================================================
+     TEMPLATE: NGÀY 4 — 1 THẺ
+     ============================================================ -->
+    <template id="week3-day4-card-template">
+        <button class="week3-card" type="button" data-card>
+            <div class="week3-card-inner">
+                <!-- Mặt trước — úp -->
+                <div class="week3-card-face week3-card-back">
+                    <span class="week3-card-symbol" aria-hidden="true">✦</span>
+                </div>
+
+                <!-- Mặt sau — nội dung -->
+                <div class="week3-card-face week3-card-front">
+                    <span class="week3-card-text" data-card-text></span>
+                </div>
+            </div>
+        </button>
+    </template>
+    <!-- ============================================================
+     TEMPLATE: WEEK 3 — NGÀY 5 (Lau kính)
+     ============================================================ -->
+    <template id="week3-day5-template">
+        <div class="week3-day5" data-day5>
+
+            <header class="week3-day-head">
+                <p class="week3-day-eyebrow">Ngày 5</p>
+                <h3 class="week3-day-title">Điều chưa rõ</h3>
+                <p class="week3-day-hint">Nhấn giữ để lau sương — và nhìn rõ hơn</p>
+            </header>
+
+            <!-- Sân khấu -->
+            <div class="week3-day5-stage" data-day5-stage>
+
+                <!-- Chữ bên dưới -->
+                <div class="week3-day5-text" data-day5-text>
+                    Có những điều cần thời gian — để nhìn thấy rõ.
+                </div>
+
+                <!-- ✅ Lớp GƯƠNG — mặt phản chiếu -->
+                <div class="week3-day5-mirror" aria-hidden="true">
+                    <!-- Highlight chéo -->
+                    <div class="mirror-shine"></div>
+                    <!-- Reflection dưới -->
+                    <div class="mirror-reflection"></div>
+                </div>
+
+                <!-- Canvas lớp sương -->
+                <canvas class="week3-day5-canvas" data-day5-canvas></canvas>
+
+                <!-- Hint -->
+                <p class="week3-day5-hint" data-day5-hint>
+                    Nhấn giữ
+                </p>
+
+            </div>
+
+            <!-- Text kết — ẩn khi chưa xong -->
+            <div class="week3-day5-content" data-day5-content hidden>
+                <p class="week3-day5-message" data-day5-message></p>
+            </div>
+
+        </div>
+    </template>
+    <!-- ============================================================
+     TEMPLATE: WEEK 3 — NGÀY 6 (Đoán đáp án)
+     ============================================================ -->
+    <template id="week3-day6-template">
+        <div class="week3-day6" data-day6>
+
+            <header class="week3-day-head">
+                <p class="week3-day-eyebrow">Ngày 6</p>
+                <h3 class="week3-day-title">Điều tôi muốn hỏi</h3>
+                <p class="week3-day-hint">Chọn đáp án em nghĩ là đúng</p>
+            </header>
+
+            <!-- Vùng chứa câu hỏi hiện tại -->
+            <div class="week3-day6-question" data-day6-question></div>
+
+            <!-- Tổng kết — ẩn cho tới khi xong cả 3 câu -->
+            <div class="week3-day6-summary" data-day6-summary hidden>
+                <p class="week3-day6-summary-label">Ba điều tôi muốn nói</p>
+                <div class="week3-day6-summary-list" data-day6-summary-list></div>
+                <p class="week3-day6-message" data-day6-message></p>
+            </div>
+
+        </div>
+    </template>
+
+    <!-- ============================================================
+     TEMPLATE: NGÀY 6 — 1 CÂU HỎI
+     ============================================================ -->
+    <template id="week3-day6-question-template">
+        <div class="week3-q">
+            <p class="week3-q-label" data-q-label></p>
+            <p class="week3-q-text" data-q-text></p>
+
+            <div class="week3-q-choices" data-q-choices></div>
+
+            <div class="week3-q-feedback" data-q-feedback hidden>
+                <p class="week3-q-feedback-title" data-q-feedback-title></p>
+                <p class="week3-q-feedback-text" data-q-feedback-text></p>
+            </div>
+        </div>
+    </template>
+
+    <!-- ============================================================
+     TEMPLATE: NGÀY 6 — 1 ĐÁP ÁN
+     ============================================================ -->
+    <template id="week3-day6-choice-template">
+        <button class="week3-q-choice" type="button" data-choice>
+            <span class="week3-q-radio" aria-hidden="true"></span>
+            <span class="week3-q-choice-text" data-choice-text></span>
+        </button>
+    </template>
+    <!-- ============================================================
+     TEMPLATE: WEEK 3 — NGÀY 7 (Gỡ ruy-băng)
+     ============================================================ -->
+    <template id="week3-day7-template">
+        <div class="week3-day7" data-day7>
+
+            <header class="week3-day-head">
+                <p class="week3-day-eyebrow">Ngày 7</p>
+                <h3 class="week3-day-title">Điều cuối</h3>
+                <p class="week3-day-hint" data-day7-hint>
+                    Kéo ruy-băng để mở quà
+                </p>
+            </header>
+
+            <!-- Sân khấu -->
+            <div class="week3-day7-stage" data-day7-stage>
+
+                <!-- Hộp quà SVG -->
+                <svg class="week3-day7-gift" viewBox="0 0 300 300" preserveAspectRatio="xMidYMid meet"
+                    aria-hidden="true">
+                    <defs>
+                        <!-- Gradient cho hộp -->
+                        <linearGradient id="giftBoxBody" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#d4a080" />
+                            <stop offset="50%" stop-color="#c08868" />
+                            <stop offset="100%" stop-color="#a06a50" />
+                        </linearGradient>
+
+                        <!-- Gradient cho nắp -->
+                        <linearGradient id="giftBoxLid" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#e7b7a0" />
+                            <stop offset="100%" stop-color="#c89880" />
+                        </linearGradient>
+
+                        <!-- Gradient cho ruy-băng -->
+                        <linearGradient id="giftRibbon" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#f0d0a0" />
+                            <stop offset="50%" stop-color="#ffe8b8" />
+                            <stop offset="100%" stop-color="#f0d0a0" />
+                        </linearGradient>
+
+                        <!-- Gradient cho nơ -->
+                        <radialGradient id="bowGrad" cx="40%" cy="35%">
+                            <stop offset="0%" stop-color="#e0d8ff" />
+                            <stop offset="55%" stop-color="#c4b4ff" />
+                            <stop offset="100%" stop-color="#8878c8" />
+                        </radialGradient>
+
+                        <!-- Shadow -->
+                        <filter id="giftShadow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur in="SourceAlpha" stdDeviation="6" />
+                            <feOffset dx="0" dy="8" result="offsetblur" />
+                            <feComponentTransfer>
+                                <feFuncA type="linear" slope="0.4" />
+                            </feComponentTransfer>
+                            <feMerge>
+                                <feMergeNode />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+                    </defs>
+
+                    <!-- Thân hộp -->
+                    <rect x="60" y="140" width="180" height="130" rx="8" fill="url(#giftBoxBody)"
+                        stroke="rgba(100, 60, 40, 0.3)" stroke-width="1.5" />
+
+                    <!-- Ruy-băng dọc trên thân -->
+                    <rect x="135" y="140" width="30" height="130" fill="url(#giftRibbon)" opacity="0.9" />
+
+                    <!-- Đường gấp ruy-băng dọc -->
+                    <line x1="150" y1="140" x2="150" y2="270" stroke="rgba(180, 140, 80, 0.4)" stroke-width="1" />
+
+                    <!-- Nắp hộp -->
+                    <g class="gift-lid" data-gift-lid>
+                        <!-- Nắp -->
+                        <rect x="50" y="110" width="200" height="40" rx="6" fill="url(#giftBoxLid)"
+                            stroke="rgba(100, 60, 40, 0.3)" stroke-width="1.5" />
+
+                        <!-- Ruy-băng ngang trên nắp -->
+                        <rect x="50" y="120" width="200" height="20" fill="url(#giftRibbon)" opacity="0.9" />
+                    </g>
+
+                    <!-- Nơ cổ điển — vẽ lại theo cấu trúc nơ thật -->
+                    <g class="gift-bow" data-gift-bow>
+
+                        <!-- ===== 2 ĐUÔI NƠ — vẽ TRƯỚC để nằm dưới ===== -->
+                        <!-- Đuôi trái — rộng trên, thu hẹp dần, chẻ V -->
+                        <path d="M 140,112
+           C 132,130 126,150 122,168
+           L 130,170
+           L 134,158
+           L 140,172
+           L 148,170
+           C 148,150 150,132 154,116
+           Z" fill="url(#bowGrad)" stroke="rgba(120, 100, 180, 0.45)" stroke-width="1" />
+
+                        <!-- Nếp gấp đuôi trái -->
+                        <path d="M 144,120 C 140,138 137,155 136,168" fill="none" stroke="rgba(120, 100, 180, 0.35)"
+                            stroke-width="0.9" />
+
+                        <!-- Đuôi phải -->
+                        <path d="M 160,112
+           C 168,130 174,150 178,168
+           L 170,170
+           L 166,158
+           L 160,172
+           L 152,170
+           C 152,150 150,132 146,116
+           Z" fill="url(#bowGrad)" stroke="rgba(120, 100, 180, 0.45)" stroke-width="1" />
+
+                        <!-- Nếp gấp đuôi phải -->
+                        <path d="M 156,120 C 160,138 163,155 164,168" fill="none" stroke="rgba(120, 100, 180, 0.35)"
+                            stroke-width="0.9" />
+
+                        <!-- ===== 2 VÒNG NƠ — hình giọt nước ===== -->
+                        <!-- Vòng trái — giọt nước, rộng ngoài, hẹp trong -->
+                        <path d="M 150,108
+           C 140,90 110,80 90,88
+           C 72,95 72,110 88,118
+           C 105,126 130,120 150,108
+           Z" fill="url(#bowGrad)" stroke="rgba(120, 100, 180, 0.5)" stroke-width="1.2" />
+
+                        <!-- Nếp gấp vòng trái -->
+                        <path d="M 145,108 C 130,105 110,102 92,105" fill="none" stroke="rgba(120, 100, 180, 0.35)"
+                            stroke-width="0.9" />
+
+                        <!-- Vòng phải -->
+                        <path d="M 150,108
+           C 160,90 190,80 210,88
+           C 228,95 228,110 212,118
+           C 195,126 170,120 150,108
+           Z" fill="url(#bowGrad)" stroke="rgba(120, 100, 180, 0.5)" stroke-width="1.2" />
+
+                        <!-- Nếp gấp vòng phải -->
+                        <path d="M 155,108 C 170,105 190,102 208,105" fill="none" stroke="rgba(120, 100, 180, 0.35)"
+                            stroke-width="0.9" />
+
+                        <!-- ===== HIGHLIGHT — ánh sáng trên đỉnh mỗi vòng ===== -->
+                        <!-- Highlight vòng trái -->
+                        <ellipse cx="105" cy="92" rx="18" ry="5" fill="rgba(255, 255, 255, 0.5)"
+                            transform="rotate(-15 105 92)" />
+
+                        <!-- Highlight vòng phải -->
+                        <ellipse cx="195" cy="92" rx="18" ry="5" fill="rgba(255, 255, 255, 0.5)"
+                            transform="rotate(15 195 92)" />
+
+                        <!-- ===== NÚT THẮT GIỮA ===== -->
+                        <!-- Nút thắt — chữ nhật bo, có nếp dọc -->
+                        <rect x="137" y="97" width="26" height="20" rx="4" fill="url(#bowGrad)"
+                            stroke="rgba(120, 100, 180, 0.55)" stroke-width="1.3" />
+
+                        <!-- Nếp gấp dọc trên nút -->
+                        <line x1="143" y1="98" x2="143" y2="116" stroke="rgba(120, 100, 180, 0.4)" stroke-width="0.9" />
+                        <line x1="150" y1="98" x2="150" y2="116" stroke="rgba(120, 100, 180, 0.5)" stroke-width="0.9" />
+                        <line x1="157" y1="98" x2="157" y2="116" stroke="rgba(120, 100, 180, 0.4)" stroke-width="0.9" />
+
+                        <!-- Highlight trên nút -->
+                        <rect x="140" y="99" width="20" height="4" rx="2" fill="rgba(255, 255, 255, 0.35)" />
+
+                    </g>
+                </svg>
+
+                <!-- Text — ẩn, hiện khi mở quà -->
+                <div class="week3-day7-content-outer" data-day7-content-outer>
+                    <div class="week3-day7-content" data-day7-content>
+                        <p class="week3-day7-message" data-day7-message></p>
+                    </div>
+                </div>
+
+                <canvas class="week3-day7-fx" data-day7-fx></canvas>
+            </div>
+
+        </div>
+    </template>
     <!-- ============================================================
      PLACEHOLDER: TIMELINE CHƯA MỞ KHÓA
      - Hiển thị mặc định khi trang load
@@ -1236,6 +1553,358 @@
         </button>
     </template>
     <!-- ============================================================
+     TEMPLATE: WEEK 3 — LOCKED (chưa đến 03/10)
+     ============================================================ -->
+    <template id="week3-locked-template">
+        <div class="week3-locked">
+            <div class="week3-locked-icon" aria-hidden="true">
+                <svg viewBox="0 0 64 64" width="56" height="56" fill="none">
+                    <rect x="12" y="28" width="40" height="30" rx="5" stroke="currentColor" stroke-width="2.5"
+                        fill="rgba(231, 183, 160, 0.08)" />
+                    <path d="M22 28 V20 A10 10 0 0 1 42 20 V28" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" />
+                    <circle cx="32" cy="42" r="3.5" fill="currentColor" />
+                    <rect x="30.5" y="45" width="3" height="7" rx="1.5" fill="currentColor" />
+                </svg>
+            </div>
+
+            <p class="week3-locked-eyebrow">Bên em</p>
+            <h2 class="week3-locked-title">Đếm ngược về ngày quan trọng</h2>
+            <p class="week3-locked-date">Mở khóa: 03 · 10 · 2026</p>
+
+            <div class="week3-locked-countdown" aria-label="Đếm ngược mở khóa">
+                <div class="week3-cd-grid">
+                    <div class="week3-cd-item">
+                        <span class="week3-cd-num" data-cd="days">00</span>
+                        <span class="week3-cd-label">Ngày</span>
+                    </div>
+                    <div class="week3-cd-item">
+                        <span class="week3-cd-num" data-cd="hours">00</span>
+                        <span class="week3-cd-label">Giờ</span>
+                    </div>
+                    <div class="week3-cd-item">
+                        <span class="week3-cd-num" data-cd="mins">00</span>
+                        <span class="week3-cd-label">Phút</span>
+                    </div>
+                    <div class="week3-cd-item">
+                        <span class="week3-cd-num" data-cd="secs">00</span>
+                        <span class="week3-cd-label">Giây</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- ============================================================
+     TEMPLATE: WEEK 3 — CALENDAR (lịch tháng 10)
+     ============================================================ -->
+    <template id="week3-calendar-template">
+        <div class="week3-calendar">
+            <header class="week3-head">
+                <p class="week3-eyebrow">Bên em</p>
+                <h2 class="week3-title">Đếm ngược về ngày quan trọng</h2>
+                <p class="week3-sub">Chạm vào mỗi ngày để mở một điều nhỏ.</p>
+            </header>
+
+            <div class="week3-calendar-wrap">
+                <div class="week3-calendar-head">
+                    <p class="week3-calendar-month">Tháng 10 · 2026</p>
+                    <div class="week3-calendar-weekdays">
+                        <span>T2</span><span>T3</span><span>T4</span>
+                        <span>T5</span><span>T6</span><span>T7</span>
+                        <span>CN</span>
+                    </div>
+                </div>
+                <div class="week3-calendar-grid" data-calendar>
+                    <!-- JS render 31 ngày -->
+                </div>
+            </div>
+
+            <!-- Progress — bao nhiêu ngày đã chơi -->
+            <p class="week3-calendar-progress" data-calendar-progress>
+                Đã chơi: <strong>0</strong> / 7 ngày
+            </p>
+        </div>
+    </template>
+
+    <!-- ============================================================
+     TEMPLATE: WEEK 3 — NÚT QUAY VỀ LỊCH
+     ============================================================ -->
+    <template id="week3-back-button-template">
+        <div class="week3-back-wrap">
+            <button class="week3-back-btn" type="button" data-back-to-calendar>
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                    <path d="M19 12H5M11 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Quay về lịch</span>
+            </button>
+        </div>
+    </template>
+
+    <!-- ============================================================
+     TEMPLATE: WEEK 3 — 1 NGÀY TRONG LỊCH
+     ============================================================ -->
+    <template id="week3-day-template">
+        <button class="week3-day" type="button" data-day>
+            <span class="week3-day-num" data-day-num></span>
+            <span class="week3-day-icon" data-day-icon></span>
+            <span class="week3-day-badge" data-day-badge aria-hidden="true"></span>
+        </button>
+    </template>
+    <!-- ============================================================
+     TEMPLATE: WEEK 3 — NGÀY 1 (Mặt trăng → Mặt trời)
+     ============================================================ -->
+    <template id="week3-day1-template">
+        <div class="week3-day1" data-day1>
+
+            <!-- Header -->
+            <header class="week3-day-head">
+                <p class="week3-day-eyebrow">Ngày 1</p>
+                <h3 class="week3-day-title">Đêm qua — ngày mới</h3>
+                <p class="week3-day-hint">Nhấn liên tục để kéo mặt trăng qua bầu trời</p>
+            </header>
+
+            <!-- Sân khấu — bầu trời -->
+            <div class="week3-day1-stage" data-day1-stage>
+
+                <!-- Bầu trời — đổi màu từ tối → sáng -->
+                <div class="week3-day1-sky" data-day1-sky aria-hidden="true"></div>
+
+                <!-- Sao — mờ dần khi trời sáng -->
+                <div class="week3-day1-stars" data-day1-stars aria-hidden="true"></div>
+
+                <!-- Cảnh vật — núi, cây, nhà -->
+                <div class="week3-day1-landscape" data-day1-landscape aria-hidden="true">
+                    <!-- Núi xa -->
+                    <svg class="landscape-layer landscape-mountains" viewBox="0 0 400 100" preserveAspectRatio="none">
+                        <path
+                            d="M0,100 L0,60 L40,35 L80,55 L120,25 L160,50 L200,30 L240,55 L280,20 L320,45 L360,30 L400,55 L400,100 Z"
+                            fill="currentColor" />
+                    </svg>
+
+                    <!-- Đồi gần -->
+                    <svg class="landscape-layer landscape-hills" viewBox="0 0 400 100" preserveAspectRatio="none">
+                        <path d="M0,100 L0,75 Q50,55 100,70 Q150,85 200,65 Q250,45 300,65 Q350,85 400,70 L400,100 Z"
+                            fill="currentColor" />
+                    </svg>
+
+                    <!-- Cây thông + nhà -->
+                    <svg class="landscape-layer landscape-trees" viewBox="0 0 400 100" preserveAspectRatio="none">
+                        <!-- Cây thông 1 -->
+                        <g transform="translate(60, 55)">
+                            <polygon points="10,0 20,20 0,20" fill="currentColor" />
+                            <polygon points="10,8 22,30 -2,30" fill="currentColor" />
+                            <polygon points="10,18 24,42 -4,42" fill="currentColor" />
+                            <rect x="8" y="42" width="4" height="10" fill="currentColor" />
+                        </g>
+
+                        <!-- Cây thông 2 -->
+                        <g transform="translate(140, 60)">
+                            <polygon points="8,0 16,18 0,18" fill="currentColor" />
+                            <polygon points="8,7 18,28 -2,28" fill="currentColor" />
+                            <polygon points="8,16 20,38 -4,38" fill="currentColor" />
+                            <rect x="6" y="38" width="4" height="8" fill="currentColor" />
+                        </g>
+
+                        <!-- Nhà nhỏ -->
+                        <g transform="translate(220, 65)">
+                            <rect x="0" y="15" width="30" height="20" fill="currentColor" />
+                            <polygon points="-3,15 15,0 33,15" fill="currentColor" />
+                            <!-- Cửa sổ phát sáng -->
+                            <rect class="house-window" x="6" y="20" width="6" height="6" fill="#ffd580" opacity="0" />
+                            <rect class="house-window" x="18" y="20" width="6" height="6" fill="#ffd580" opacity="0" />
+                        </g>
+
+                        <!-- Cây thông 3 -->
+                        <g transform="translate(300, 60)">
+                            <polygon points="8,0 16,18 0,18" fill="currentColor" />
+                            <polygon points="8,7 18,28 -2,28" fill="currentColor" />
+                            <polygon points="8,16 20,38 -4,38" fill="currentColor" />
+                            <rect x="6" y="38" width="4" height="8" fill="currentColor" />
+                        </g>
+
+                        <!-- Cây thông 4 -->
+                        <g transform="translate(360, 58)">
+                            <polygon points="10,0 20,20 0,20" fill="currentColor" />
+                            <polygon points="10,8 22,30 -2,30" fill="currentColor" />
+                            <polygon points="10,18 24,42 -4,42" fill="currentColor" />
+                            <rect x="8" y="42" width="4" height="10" fill="currentColor" />
+                        </g>
+                    </svg>
+                </div>
+
+                <!-- Trail — vệt sáng phía sau thiên thể -->
+                <div class="week3-day1-trail" data-day1-trail aria-hidden="true"></div>
+                <!-- Thiên thể — trăng/trời -->
+                <div class="week3-day1-celestial" data-day1-celestial>
+                    <!-- SVG Mặt trăng -->
+                    <svg class="celestial-moon" viewBox="0 0 100 100" width="100%" height="100%" aria-hidden="true">
+                        <defs>
+                            <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stop-color="#f5f3ee" stop-opacity="1" />
+                                <stop offset="60%" stop-color="#d8d4c8" stop-opacity="0.9" />
+                                <stop offset="100%" stop-color="#a8a49c" stop-opacity="0" />
+                            </radialGradient>
+                            <radialGradient id="moonSurface" cx="40%" cy="35%" r="70%">
+                                <stop offset="0%" stop-color="#faf8f2" />
+                                <stop offset="100%" stop-color="#d8d0bc" />
+                            </radialGradient>
+                        </defs>
+
+                        <!-- Quầng sáng -->
+                        <circle cx="50" cy="50" r="48" fill="url(#moonGlow)" opacity="0.4" />
+
+                        <!-- Thân trăng -->
+                        <circle cx="50" cy="50" r="38" fill="url(#moonSurface)" />
+
+                        <!-- Vết lõm — sẽ mờ dần khi biến thành mặt trời -->
+                        <g class="moon-craters" opacity="0.35">
+                            <circle cx="38" cy="42" r="6" fill="#b8b0a0" />
+                            <circle cx="58" cy="38" r="4" fill="#b8b0a0" />
+                            <circle cx="62" cy="58" r="5" fill="#b8b0a0" />
+                            <circle cx="42" cy="62" r="3.5" fill="#b8b0a0" />
+                            <circle cx="52" cy="50" r="2.5" fill="#b8b0a0" />
+                        </g>
+                    </svg>
+
+                    <!-- SVG Mặt trời -->
+                    <svg class="celestial-sun" viewBox="0 0 100 100" width="100%" height="100%" aria-hidden="true">
+                        <defs>
+                            <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stop-color="#ffe8b8" stop-opacity="1" />
+                                <stop offset="60%" stop-color="#ffd580" stop-opacity="0.9" />
+                                <stop offset="100%" stop-color="#ffb347" stop-opacity="0" />
+                            </radialGradient>
+                            <radialGradient id="sunSurface" cx="45%" cy="40%" r="70%">
+                                <stop offset="0%" stop-color="#fff3d4" />
+                                <stop offset="60%" stop-color="#ffd580" />
+                                <stop offset="100%" stop-color="#f0a840" />
+                            </radialGradient>
+                        </defs>
+
+                        <!-- Quầng sáng lớn -->
+                        <circle cx="50" cy="50" r="48" fill="url(#sunGlow)" opacity="0.5" />
+
+                        <!-- Tia sáng -->
+                        <g class="sun-rays" stroke-width="2" stroke-linecap="round">
+                            <line x1="50" y1="4" x2="50" y2="14" />
+                            <line x1="50" y1="86" x2="50" y2="96" />
+                            <line x1="4" y1="50" x2="14" y2="50" />
+                            <line x1="86" y1="50" x2="96" y2="50" />
+                            <line x1="17" y1="17" x2="24" y2="24" />
+                            <line x1="76" y1="76" x2="83" y2="83" />
+                            <line x1="83" y1="17" x2="76" y2="24" />
+                            <line x1="24" y1="76" x2="17" y2="83" />
+                        </g>
+
+                        <!-- Thân trời -->
+                        <circle cx="50" cy="50" r="30" fill="url(#sunSurface)" />
+                    </svg>
+                </div>
+
+                <!-- Progress — bước -->
+                <div class="week3-day1-progress" data-day1-progress aria-hidden="true">
+                    <span class="week3-day1-progress-bar" data-day1-progress-bar></span>
+                </div>
+            </div>
+
+            <!-- Nội dung — ẩn, hiện khi xong -->
+            <div class="week3-day1-content" data-day1-content hidden>
+                <p class="week3-day1-message" data-day1-message></p>
+            </div>
+        </div>
+    </template>
+    <!-- ============================================================
+     TEMPLATE: WEEK 3 — NGÀY 2 (Cào thẻ)
+     ============================================================ -->
+    <template id="week3-day2-template">
+        <div class="week3-day2" data-day2>
+
+            <!-- Header -->
+            <header class="week3-day-head">
+                <p class="week3-day-eyebrow">Ngày 2</p>
+                <h3 class="week3-day-title">Điều bị che giấu</h3>
+                <p class="week3-day-hint">Cào để mở — và để thấy điều bên dưới</p>
+            </header>
+
+            <!-- Thẻ cào -->
+            <div class="week3-day2-card" data-day2-card>
+                <!-- Nội dung bên dưới -->
+                <div class="week3-day2-content" data-day2-content>
+                    <p class="week3-day2-message" data-day2-message></p>
+                </div>
+
+                <!-- Canvas lớp phủ -->
+                <canvas class="week3-day2-canvas" data-day2-canvas></canvas>
+
+                <!-- Progress nhỏ — hiện khi đang cào -->
+                <div class="week3-day2-progress" data-day2-progress>
+                    <span class="week3-day2-progress-bar" data-day2-progress-bar></span>
+                </div>
+            </div>
+
+        </div>
+    </template>
+    <!-- ============================================================
+     TEMPLATE: WEEK 3 — NGÀY 3 (Nối từ)
+     ============================================================ -->
+    <template id="week3-day3-template">
+        <div class="week3-day3" data-day3>
+
+            <header class="week3-day-head">
+                <p class="week3-day-eyebrow">Ngày 3</p>
+                <h3 class="week3-day-title">Nối lại câu</h3>
+                <p class="week3-day-hint">Chạm vào từng từ theo đúng thứ tự</p>
+            </header>
+
+            <!-- Danh sách các câu đã xong — thu gọn -->
+            <div class="week3-day3-completed" data-day3-completed>
+                <!-- JS render -->
+            </div>
+
+            <!-- Câu đang làm -->
+            <div class="week3-day3-current" data-day3-current>
+                <!-- JS render -->
+            </div>
+
+            <!-- Câu hoàn chỉnh (tổng kết) -->
+            <div class="week3-day3-content" data-day3-content hidden>
+                <p class="week3-day3-message" data-day3-message></p>
+            </div>
+
+        </div>
+    </template>
+
+    <!-- ============================================================
+     TEMPLATE: NGÀY 3 — 1 Ô TRỐNG
+     ============================================================ -->
+    <template id="week3-day3-slot-template">
+        <div class="week3-slot" data-slot>
+            <span class="week3-slot-text" data-slot-text></span>
+        </div>
+    </template>
+
+    <!-- ============================================================
+     TEMPLATE: NGÀY 3 — 1 TỪ
+     ============================================================ -->
+    <template id="week3-day3-word-template">
+        <button class="week3-word" type="button" data-word>
+            <span class="week3-word-text" data-word-text></span>
+        </button>
+    </template>
+
+    <!-- ============================================================
+     TEMPLATE: WEEK 3 — NGÀY 3 — 1 MẢNH GHÉP
+     ============================================================ -->
+    <template id="week3-day3-piece-template">
+        <div class="week3-piece" data-piece>
+            <div class="week3-piece-shape" data-piece-shape>
+                <span class="week3-piece-text" data-piece-text></span>
+            </div>
+        </div>
+    </template>
+    <!-- ============================================================
      LOADING SCREEN
      - Hiện khi vào trang
      - Ẩn khi asset critical load xong
@@ -1274,6 +1943,7 @@
     <script src="./js/preloader.js"></script>
     <script src="./js/week1.js"></script>
     <script src="./js/week2.js"></script>
+    <script src="./js/week3.js"></script>
     <script src="./js/main.js"></script>
 </body>
 
