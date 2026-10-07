@@ -10,7 +10,7 @@
   'use strict';
 
   /* ---------- Config ---------- */
-  const TARGET_DATE = new Date('2026-10-09T00:00:00+07:00');
+  const TARGET_DATE = new Date('2025-10-09T00:00:00+07:00');
 
   /* ---------- Elements ---------- */
   const el = {
@@ -54,9 +54,9 @@
 
     /* ---- 3. Render timeline vào DOM ---- */
     const tlTemplate = document.getElementById('timeline-template');
-    const footer = document.querySelector('.site-footer');
+    const timelineContainer = document.querySelector('.chapter-final-timeline-section');
 
-    if (tlTemplate && footer) {
+    if (tlTemplate && timelineContainer) {
       const tlClone = tlTemplate.content.cloneNode(true);
       const tlSection = tlClone.querySelector('.timeline-section');
 
@@ -64,7 +64,7 @@
       tlSection.classList.add('is-appearing');
 
       // Chèn trước footer
-      footer.parentNode.insertBefore(tlClone, footer);
+      timelineContainer.appendChild(tlClone);
 
       // Sau 1 frame → chuyển sang trạng thái hiện (kích hoạt transition)
       requestAnimationFrame(() => {
@@ -332,12 +332,9 @@
     }
     /* =========================================================
    Bind sự kiện cho các card video
-   - PC (hover): single click mở modal
-   - Mobile: tap 1 = toggle info, tap 2 (double tap) = mở modal
+   - Một lần chạm/click mở video; mô tả luôn nằm dưới ảnh.
    ========================================================= */
     function bindVideoCards() {
-      const isMobile = navigator.userAgentData.mobile;
-
       const cards = document.querySelectorAll('.tl-card--video');
 
       cards.forEach((card) => {
@@ -346,46 +343,20 @@
 
         if (!videoUrl) return;
 
-        if (!isMobile) {
-          /* ---------- PC: single click mở modal ---------- */
-          card.addEventListener('click', (e) => {
-            // Bỏ qua nếu click vào link / nút bên trong
-            if (e.target.closest('a, button')) return;
+        // Captions are always visible now; one click/tap opens the film on every device.
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('a') || (e.target.closest('button') && !e.target.closest('[data-video-open]'))) return;
+          e.preventDefault();
+          openVideoModal(videoUrl, posterUrl);
+        });
+
+        // Enter / Space để mở khi focus bằng keyboard.
+        card.addEventListener('keydown', (e) => {
+          if (e.target === card && (e.key === 'Enter' || e.key === ' ')) {
             e.preventDefault();
             openVideoModal(videoUrl, posterUrl);
-          });
-
-          // Enter / Space để mở khi focus bằng keyboard
-          card.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              openVideoModal(videoUrl, posterUrl);
-            }
-          });
-        } else {
-          /* ---------- Mobile: tap 1 = info, tap 2 = modal ---------- */
-          let tapCount = 0;
-          let tapTimer = null;
-
-          card.addEventListener('click', (e) => {
-            if (e.target.closest('a, button')) return;
-
-            tapCount++;
-
-            if (tapCount === 1) {
-              // Tap đầu: chỉ đánh dấu (info đã hiện qua :hover giả do touch)
-              tapTimer = setTimeout(() => {
-                tapCount = 0;
-              }, 320);
-            } else if (tapCount === 2) {
-              // Double tap → mở modal
-              clearTimeout(tapTimer);
-              tapCount = 0;
-              e.preventDefault();
-              openVideoModal(videoUrl, posterUrl);
-            }
-          });
-        }
+          }
+        });
       });
     }
 
@@ -398,12 +369,15 @@
       const progress = document.getElementById('tlProgressBar');
       const prevBtn = document.querySelector('.tl-nav-prev');
       const nextBtn = document.querySelector('.tl-nav-next');
+      const timeline = document.querySelector('.chapter-final-timeline-section');
+      const position = timeline?.querySelector('.timeline-position');
+      const cards = scroller ? Array.from(scroller.querySelectorAll('.tl-card')) : [];
 
       /* --- Nút cuộn trái/phải --- */
       const scrollByDir = (dir) => {
         if (!scroller) return;
         const amount = Math.min(scroller.clientWidth * 0.8, 480);
-        scroller.scrollBy({ left: dir * amount, behavior: 'smooth' });
+        scroller.scrollBy({ left: dir * amount, behavior: prefersReduced ? 'auto' : 'smooth' });
       };
       if (prevBtn) prevBtn.addEventListener('click', () => scrollByDir(-1));
       if (nextBtn) nextBtn.addEventListener('click', () => scrollByDir(1));
@@ -413,11 +387,24 @@
         if (!scroller || !progress) return;
         const max = scroller.scrollWidth - scroller.clientWidth;
         const ratio = max > 0 ? scroller.scrollLeft / max : 0;
-        progress.style.width = (ratio * 100).toFixed(2) + '%';
+        // Native snap can leave a few pixels at the padded ends of the track.
+        const atStart=scroller.scrollLeft<=8,atEnd=max<=8||scroller.scrollLeft>=max-8;
+        const bounded = atStart ? 0 : atEnd ? 1 : Math.max(0,Math.min(1,ratio));
+        progress.style.width = (bounded * 100).toFixed(2) + '%';
+        timeline?.style.setProperty('--timeline-dawn',bounded.toFixed(3));
+        if(position)position.textContent = String(1 + Math.round(bounded * Math.max(0,cards.length-1))).padStart(2,'0') + ' / ' + String(cards.length).padStart(2,'0');
+        if(prevBtn)prevBtn.disabled = atStart;
+        if(nextBtn)nextBtn.disabled = atEnd;
       };
       if (scroller) {
         scroller.addEventListener('scroll', updateProgress, { passive: true });
         updateProgress();
+        new ResizeObserver(updateProgress).observe(scroller);
+        scroller.addEventListener('keydown',event=>{
+          if(event.target !== scroller) return;
+          if(event.key === 'ArrowLeft' || event.key === 'ArrowRight') { event.preventDefault();scrollByDir(event.key==='ArrowRight'?1:-1); }
+          if(event.key === 'Home' || event.key === 'End') { event.preventDefault();scroller.scrollTo({left:event.key==='Home'?0:scroller.scrollWidth,behavior:prefersReduced?'auto':'smooth'}); }
+        });
       }
 
       /* --- Best wishes button --- */
@@ -440,7 +427,7 @@
     /* ---- 4. Đổi note countdown ---- */
     if (el.note) {
       el.note.innerHTML =
-        'Chúc mưng sinh nhật Bé— <strong>Hãy xem những điều anh gửi em nhé</strong> ✦';
+        'Chúc mừng sinh nhật Bé— <strong>Hãy xem những điều anh gửi em nhé</strong> ✦';
     }
     document.body.classList.add('unlocked');
 

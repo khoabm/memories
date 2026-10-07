@@ -16,6 +16,12 @@
         rel="stylesheet" />
 
     <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/observatory.css" />
+    <link rel="stylesheet" href="./css/future-museum.css" />
+    <link rel="stylesheet" href="./css/timeline-dawn.css" />
+    <!-- Turn.js dependencies -->
+    <script src="./js/vendor/jquery-3.7.1.min.js" defer></script>
+    <script src="./js/vendor/turn.js" defer></script>
 </head>
 
 <body>
@@ -502,40 +508,434 @@
 
         </div>
     </template>
+
     <!-- ============================================================
-     PLACEHOLDER: TIMELINE CHƯA MỞ KHÓA
-     - Hiển thị mặc định khi trang load
-     - Sẽ bị JS XÓA khi countdown = 0
-     - Không chứa nội dung kỉ niệm thật
+     SECTION: CHAPTER INTRO — Transition giữa Tuần 3 và Chapter cuối
      ============================================================ -->
-    <section id="timeline-locked" class="timeline-locked" aria-label="Chưa mở khóa">
-        <div class="locked-inner">
-            <div class="locked-icon" aria-hidden="true">
-                <svg viewBox="0 0 64 64" width="56" height="56" fill="none">
-                    <!-- Thân ổ khóa -->
-                    <rect x="12" y="28" width="40" height="30" rx="5" stroke="currentColor" stroke-width="2.5"
-                        fill="rgba(231, 183, 160, 0.08)" />
-                    <!-- Quai ổ khóa -->
-                    <path d="M22 28 V20 A10 10 0 0 1 42 20 V28" stroke="currentColor" stroke-width="2.5"
-                        stroke-linecap="round" />
-                    <!-- Lỗ khoá -->
-                    <circle cx="32" cy="42" r="3.5" fill="currentColor" />
-                    <rect x="30.5" y="45" width="3" height="7" rx="1.5" fill="currentColor" />
-                </svg>
+    <section id="chapter-intro" class="chapter-intro" aria-label="Chương cuối">
+        <div class="chapter-intro-inner">
+            <div class="chapter-intro-ornament" aria-hidden="true">
+                <span class="ornament-line"></span>
+                <span class="ornament-symbol">✦</span>
+                <span class="ornament-line"></span>
             </div>
 
-            <p class="locked-eyebrow">Chưa đến lúc đâu</p>
+            <p class="chapter-intro-eyebrow">Và rồi —</p>
 
-            <h2 class="locked-title">
-                Chờ em ở đây vào ngày
+            <h2 class="chapter-intro-title">
+                Đêm qua.<br />
+                <em>Ngày mới đến.</em>
             </h2>
 
-            <p class="locked-date">09 · 10 · 2026</p>
-
-            <p class="locked-note">
-                Hãy chờ xem những điều gì đang chờ mình nhé.
+            <p class="chapter-intro-text">
+                7 ngày đã đi qua. Và đây —<br />
+                chương cuối cùng của câu chuyện này.
             </p>
+
+            <span class="chapter-intro-scroll" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                    <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </span>
         </div>
+    </section>
+
+    <!-- ============================================================
+     SECTION: CHAPTER FINAL — Chapter cuối (nền sáng)
+     ============================================================ -->
+    <section id="chapter-final" class="chapter-final" aria-label="Ngày 09/10">
+
+        <!-- ===== Phần 1: Header ===== -->
+        <div class="chapter-final-section chapter-final-header-section">
+            <div class="chapter-final-inner">
+
+                <header class="chapter-final-head">
+                    <p class="chapter-final-eyebrow">Ngày trọng đại</p>
+
+                    <h1 class="chapter-final-date">
+                        <span class="date-num">09</span>
+                        <span class="date-sep">·</span>
+                        <span class="date-num">10</span>
+                        <span class="date-sep">·</span>
+                        <span class="date-num">2026</span>
+                    </h1>
+
+                    <div class="chapter-final-ornament" aria-hidden="true">
+                        <span class="ornament-line"></span>
+                        <span class="ornament-symbol">✦</span>
+                        <span class="ornament-line"></span>
+                    </div>
+
+                    <p class="chapter-final-sub">
+                        Chương cuối — Câu chuyện của chúng ta
+                    </p>
+                </header>
+
+            </div>
+        </div>
+
+        <!-- ===== Phần 2: Sách ===== -->
+        <div class="chapter-final-section chapter-final-book-section">
+            <div class="chapter-final-inner">
+
+                <header class="story-book-head">
+                    <p class="story-book-eyebrow">Chương cuối</p>
+                    <h2 class="story-book-title">Câu chuyện của chúng ta</h2>
+                    <p class="story-book-hint">
+                        Kéo góc hoặc vuốt từ mép trang để lật. Dùng mũi tên để đọc tiếp.
+                    </p>
+                </header>
+
+                <!-- Turn.js container -->
+                <div class="story-book-wrap">
+                    <div class="story-book-stage">
+                        <div id="story-book" class="story-book" role="group" aria-label="Sách Câu chuyện của chúng ta"
+                            tabindex="0">
+                            <!-- Bìa trước -->
+                            <div class="hard book-page-cover book-page-cover-front">
+                                <div class="cover-inner">
+                                    <p class="cover-eyebrow">Câu chuyện</p>
+                                    <h2 class="cover-title">Của chúng ta</h2>
+                                    <div class="cover-ornament" aria-hidden="true">✦</div>
+                                    <p class="cover-date">09 · 10 · 2026</p>
+                                </div>
+                            </div>
+
+                            <!-- Trang trống đầu -->
+                            <div class="book-page-inner"></div>
+
+                            <!-- 5 trang nội dung -->
+                            <div class="book-page-content" data-page="1">
+                                <div class="page-inner">
+                                    <p class="page-eyebrow">Chương I</p>
+                                    <h3 class="page-title">Khởi đầu</h3>
+                                    <div class="page-image">
+                                        <img src="./assets/images/memories/story.PNG" alt="Những bước đầu" />
+                                    </div>
+                                    <p class="page-text">
+                                        Mọi câu chuyện đều bắt đầu từ một khoảnh khắc rất nhỏ.
+                                        Có thể là một lần gặp gỡ, một nụ cười — nhưng rồi nó trở
+                                        thành những kỉ niệm đọng lại.
+                                    </p>
+                                    <span class="page-number">1</span>
+                                </div>
+                            </div>
+
+                            <div class="book-page-content" data-page="2">
+                                <div class="page-inner">
+                                    <p class="page-eyebrow">Chương II</p>
+                                    <h3 class="page-title">Đi qua</h3>
+                                    <div class="page-image">
+                                        <img src="./assets/images/memories/da_lat_2.jpg"
+                                            alt="Một khoảnh khắc trong chuyến đi Đà Lạt" />
+                                    </div>
+                                    <p class="page-text">
+                                        Có những ngày không dễ dàng. Nhưng chúng ta đã đi qua —
+                                        cùng nhau. Và điều đó — mới là điều quan trọng.
+                                    </p>
+                                    <span class="page-number">2</span>
+                                </div>
+                            </div>
+
+                            <div class="book-page-content" data-page="3">
+                                <div class="page-inner">
+                                    <p class="page-eyebrow">Chương III</p>
+                                    <h3 class="page-title">7 ngày</h3>
+                                    <div class="page-image">
+                                        <img src="./assets/images/memories/da_lat_4.JPG"
+                                            alt="Thêm một kỉ niệm ở Đà Lạt" />
+                                    </div>
+                                    <p class="page-text">
+                                        Những điều ở đây - tuy nhỏ. Nhưng đủ để tạo cho em
+                                        thêm một kỉ niệm trong hành trình.
+                                    </p>
+                                    <span class="page-number">3</span>
+                                </div>
+                            </div>
+
+                            <div class="book-page-content" data-page="4">
+                                <div class="page-inner">
+                                    <p class="page-eyebrow">Chương IV</p>
+                                    <h3 class="page-title">Điều ta học được</h3>
+                                    <div class="page-image">
+                                        <img src="./assets/images/memories/xuan_2026_1.JPG"
+                                            alt="Kỉ niệm mùa xuân 2026" />
+                                    </div>
+                                    <p class="page-text">
+                                        Ta học được rằng — yêu thương không phải là hoàn hảo.
+                                        Mà là cùng nhau cố gắng — mỗi ngày, một chút.
+                                    </p>
+                                    <span class="page-number">4</span>
+                                </div>
+                            </div>
+
+                            <div class="book-page-content" data-page="5">
+                                <div class="page-inner">
+                                    <p class="page-eyebrow">Chương V</p>
+                                    <h3 class="page-title">Mãi về sau</h3>
+                                    <div class="page-image">
+                                        <img src="./assets/images/memories/da_lat_5.webp"
+                                            alt="Một khoảnh khắc mùa xuân của chúng ta" />
+                                    </div>
+                                    <p class="page-text">
+                                        Và đây — không phải kết thúc. Chỉ là khởi đầu của
+                                        những chương tiếp theo. Của chúng ta.
+                                    </p>
+                                    <span class="page-number">5</span>
+                                </div>
+                            </div>
+
+                            <div class="book-page-content book-page-end" data-page="6">
+                                <div class="page-inner page-end-inner">
+                                    <div class="page-end-ornament" aria-hidden="true">✦ ✦ ✦</div>
+                                    <p class="page-end-text">Hết chương này —<br />nhưng không hết câu chuyện.</p>
+                                </div>
+                            </div>
+
+                            <!-- Trang trống cuối -->
+                            <div class="book-page-inner"></div>
+
+                            <!-- Bìa sau -->
+                            <div class="hard book-page-cover book-page-cover-back"></div>
+                        </div>
+                    </div>
+                </div>
+                <nav class="story-book-controls" aria-label="Lật trang sách" hidden>
+                    <button type="button" class="story-book-prev" aria-label="Trang trước" aria-controls="story-book"
+                        disabled>←</button>
+                    <p class="story-book-status" role="status" aria-live="polite" aria-atomic="true">Bìa trước</p>
+                    <button type="button" class="story-book-next" aria-label="Trang tiếp"
+                        aria-controls="story-book">→</button>
+                </nav>
+                <p class="story-book-error" role="status" hidden>Chưa tải được hiệu ứng lật sách. Bạn vẫn có thể đọc các
+                    trang bên dưới.</p>
+
+            </div>
+        </div>
+
+        <!-- ===== Phần 3: Chòm sao Quỳnh — một câu chuyện bằng ánh sáng ===== -->
+        <section id="quynh-constellation" class="constellation-section" aria-labelledby="constellation-title">
+            <div class="constellation-sticky">
+                <h2 id="constellation-title" class="constellation-sr-only">Đến cả bầu trời cũng học cách viết tên em.
+                </h2>
+                <svg class="constellation-sky" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice"
+                    aria-hidden="true">
+                    <g class="constellation-background-stars"></g>
+                </svg>
+                <div class="constellation-art">
+                    <svg class="constellation-svg" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet" role="img"
+                        aria-label="Chòm sao tạo thành tên Quỳnh">
+                        <g class="constellation-lines" fill="none" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g class="constellation-halos" aria-hidden="true"></g>
+                        <g class="constellation-main-stars"></g>
+                    </svg>
+                </div>
+                <div class="constellation-copy">
+                    <p data-scene="0">Ban đầu, chúng chỉ là những điểm sáng rời rạc.</p>
+                    <p data-scene="1">Có những điều nhỏ bé đến mức ta tưởng mình sẽ quên.</p>
+                    <p data-scene="2">Nhưng bằng một cách nào đó, chúng vẫn ở lại.</p>
+                    <p data-scene="3">Rồi từng điểm sáng bắt đầu tìm thấy nhau.</p>
+                    <p data-scene="4">Như thể chúng đã biết từ trước mình thuộc về đâu.</p>
+                    <p data-scene="5">Và rồi, bầu trời học được cách viết một cái tên.</p>
+                    <p data-scene="6" class="constellation-name">Chính là em.</p>
+                    <p data-scene="7" class="constellation-ending">Nếu mỗi người đều có một chòm sao để tìm
+                        về,<br /><em>thì của anh mang tên em.</em></p>
+                </div>
+                <div class="constellation-scroll-cue" aria-hidden="true"><span></span>Cuộn nhẹ để những vì sao tìm thấy
+                    nhau</div>
+            </div>
+        </section>
+
+        <!-- ===== Phần 4: Thấu kính ký ức — minigame lấy nét ===== -->
+        <section id="memory-lens" class="memory-lens-section" aria-labelledby="memory-lens-title">
+            <div class="memory-lens-inner">
+                <header class="memory-lens-intro">
+                    <p class="memory-lens-eyebrow">Một phòng tối · Ba ký ức</p>
+                    <h2 id="memory-lens-title">Thấu kính ký ức</h2>
+                    <p>Có những ký ức không biến mất.<br />Chúng chỉ đang chờ được đưa về đúng tiêu điểm.</p>
+                </header>
+                <div class="memory-lens-game" data-state="intro">
+                    <header class="memory-lens-level-head">
+                        <ol class="memory-lens-fragments" aria-label="Ba ký ức">
+                            <li aria-current="step"><span>01</span><span class="constellation-sr-only">Ký ức thứ
+                                    nhất</span></li>
+                            <li><span>02</span><span class="constellation-sr-only">Ký ức thứ hai</span></li>
+                            <li><span>03</span><span class="constellation-sr-only">Ký ức thứ ba</span></li>
+                        </ol>
+                        <h3 class="memory-lens-level-title">Khoảnh khắc đầu tiên</h3>
+                        <p class="memory-lens-opening">Có những ký ức bắt đầu từ một khoảnh khắc rất nhỏ.</p>
+                    </header>
+                    <div class="memory-lens-scene">
+                        <div class="memory-lens-bench">
+                            <svg class="memory-lens-optics" viewBox="0 0 1000 300" preserveAspectRatio="none"
+                                aria-hidden="true">
+                                <defs>
+                                    <linearGradient id="memory-ray-gradient">
+                                        <stop stop-color="#e6d4aa" stop-opacity=".1" />
+                                        <stop offset=".5" stop-color="#efeadb" stop-opacity=".5" />
+                                        <stop offset="1" stop-color="#efeadb" stop-opacity=".15" />
+                                    </linearGradient>
+                                </defs>
+                                <g class="memory-lens-dust"></g>
+                                <line class="memory-optical-axis" x1="30" y1="150" x2="970" y2="150" />
+                                <g class="memory-lens-rays" fill="none" stroke="url(#memory-ray-gradient)">
+                                    <path />
+                                    <path />
+                                    <path />
+                                    <path />
+                                    <path />
+                                    <path />
+                                </g>
+                                <g class="memory-source">
+                                    <circle cx="60" cy="150" r="20" />
+                                    <circle cx="60" cy="150" r="9" />
+                                    <circle cx="60" cy="150" r="3" />
+                                </g>
+                                <line class="memory-projection-plane" x1="940" y1="60" x2="940" y2="240" />
+                                <circle class="memory-focus-point" cx="940" cy="150" r="4" />
+                                <g class="memory-focal-markers"><text class="memory-marker-f" y="177">F</text><text
+                                        class="memory-marker-2f" y="177">2F</text></g>
+                            </svg>
+                            <span class="memory-source-label" aria-hidden="true">Nguồn sáng</span>
+                            <span class="memory-plane-label" aria-hidden="true">Mặt ảnh</span>
+                            <div class="memory-lens-handle" role="slider" tabindex="0"
+                                aria-label="Kéo thấu kính để lấy nét ký ức" aria-describedby="memory-lens-hint"
+                                aria-valuemin="0" aria-valuemax="100" aria-valuenow="95" aria-valuetext="Chưa rõ…"
+                                aria-orientation="horizontal">
+                                <svg class="memory-lens-glass" viewBox="12 0 56 220" preserveAspectRatio="none"
+                                    aria-hidden="true">
+                                    <defs>
+                                        <linearGradient id="memory-glass-gradient">
+                                            <stop stop-color="#e0eafa" stop-opacity=".25" />
+                                            <stop offset=".35" stop-color="#e0eafa" stop-opacity=".04" />
+                                            <stop offset=".75" stop-color="#fff" stop-opacity=".16" />
+                                            <stop offset="1" stop-color="#e0eafa" stop-opacity=".3" />
+                                        </linearGradient>
+                                    </defs>
+                                    <path d="M40 12 C9 54 9 166 40 208 C71 166 71 54 40 12 Z"
+                                        fill="url(#memory-glass-gradient)" />
+                                    <path class="memory-glass-highlight" d="M35 25 C14 68 16 155 35 192" fill="none" />
+                                    <path class="memory-glass-highlight" d="M47 34 C62 80 63 150 47 188" fill="none" />
+                                </svg>
+                                <span class="memory-lens-grip" aria-hidden="true">← <i></i> →</span>
+                            </div>
+                        </div>
+                        <figure class="memory-lens-projection">
+                            <div class="memory-lens-photo">
+                                <img class="memory-lens-image" src="./assets/images/memory-lens/first-840.webp"
+                                    width="630" height="840" alt="Một hình ảnh trong chuyến đi của chúng ta"
+                                    loading="lazy" decoding="async" draggable="false" />
+                                <p class="memory-lens-image-fallback" hidden>Ký ức vẫn ở đây.</p>
+                            </div>
+                            <figcaption>Những điều ở lại trong ánh sáng.</figcaption>
+                        </figure>
+                    </div>
+                    <p id="memory-lens-hint" class="memory-lens-hint"><span class="memory-hint-desktop">Kéo thấu kính để
+                            lấy nét ký ức.</span><span class="memory-hint-mobile">Chạm và kéo thấu kính.</span></p>
+                    <p class="memory-lens-feedback" role="status" aria-live="polite">Chưa rõ…</p>
+                    <div class="memory-lens-reward" aria-live="polite">
+                        <p class="memory-lens-success" hidden></p>
+                        <p class="memory-lens-ending" hidden>Nếu ký ức là những tia sáng rời rạc,<br /><em>thì em là nơi
+                                chúng hội tụ.</em></p>
+                        <button class="memory-lens-next" type="button" hidden>Ký ức tiếp theo <span
+                                aria-hidden="true">→</span></button>
+                        <button class="memory-lens-replay" type="button" hidden>Xem lại từ đầu</button>
+                    </div>
+                    <noscript>
+                        <p>Hãy bật JavaScript để điều chỉnh thấu kính và mở ba ký ức.</p>
+                    </noscript>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== Đài quan sát những ký ức thất lạc ===== -->
+        <section id="observatory-game" class="observatory-section" aria-label="Đài quan sát những ký ức thất lạc">
+            <div class="obs-shell">
+                <header class="obs-toolbar">
+                    <span class="obs-brand">✦ &nbsp; THE OBSERVATORY</span>
+                    <div class="obs-controls">
+                        <button type="button" data-obs-action="sound" aria-pressed="false">Âm thanh: Tắt</button>
+                        <button type="button" data-obs-action="captions" aria-pressed="true">Chú thích: Bật</button>
+                        <label class="obs-music-volume"><span aria-hidden="true">♫</span><input type="range" min="0"
+                                max="100" value="40" aria-label="Âm lượng nhạc nền" /></label>
+                    </div>
+                </header>
+                <div class="obs-scene" tabindex="-1"></div>
+                <p class="obs-feedback" role="status" aria-live="polite"></p>
+                <p class="obs-audio-cue" aria-live="off"></p>
+                <div class="obs-inventory" aria-label="Túi đồ" hidden></div>
+                <footer class="obs-footer" hidden>
+                    <button type="button" data-obs-action="room">← Về căn phòng</button>
+                    <button type="button" data-obs-action="journal">Sổ manh mối</button>
+                    <button type="button" data-obs-action="hint">Gợi ý nhẹ</button>
+                </footer>
+            </div>
+            <noscript>
+                <p>Hãy bật JavaScript để khám phá đài quan sát.</p>
+            </noscript>
+        </section>
+
+        <!-- ===== Bảo tàng của những thứ chưa tồn tại ===== -->
+        <section id="future-museum" class="future-museum" aria-label="Bảo tàng của những thứ chưa tồn tại">
+            <div class="museum-shell" data-scene="opening">
+                <header class="museum-toolbar">
+                    <button type="button" data-museum-action="opening" class="museum-brand"
+                        aria-label="Về cửa vào bảo tàng">Q / FUTURE COLLECTION</button>
+                    <button type="button" data-museum-action="sound" aria-pressed="false">Âm thanh: Tắt</button>
+                </header>
+                <div class="museum-viewport" tabindex="-1"></div>
+                <canvas class="museum-dust" aria-hidden="true"></canvas>
+                <div class="museum-haze" aria-hidden="true"></div>
+                <p class="museum-announcement museum-sr-only" role="status" aria-live="polite"></p>
+            </div>
+            <noscript>
+                <p>Bảo tàng của những thứ chưa tồn tại — Collection: Quỳnh — New Age. Hãy bật JavaScript để tham quan
+                    bảy hiện vật.</p>
+            </noscript>
+        </section>
+
+        <!-- ===== Phần 5: Timeline (di chuyển từ ngoài vào) ===== -->
+        <div class="chapter-final-section chapter-final-timeline-section">
+
+            <!-- Placeholder ổ khoá — trước 09/10 -->
+            <section id="timeline-locked" class="timeline-locked" aria-label="Chưa mở khóa">
+                <div class="locked-inner">
+                    <div class="locked-icon" aria-hidden="true">
+                        <svg viewBox="0 0 64 64" width="56" height="56" fill="none">
+                            <rect x="12" y="28" width="40" height="30" rx="5" stroke="currentColor" stroke-width="2.5"
+                                fill="rgba(231, 183, 160, 0.08)" />
+                            <path d="M22 28 V20 A10 10 0 0 1 42 20 V28" stroke="currentColor" stroke-width="2.5"
+                                stroke-linecap="round" />
+                            <circle cx="32" cy="42" r="3.5" fill="currentColor" />
+                            <rect x="30.5" y="45" width="3" height="7" rx="1.5" fill="currentColor" />
+                        </svg>
+                    </div>
+
+                    <p class="locked-eyebrow">Khoảnh khắc chưa đến</p>
+
+                    <h2 class="locked-title">
+                        Kỉ niệm sẽ được mở khóa vào
+                    </h2>
+
+                    <p class="locked-date">09 · 10 · 2026</p>
+
+                    <p class="locked-note">
+                        Hãy quay lại khi đồng hồ đếm ngược kết thúc.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Timeline — render động bằng JS khi countdown = 0 -->
+            <!-- Timeline sẽ được chèn vào đây (không phải trong HTML tĩnh) -->
+
+        </div>
+
+        <!-- ===== Phần 6: Chỗ trống cho content tương lai ===== -->
+        <div class="chapter-final-section chapter-final-extra-section">
+            <!-- Content tương lai -->
+        </div>
+
     </section>
 
     <!-- ============ FOOTER ============ -->
@@ -585,7 +985,8 @@
                 </p>
             </header>
 
-            <div class="timeline-scroller" id="timelineScroller">
+            <div class="timeline-scroller" id="timelineScroller" tabindex="0"
+                aria-label="Hành lang kỉ niệm. Dùng phím trái và phải để khám phá.">
                 <ol class="timeline-track">
                     <li class="tl-card" tabindex="0">
                         <div class="tl-photo">
@@ -614,11 +1015,12 @@
                     <li class="tl-card tl-card--video" tabindex="0" data-video="./assets/videos/thit_nuong.mp4">
                         <div class="tl-photo">
                             <img src="./assets/images/memories/da_lat_2.jpg" alt="Kỉ niệm video" loading="lazy" />
-                            <span class="tl-play-badge" aria-hidden="true">
+                            <button class="tl-play-badge" type="button" data-video-open
+                                aria-label="Xem video nướng thịt cùng nhau">
                                 <svg viewBox="0 0 24 24" width="20" height="20">
                                     <path d="M8 5v14l11-7z" fill="currentColor" />
                                 </svg>
-                            </span>
+                            </button>
                         </div>
                         <div class="tl-info">
                             <time class="tl-date">Đà Lạt - Mùa hè 2025</time>
@@ -666,12 +1068,14 @@
 
                     <li class="tl-card tl-card--video" tabindex="0" data-video="./assets/videos/co_ba.mp4">
                         <div class="tl-photo">
-                            <img src="" alt="Kỉ niệm video" loading="lazy" />
-                            <span class="tl-play-badge" aria-hidden="true">
+                            <img src="./assets/images/memories/xuan_2026_2.JPG" alt="Kỉ niệm tại cà phê Cô Ba"
+                                loading="lazy" />
+                            <button class="tl-play-badge" type="button" data-video-open
+                                aria-label="Xem video tại cà phê Cô Ba">
                                 <svg viewBox="0 0 24 24" width="20" height="20">
                                     <path d="M8 5v14l11-7z" fill="currentColor" />
                                 </svg>
-                            </span>
+                            </button>
                         </div>
                         <div class="tl-info">
                             <time class="tl-date">Hồ Chí Minh - Mùa xuân 2026</time>
@@ -697,9 +1101,16 @@
                     </li>
                 </ol>
 
-                <button class="tl-nav tl-nav-prev" aria-label="Trước" type="button">‹</button>
-                <button class="tl-nav tl-nav-next" aria-label="Sau" type="button">›</button>
             </div>
+
+            <nav class="timeline-navigation" aria-label="Khám phá kỉ niệm">
+                <button class="tl-nav tl-nav-prev" aria-label="Kỉ niệm trước" type="button">←</button>
+                <div>
+                    <p class="timeline-position">01 / 08</p>
+                    <p class="timeline-navigation-hint">Kéo ngang để đi qua những ngày mình đã có</p>
+                </div>
+                <button class="tl-nav tl-nav-next" aria-label="Kỉ niệm tiếp theo" type="button">→</button>
+            </nav>
 
             <div class="timeline-progress" aria-hidden="true">
                 <span class="timeline-progress-bar" id="tlProgressBar"></span>
@@ -1944,6 +2355,14 @@
     <script src="./js/week1.js"></script>
     <script src="./js/week2.js"></script>
     <script src="./js/week3.js"></script>
+    <script src="./js/story-book.js"></script>
+    <script src="./js/constellation.js"></script>
+    <script src="./js/memory-lens.js"></script>
+    <script src="./js/observatory-art.js"></script>
+    <script src="./js/observatory-audio.js"></script>
+    <script src="./js/observatory.js"></script>
+    <script src="./js/museum-audio.js"></script>
+    <script src="./js/future-museum.js"></script>
     <script src="./js/main.js"></script>
 </body>
 
