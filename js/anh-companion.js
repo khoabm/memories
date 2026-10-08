@@ -355,7 +355,12 @@
   function startFallback(mode) {
     dialog.dataset.renderer='fallback';
     const stage=dialog.querySelector('.anh-stage');stage.querySelector('.anh-render-canvas').hidden=true;
-    if(mode==='gift-box') {const art=document.createElement('div');art.className='anh-webgl-fallback';art.innerHTML=previewArt(mode);stage.appendChild(art);if(state.giftOpened)updatePhase('revealed');}
+    if(mode==='gift-box') {
+      const art=document.createElement('div');art.className='anh-webgl-fallback';art.setAttribute('aria-hidden','true');
+      // Preserve a real volume on devices which cannot initialize the WebGL renderer.
+      art.innerHTML='<div class="anh-fallback-cube"><div class="anh-fallback-body"><i class="gift-front"></i><i class="gift-back"></i><i class="gift-left"></i><i class="gift-right"></i><i class="gift-base"></i></div><div class="anh-fallback-lid"><i class="gift-front"></i><i class="gift-back"></i><i class="gift-left"></i><i class="gift-right"></i><i class="gift-top"><span class="gift-bow"></span></i></div></div>';
+      stage.appendChild(art);if(state.giftOpened)updatePhase('revealed');
+    }
     if(mode==='star-sky') {
       const canvas=document.createElement('canvas');canvas.className='anh-fallback-canvas';stage.appendChild(canvas);
       scene=createSkyFallback(canvas);

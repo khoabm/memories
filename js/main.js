@@ -369,6 +369,8 @@
       const progress = document.getElementById('tlProgressBar');
       const prevBtn = document.querySelector('.tl-nav-prev');
       const nextBtn = document.querySelector('.tl-nav-next');
+      const startBtn = document.querySelector('.tl-nav-start');
+      const endBtn = document.querySelector('.tl-nav-end');
       const timeline = document.querySelector('.chapter-final-timeline-section');
       const position = timeline?.querySelector('.timeline-position');
       const cards = scroller ? Array.from(scroller.querySelectorAll('.tl-card')) : [];
@@ -381,6 +383,12 @@
       };
       if (prevBtn) prevBtn.addEventListener('click', () => scrollByDir(-1));
       if (nextBtn) nextBtn.addEventListener('click', () => scrollByDir(1));
+      const scrollToEdge = (end) => {
+        if (!scroller) return;
+        scroller.scrollTo({left:end ? scroller.scrollWidth : 0,behavior:prefersReduced ? 'auto' : 'smooth'});
+      };
+      if (startBtn) startBtn.addEventListener('click', () => scrollToEdge(false));
+      if (endBtn) endBtn.addEventListener('click', () => scrollToEdge(true));
 
       /* --- Progress bar --- */
       const updateProgress = () => {
@@ -395,6 +403,8 @@
         if(position)position.textContent = String(1 + Math.round(bounded * Math.max(0,cards.length-1))).padStart(2,'0') + ' / ' + String(cards.length).padStart(2,'0');
         if(prevBtn)prevBtn.disabled = atStart;
         if(nextBtn)nextBtn.disabled = atEnd;
+        if(startBtn)startBtn.disabled = atStart;
+        if(endBtn)endBtn.disabled = atEnd;
       };
       if (scroller) {
         scroller.addEventListener('scroll', updateProgress, { passive: true });
@@ -403,7 +413,7 @@
         scroller.addEventListener('keydown',event=>{
           if(event.target !== scroller) return;
           if(event.key === 'ArrowLeft' || event.key === 'ArrowRight') { event.preventDefault();scrollByDir(event.key==='ArrowRight'?1:-1); }
-          if(event.key === 'Home' || event.key === 'End') { event.preventDefault();scroller.scrollTo({left:event.key==='Home'?0:scroller.scrollWidth,behavior:prefersReduced?'auto':'smooth'}); }
+          if(event.key === 'Home' || event.key === 'End') { event.preventDefault();scrollToEdge(event.key==='End'); }
         });
       }
 

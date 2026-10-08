@@ -12,17 +12,21 @@ function canvasTexture(width,height,draw) {
   const texture=new THREE.CanvasTexture(canvas);texture.colorSpace=THREE.SRGBColorSpace;return texture;
 }
 function roundedBox(w,h,d,r=.035) {
-  const geometry=new THREE.BoxGeometry(w,h,d,5,5,5),position=geometry.attributes.position;
+  const geometry=new THREE.BoxGeometry(w,h,d,4,4,4),position=geometry.attributes.position,normal=geometry.attributes.normal;
   const core=new THREE.Vector3(),p=new THREE.Vector3();
-  for(let i=0;i<position.count;i++){p.fromBufferAttribute(position,i);core.set(clamp(p.x,-w/2+r,w/2-r),clamp(p.y,-h/2+r,h/2-r),clamp(p.z,-d/2+r,d/2-r));p.sub(core).normalize().multiplyScalar(r).add(core);position.setXYZ(i,p.x,p.y,p.z);}
-  geometry.computeVertexNormals();return geometry;
+  const bevelCoordinate=(value,extent)=>Math.abs(value)<1e-7?0:Math.abs(value)<extent*.999?Math.sign(value)*(extent-r):value;
+  // Analytic bevel normals agree at duplicated face vertices, including thin ribbons.
+  // Place the inner edge vertices at the bevel boundary so the broad faces stay flat.
+  for(let i=0;i<position.count;i++){p.fromBufferAttribute(position,i);p.set(bevelCoordinate(p.x,w/2),bevelCoordinate(p.y,h/2),bevelCoordinate(p.z,d/2));core.set(clamp(p.x,-w/2+r,w/2-r),clamp(p.y,-h/2+r,h/2-r),clamp(p.z,-d/2+r,d/2-r));p.sub(core).normalize();normal.setXYZ(i,p.x,p.y,p.z);p.multiplyScalar(r).add(core);position.setXYZ(i,p.x,p.y,p.z);}
+  return geometry;
 }
 function buildGift(scene) {
   const random=seededRandom(91919);
-  const grain=canvasTexture(256,256,(ctx,w,h)=>{ctx.fillStyle='#bcbcbc';ctx.fillRect(0,0,w,h);for(let i=0;i<30000;i++){const v=145+Math.floor(random()*90);ctx.fillStyle=`rgb(${v},${v},${v})`;ctx.fillRect(random()*w,random()*h,1,1);}});
-  grain.colorSpace=THREE.NoColorSpace;grain.wrapS=grain.wrapT=THREE.RepeatWrapping;grain.repeat.set(4,4);
-  const paper=new THREE.MeshStandardMaterial({color:0xc29da9,roughness:.72,metalness:0,bumpMap:grain,bumpScale:.018});
-  const inner=new THREE.MeshStandardMaterial({color:0xe3cebc,roughness:.88,bumpMap:grain,bumpScale:.007});
+  const grain=canvasTexture(256,256,(ctx,w,h)=>{ctx.fillStyle='#fafafa';ctx.fillRect(0,0,w,h);for(let i=0;i<22000;i++){const v=238+Math.floor(random()*15);ctx.fillStyle=`rgb(${v},${v},${v})`;ctx.fillRect(random()*w,random()*h,1,1);}});
+  grain.wrapS=grain.wrapT=THREE.RepeatWrapping;grain.repeat.set(2,2);
+  // Fine paper grain lives in the color map, avoiding noisy derivative-based bump normals on phone GPUs.
+  const paper=new THREE.MeshStandardMaterial({color:0xc29da9,roughness:.72,metalness:0,map:grain});
+  const inner=new THREE.MeshStandardMaterial({color:0xe3cebc,roughness:.88,map:grain});
   const ribbon=new THREE.MeshStandardMaterial({color:0xcbae75,metalness:.55,roughness:.31});
   const ribbonLight=new THREE.MeshStandardMaterial({color:0xe6cb97,metalness:.35,roughness:.4});
   const group=new THREE.Group();scene.add(group);
@@ -73,9 +77,9 @@ function buildGift(scene) {
   return {group,lid,letter,glow,sparks,grain,letterTexture,shadowTexture};
 }
 function lighting(scene,renderer) {
-  scene.add(new THREE.HemisphereLight(0xf1e5d9,0x514b6c,1.5));
-  const key=new THREE.DirectionalLight(0xffedcf,2.7);key.position.set(-3,5,4);key.castShadow=true;key.shadow.mapSize.set(512,512);key.shadow.camera.left=-3;key.shadow.camera.right=3;key.shadow.camera.top=3;key.shadow.camera.bottom=-3;key.shadow.normalBias=.035;key.shadow.bias=-.0002;key.shadow.radius=3;scene.add(key);
-  const fill=new THREE.DirectionalLight(0xb0c8ff,1.7);fill.position.set(4,2,-3);scene.add(fill);
+  scene.add(new THREE.HemisphereLight(0xf1e5d9,0x514b6c,.95));
+  const key=new THREE.DirectionalLight(0xffedcf,3.2);key.position.set(-3,5,4);key.castShadow=true;key.shadow.mapSize.set(1024,1024);key.shadow.camera.left=-3;key.shadow.camera.right=3;key.shadow.camera.top=3;key.shadow.camera.bottom=-3;key.shadow.camera.near=.5;key.shadow.camera.far=12;key.shadow.normalBias=.035;key.shadow.bias=-.0002;key.shadow.radius=3;scene.add(key);
+  const fill=new THREE.DirectionalLight(0xb0c8ff,.8);fill.position.set(4,2,-3);scene.add(fill);
   renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
   const environment=canvasTexture(256,128,(ctx,w,h)=>{
     const g=ctx.createLinearGradient(0,0,0,h);g.addColorStop(0,'#f3e8d9');g.addColorStop(.35,'#797f96');g.addColorStop(.55,'#e6ddd5');g.addColorStop(1,'#3e3541');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);ctx.fillStyle='#fff6e6';ctx.fillRect(w*.1,15,35,42);ctx.fillStyle='#afc3ed';ctx.fillRect(w*.65,20,30,25);
@@ -135,9 +139,16 @@ function disposeScene(scene,renderer) {
   if(scene.environment)textures.add(scene.environment);textures.forEach(t=>t.dispose());geometries.forEach(g=>g.dispose());renderer.dispose();renderer.forceContextLoss();
 }
 export function createScene({canvas,mode,reduced=false,onReveal}) {
-  if(!canvas.getContext('webgl2',{alpha:true,antialias:true}))throw new Error('WebGL2 unavailable');
-  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true,powerPreference:'low-power'});
-  renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.75));renderer.setClearColor(0x000000,0);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1;
+  // iOS can drop the transparent WebGL layer above accelerated camera video after rotation.
+  // Render the same 3D scene offscreen, then present its pixels in a regular transparent canvas.
+  const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  const renderCanvas=mode==='gift-box'&&isIOS?document.createElement('canvas'):canvas;
+  const presenter=renderCanvas!==canvas?canvas.getContext('2d',{alpha:true}):null;
+  canvas.dataset.presentation=presenter?'canvas2d':'webgl';
+  const context=renderCanvas.getContext('webgl2',{alpha:true,antialias:true,depth:true,powerPreference:'default'});
+  if(!context)throw new Error('WebGL2 unavailable');
+  const renderer=new THREE.WebGLRenderer({canvas:renderCanvas,context,alpha:true,antialias:true,depth:true,precision:'highp',powerPreference:'default'});
+  renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));renderer.setClearColor(0x000000,0);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1;
   const world=new THREE.Scene();const camera=new THREE.PerspectiveCamera(mode==='star-sky'?52:35,1,.05,150);
   if(mode!=='star-sky'){camera.position.set(0,1.7,5.7);camera.lookAt(0,.25,0);}
   let gift=null,sky=null;
@@ -145,18 +156,29 @@ export function createScene({canvas,mode,reduced=false,onReveal}) {
   else if(mode==='star-sky')sky=buildSky(world);
   let active=false,disposed=false,frame=0,last=0,time=0,openTime=null,skyRevealTime=0,announced=false,placed=false;
   let yaw=0,pitch=0,orientationYaw=0,orientationPitch=0,night=true;
-  let width=0,height=0;
+  let width=0,height=0,pixelRatio=renderer.getPixelRatio();
   const stage=canvas.parentElement;
   const raycaster=new THREE.Raycaster();
-  function resize() {
-    width=stage.clientWidth;height=stage.clientHeight;if(!width || !height)return;
-    renderer.setSize(width,height,false);camera.aspect=width/height;
+  function syncSurfaceSize() {
+    // Match the displayed canvas, rather than its intrinsic dimensions or a stale observer entry.
+    const rect=canvas.getBoundingClientRect(),w=Math.round(rect.width),h=Math.round(rect.height),dpr=Math.min(devicePixelRatio||1,2);
+    if(!w || !h)return false;
+    if(w===width && h===height && dpr===pixelRatio)return false;
+    width=w;height=h;pixelRatio=dpr;
+    renderer.setDrawingBufferSize(width,height,pixelRatio);camera.aspect=width/height;
+    if(presenter){canvas.width=renderCanvas.width;canvas.height=renderCanvas.height;}
     if(gift){camera.fov=height<280?43:35;camera.position.z=Math.max(5.7,4.5/camera.aspect);camera.lookAt(0,.25,0);}
     if(sky){camera.fov=52;const aspectScale=Math.min(1,camera.aspect/.95);sky.heart.scale.setScalar(aspectScale);sky.lines.scale.setScalar(aspectScale);}
     camera.updateProjectionMatrix();
-    if(!active)renderFrame(0);
+    return true;
+  }
+  function resize() {
+    // Resizing clears the drawing buffer; repaint immediately even while the animation runs.
+    if(syncSurfaceSize())renderFrame(0);
   }
   function renderFrame(dt) {
+    // Safari's toolbar/orientation resize can arrive between ResizeObserver notifications.
+    syncSurfaceSize();
     time+=dt;
     if(gift){
       if(placed && openTime===null){gift.group.rotation.y=-.3+(reduced?0:Math.sin(time*.25)*.065);}
@@ -174,12 +196,15 @@ export function createScene({canvas,mode,reduced=false,onReveal}) {
       // Heart stays discoverable after looking around; a replay recenters the view.
     }
     renderer.render(world,camera);
+    if(presenter){presenter.clearRect(0,0,canvas.width,canvas.height);presenter.drawImage(renderCanvas,0,0);}
   }
   function tick(now) {
-    if(!active || disposed)return;const dt=last?Math.min((now-last)/1000,.05):0;last=now;renderFrame(dt);if(!reduced)frame=requestAnimationFrame(tick);
+    // Keep the opening duration independent of GPU frame rate; tab resumes reset last.
+    if(!active || disposed)return;const dt=last?Math.max((now-last)/1000,0):0;last=now;renderFrame(dt);if(!reduced)frame=requestAnimationFrame(tick);
   }
   const observer=new ResizeObserver(resize);observer.observe(stage);resize();
-  const contextLost=event=>{event.preventDefault();active=false;cancelAnimationFrame(frame);stage.dispatchEvent(new CustomEvent('anh-context-lost'));};canvas.addEventListener('webglcontextlost',contextLost);
+  window.addEventListener('resize',resize);window.visualViewport?.addEventListener('resize',resize);
+  const contextLost=event=>{event.preventDefault();active=false;cancelAnimationFrame(frame);stage.dispatchEvent(new CustomEvent('anh-context-lost'));};renderCanvas.addEventListener('webglcontextlost',contextLost);
   return {
     setActive(value){active=value;last=0;cancelAnimationFrame(frame);if(value&&!disposed)frame=requestAnimationFrame(tick);},
     setReduced(value){reduced=value;if(active){cancelAnimationFrame(frame);frame=requestAnimationFrame(tick);}},
@@ -191,7 +216,7 @@ export function createScene({canvas,mode,reduced=false,onReveal}) {
     reveal(immediate=false){if(!sky)return;skyRevealTime=time-(immediate?10:3);yaw=pitch=orientationYaw=orientationPitch=0;if(reduced)renderFrame(0);},
     hitGift(x,y){if(!gift)return false;const r=canvas.getBoundingClientRect();raycaster.setFromCamera(new THREE.Vector2((x-r.left)/r.width*2-1,-(y-r.top)/r.height*2+1),camera);return raycaster.intersectObject(gift.group,true).length>0;},
     reset(){announced=false;openTime=null;placed=false;skyRevealTime=time;yaw=pitch=orientationYaw=orientationPitch=0;if(gift){gift.group.visible=false;gift.lid.rotation.x=0;gift.letter.position.set(0,-.24,.1);gift.letter.rotation.x=-Math.PI/2;gift.glow.intensity=0;gift.sparks.forEach(s=>{s.mesh.visible=false;});}if(active){cancelAnimationFrame(frame);frame=requestAnimationFrame(tick);}},
-    dispose(){disposed=true;active=false;cancelAnimationFrame(frame);observer.disconnect();canvas.removeEventListener('webglcontextlost',contextLost);disposeScene(world,renderer);}
+    dispose(){disposed=true;active=false;cancelAnimationFrame(frame);observer.disconnect();window.removeEventListener('resize',resize);window.visualViewport?.removeEventListener('resize',resize);renderCanvas.removeEventListener('webglcontextlost',contextLost);disposeScene(world,renderer);}
   };
 }
 
