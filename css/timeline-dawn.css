@@ -37,6 +37,10 @@
 .chapter-final-timeline-section .tl-card:focus-visible {outline:2px solid #c59a66;outline-offset:5px;}
 .chapter-final-timeline-section .tl-photo {border-radius:2px;background:#222b3b;aspect-ratio:4/3;flex-shrink:0;}
 .chapter-final-timeline-section .tl-photo img {filter:saturate(.91) contrast(1.015);}
+/* Keep the entire imported photograph or collage inside its paper frame. */
+.chapter-final-timeline-section .tl-card--photo .tl-photo {background:#e6ddcf;}
+.chapter-final-timeline-section .tl-card--photo .tl-photo img {object-fit:contain;}
+.chapter-final-timeline-section .tl-card--photo:is(:hover,:focus-visible) .tl-photo img {transform:none;}
 .chapter-final-timeline-section .tl-info {
   position:static;opacity:1;transform:none;pointer-events:auto;padding:17px 5px 0;border:0;border-radius:0;
   background:none;backdrop-filter:none;-webkit-backdrop-filter:none;

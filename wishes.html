@@ -17,6 +17,7 @@
 
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/wishes.css" />
+    <link rel="stylesheet" href="./css/anh-companion.css" />
 </head>
 
 <body class="wishes-page">
@@ -44,7 +45,7 @@
 
                 <!-- Stamp ảnh nhỏ ở góc -->
                 <figure class="wishes-stamp" aria-hidden="true">
-                    <img src="https://picsum.photos/seed/stamp/240/240" alt="" loading="lazy"
+                    <img src="./assets/images/memories/wishes.jpg" alt="" loading="lazy"
                         onerror="this.style.display='none'" />
                 </figure>
 
@@ -52,24 +53,48 @@
                 <header class="wishes-head">
                     <p class="wishes-eyebrow">Best wishes</p>
                     <h1 class="wishes-title">
-                        Gửi đến bạn —<br />
-                        <em>người đã đi cùng tôi</em>
+                        Gửi đến em —<br />
+                        <em>người đã và sẽ đồng hành cùng anh</em>
                     </h1>
                 </header>
 
                 <!-- Nội dung gõ chữ — 3 đoạn -->
                 <div class="wishes-body" id="wishesBody">
                     <!-- Mỗi đoạn có data-text chứa nội dung thật -->
-                    <p class="wishes-line" data-text="Có những điều khó nói thành lời, nên tôi viết chúng vào đây."></p>
-                    <p class="wishes-line"
-                        data-text="Cảm ơn bạn vì đã đi cùng tôi qua những ngày tháng ấy — qua cả những lúc vui, và cả những lúc chẳng biết phải nói gì.">
+                    <p class="wishes-line" data-text="Một tuổi mới lại đến và mở ra nhiều hướng mới và con đường mới.">
                     </p>
                     <p class="wishes-line"
-                        data-text="Chúc bạn luôn bình yên. Và nhớ rằng — bạn được yêu thương, theo một cách rất riêng.">
+                        data-text="Cảm ơn em vì đã đi cùng anh qua những ngày tháng ấy — qua cả những lúc vui, và cả những lúc chẳng thể nói gì.">
+                    </p>
+                    <p class="wishes-line"
+                        data-text="Có những điều không thể diễn tả bằng lời - nên mong chút nhỏ nhoi này có thể cho em thấy tình cảm của anh">
+                    </p>
+                    <p class="wishes-line"
+                        data-text="Mong cho những kỉ niệm sẽ cùng ta đồng hành từ bây giờ cho đến mãi mãi về sau nhé">
+                    </p>
+                    <p class="wishes-line"
+                        data-text="Chúc cho em không chỉ một tuổi mới mà còn là một hành trình mới - và có anh trên hành trình đó">
+                    </p>
+                    <p class="wishes-line"
+                        data-text="Chúc em luôn được là chính mình. Và nhớ rằng — em luôn có anh cùng đồng hành bên cạnh.">
                     </p>
                 </div>
             </article>
         </main>
+
+        <!-- ANH + AR — independent, freely explorable companion space -->
+        <section id="anh-companion" class="anh-companion" aria-labelledby="anh-companion-title">
+            <div class="anh-shell">
+                <header class="anh-topbar">
+                    <a class="anh-brand" href="#anh-companion" aria-label="Anh + AR"><span aria-hidden="true">✧</span>
+                        ANH <i>+</i> AR</a>
+                    <button class="anh-sound" type="button" data-anh-action="sound" aria-pressed="false">Âm thanh:
+                        Tắt</button>
+                </header>
+                <div class="anh-content"></div>
+                <p class="anh-announcement anh-sr-only" role="status" aria-live="polite"></p>
+            </div>
+        </section>
     </template>
 
     <script>
@@ -86,6 +111,7 @@
     </script>
 
     <script src="./js/wishes.js"></script>
+    <script src="./js/anh-companion.js"></script>
 </body>
 
 </html>

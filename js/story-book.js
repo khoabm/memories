@@ -156,7 +156,7 @@
     pageLabels.length = 0;
     Array.from(bookEl.children).forEach((page) => {
       const number = page.dataset.page;
-      pageLabels.push(number ? (number === '6' ? 'Lời kết' : 'Trang ' + number) : 'Trang lót');
+      pageLabels.push(page.dataset.bookLabel || (number ? 'Trang ' + number : 'Trang lót'));
     });
     wrap.style.setProperty('--book-width', size.width + 'px');
     bookEl.classList.add('is-init');

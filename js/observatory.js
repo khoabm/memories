@@ -113,7 +113,7 @@
     else if (state.phase === 'telescope') { scene.innerHTML = telescopeMarkup(); applyPan(); }
     else if (state.phase === 'drawer') scene.innerHTML = drawerMarkup();
     else if (state.phase === 'projector') { scene.innerHTML = projectorMarkup(); applyFocus(); }
-    else if (state.phase === 'final') scene.innerHTML = `<div class="obs-final">${art('memory')}<div class="obs-final-copy"><span class="obs-kicker">MEMORY RECOVERED</span><h3>Ký ức đã tìm thấy.</h3><p>Nếu ký ức là những tia sáng rời rạc,<br /><em>thì em là nơi chúng hội tụ.</em></p>${button('replay','Chơi lại từ đầu ↻','obs-primary')}</div></div>`;
+    else if (state.phase === 'final') scene.innerHTML = `<div class="obs-final">${art('memory')}<div class="obs-final-copy"><span class="obs-kicker">MEMORY RECOVERED</span><h3>Ký ức đã tìm thấy.</h3><p>Nếu ký ức là những mảnh ghép rời rạc,<br /><em>thì em là người đang ghép chúng lại một cách hoàn chỉnh.</em></p>${button('replay', 'Chơi lại từ đầu ↻', 'obs-primary')}</div></div>`;
     const body = document.createElement('div');
     body.className = 'obs-scene-body';
     while (scene.firstChild) body.appendChild(scene.firstChild);
