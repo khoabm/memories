@@ -10,6 +10,8 @@
 
   let audioCtx = null;
   let enabled = true;
+  let paperNoiseBuffer = null;
+  let pageTurnSource = null;
 
   /* =========================================================
      Khởi tạo AudioContext (lazy)
@@ -103,6 +105,49 @@
     playTone(783.99, 0.30, 0.26, "triangle", 0.20);
   }
 
+  /* Tiếng giấy sột soạt: noise qua bộ lọc, tăng/giảm âm lượng mềm.
+     Bìa da có tiếng trầm, ngắn hơn giấy; không cần tải file âm thanh. */
+  function playPageTurn({ hard = false } = {}) {
+    if (!enabled) return;
+    const ctx = ensureCtx();
+    if (!ctx || ctx.state === "closed") return;
+    unlock();
+
+    if (!paperNoiseBuffer) {
+      paperNoiseBuffer = ctx.createBuffer(1, Math.ceil(ctx.sampleRate * 0.6), ctx.sampleRate);
+      const samples = paperNoiseBuffer.getChannelData(0);
+      for (let i = 0; i < samples.length; i++) samples[i] = Math.random() * 2 - 1;
+    }
+    // Không chồng nhiều tiếng khi người dùng lật liên tiếp rất nhanh.
+    if (pageTurnSource) pageTurnSource.stop();
+    const source = ctx.createBufferSource();
+    const filter = ctx.createBiquadFilter();
+    const gain = ctx.createGain();
+    const start = ctx.currentTime;
+    const duration = hard ? 0.34 : 0.48;
+    source.buffer = paperNoiseBuffer;
+    filter.type = "bandpass";
+    filter.Q.value = hard ? 0.55 : 0.7;
+    filter.frequency.setValueAtTime(hard ? 550 : 1700, start);
+    filter.frequency.exponentialRampToValueAtTime(hard ? 240 : 750, start + duration);
+    gain.gain.setValueAtTime(0, start);
+    gain.gain.linearRampToValueAtTime(hard ? 0.11 : 0.14, start + 0.045);
+    gain.gain.linearRampToValueAtTime(hard ? 0.035 : 0.055, start + duration * 0.55);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+    source.connect(filter);
+    filter.connect(gain);
+    gain.connect(ctx.destination);
+    pageTurnSource = source;
+    source.onended = () => {
+      source.disconnect();
+      filter.disconnect();
+      gain.disconnect();
+      if (pageTurnSource === source) pageTurnSource = null;
+    };
+    source.start(start);
+    source.stop(start + duration);
+  }
+
   /* =========================================================
      Bật / tắt âm thanh (lưu vào localStorage)
      ========================================================= */
@@ -112,6 +157,10 @@
 
   function setEnabled(value) {
     enabled = !!value;
+    if (!enabled && pageTurnSource) {
+      pageTurnSource.stop();
+      pageTurnSource = null;
+    }
     try {
       localStorage.setItem(STORAGE_KEY, enabled ? "1" : "0");
     } catch (err) { /* ignore */ }
@@ -133,5 +182,6 @@
     playCorrect,
     playWrong,
     playComplete,
+    playPageTurn,
   };
 })();

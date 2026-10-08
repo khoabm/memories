@@ -200,7 +200,7 @@ body {
   color: var(--c-ink);
   background: var(--c-bg-1);
   min-height: 100dvh;
-  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -615,10 +615,46 @@ body.unlocked .countdown-note strong {
    ========================================================= */
 .timeline-locked {
   position: relative;
-  padding: 14vh 24px;
+  padding: 12vh 24px;
   display: grid;
   place-items: center;
   min-height: 60vh;
+}
+
+/* Ổ khoá trên nền sáng */
+.chapter-final-timeline-section .locked-inner {
+  background: linear-gradient(
+    165deg,
+    rgba(255, 250, 235, 0.6) 0%,
+    rgba(245, 235, 215, 0.5) 40%,
+    rgba(235, 220, 195, 0.55) 100%
+  );
+  border: 1px solid rgba(140, 100, 60, 0.3);
+  box-shadow:
+    0 30px 60px -30px rgba(80, 50, 20, 0.4),
+    0 1px 0 rgba(255, 255, 255, 0.6) inset;
+}
+
+.chapter-final-timeline-section .locked-icon {
+  background: linear-gradient(160deg, rgba(231, 183, 160, 0.25), rgba(185, 167, 255, 0.2));
+  border: 1px solid rgba(140, 100, 60, 0.3);
+  color: #8a5230;
+}
+
+.chapter-final-timeline-section .locked-eyebrow {
+  color: rgba(80, 50, 40, 0.7);
+}
+
+.chapter-final-timeline-section .locked-title {
+  color: #3d2f1e;
+}
+
+.chapter-final-timeline-section .locked-date {
+  /* Giữ gradient đào → tím */
+}
+
+.chapter-final-timeline-section .locked-note {
+  color: rgba(80, 50, 40, 0.6);
 }
 
 .locked-inner {
@@ -731,6 +767,19 @@ body.unlocked .countdown-note strong {
 .timeline-section {
   position: relative;
   padding: 14vh 0 12vh;
+}
+
+/* Timeline trên nền sáng — tiêu đề nâu đậm */
+.chapter-final-timeline-section .timeline-title {
+  color: #3d2f1e;
+}
+
+.chapter-final-timeline-section .timeline-sub {
+  color: rgba(80, 50, 40, 0.7);
+}
+
+.chapter-final-timeline-section .timeline-eyebrow {
+  color: #8a5230;
 }
 
 /* Timeline vừa được JS render → fade + trượt lên nhẹ */
@@ -6577,4 +6626,1741 @@ body.modal-open {
   font-weight: 400;
   white-space: nowrap;
   opacity: 0.8;
+}
+/* =========================================================
+   CHAPTER INTRO — Transition giữa Tuần 3 và Chapter cuối
+   ========================================================= */
+.chapter-intro {
+  position: relative;
+  min-height: 90vh;
+  display: grid;
+  place-items: center;
+  padding: 14vh 24px;
+
+  /* Chạng vạng mở dần: xanh đêm -> tím khói, nối với phần ngày. */
+  background: linear-gradient(
+    180deg,
+    #111a2b 0%,
+    #20283d 20%,
+    #34374f 45%,
+    #454159 65%,
+    #514a62 80%,
+    #5a5267 100%
+  );
+
+  overflow: hidden;
+}
+
+/* Sao mờ dần ở trên */
+.chapter-intro::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1.5px 1.5px at 15% 15%, rgba(255, 255, 255, 0.6), transparent 60%),
+    radial-gradient(1px 1px at 45% 8%, rgba(255, 255, 255, 0.5), transparent 60%),
+    radial-gradient(1.5px 1.5px at 78% 18%, rgba(255, 255, 255, 0.55), transparent 60%),
+    radial-gradient(1px 1px at 25% 30%, rgba(255, 255, 255, 0.4), transparent 60%);
+  opacity: 0.7;
+  mask-image: linear-gradient(180deg, black 0%, transparent 60%);
+  -webkit-mask-image: linear-gradient(180deg, black 0%, transparent 60%);
+}
+
+.chapter-intro-inner {
+  max-width: 600px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.chapter-intro-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 0 0 32px;
+}
+
+.chapter-intro-ornament .ornament-line {
+  flex: 1;
+  max-width: 100px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(231, 183, 160, 0.5), transparent);
+}
+
+.chapter-intro-ornament .ornament-symbol {
+  font-size: 1rem;
+  color: var(--c-accent);
+  opacity: 0.7;
+}
+
+.chapter-intro-eyebrow {
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  letter-spacing: 0.06em;
+  color: #eed4be;
+  margin: 0 0 16px;
+}
+
+.chapter-intro-title {
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-weight: 500;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: #fff3e4;
+  margin: 0 0 28px;
+}
+
+.chapter-intro-title em {
+  color: #f4d4af;
+  font-style: italic;
+}
+
+.chapter-intro-text {
+  font-size: clamp(0.98rem, 1.6vw, 1.1rem);
+  line-height: 1.8;
+  color: #eee4e7;
+  font-weight: 400;
+  margin: 0 0 48px;
+}
+
+.chapter-intro-scroll {
+  display: inline-block;
+  color: var(--c-accent);
+  opacity: 0.6;
+  animation: scrollArrow 2s ease-in-out infinite;
+}
+
+@keyframes scrollArrow {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(8px);
+    opacity: 0.8;
+  }
+}
+
+/* =========================================================
+   CHAPTER FINAL — Chapter cuối (nền sáng)
+   ========================================================= */
+.chapter-final {
+  position: relative;
+  padding: 0;
+
+  /* ✅ Background sáng dần từ trên xuống — bao toàn bộ */
+  background: linear-gradient(
+    180deg,
+    #5a4260 0%,
+    #6a4a58 4%,
+    #7a5250 8%,
+    #8a5a48 14%,
+    #a86a48 24%,
+    #c88a58 38%,
+    #e0a878 55%,
+    #f0c898 72%,
+    #f5dfc8 86%,
+    #faf3e8 100%
+  );
+
+  overflow: clip;
+}
+
+/* Các section con — padding + căn giữa */
+.chapter-final-section {
+  position: relative;
+  padding: 10vh 24px;
+}
+
+.chapter-final-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ✅ Timeline section — padding đặc biệt, chứa ổ khoá + timeline */
+.chapter-final-timeline-section {
+  padding: 8vh 0; /* Không padding ngang — timeline tự xử lý */
+}
+
+/* Ánh sáng mặt trời nhẹ từ trên */
+.chapter-final::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 80% 50% at 50% 0%,
+    rgba(255, 240, 200, 0.4) 0%,
+    rgba(255, 220, 160, 0.15) 40%,
+    transparent 70%
+  );
+}
+
+.chapter-final-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Header đặc biệt */
+.chapter-final-header-section {
+  background: linear-gradient(180deg, #5a5267, #65596d);
+}
+
+.chapter-final-head {
+  text-align: center;
+  margin: 0 0 clamp(48px, 8vh, 80px);
+}
+
+.chapter-final-eyebrow {
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #f4d6b5;
+  margin: 0 0 24px;
+}
+
+/* Ngày tháng — chữ lớn */
+.chapter-final-date {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2.4rem, 8vw, 5rem);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  margin: 0 0 28px;
+  color: #fff1dd;
+
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: clamp(8px, 2vw, 20px);
+}
+
+.chapter-final-date .date-num {
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(180deg, #fff4e3 0%, #f6d9b5 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
+}
+
+.chapter-final-date .date-sep {
+  font-size: 0.7em;
+  color: #f4d6b5;
+  opacity: 1;
+}
+
+.chapter-final-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 0 0 22px;
+}
+
+.chapter-final-ornament .ornament-line {
+  flex: 1;
+  max-width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #f4d6b580, transparent);
+}
+
+.chapter-final-ornament .ornament-symbol {
+  font-size: 1rem;
+  color: #f4d6b5;
+  opacity: 1;
+}
+
+.chapter-final-sub {
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  letter-spacing: 0.04em;
+  color: #f4e7e5;
+  margin: 0;
+}
+
+/* Content — sẽ render bằng JS */
+.chapter-final-content {
+  margin: 0 auto;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 640px) {
+  .chapter-intro {
+    min-height: 80vh;
+    padding: 10vh 20px;
+  }
+
+  .chapter-final-date {
+    gap: 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chapter-intro-scroll {
+    animation: none;
+  }
+}
+/* =========================================================
+   STORY BOOK — Sách lật trang, bìa da và giấy ố vàng (Turn.js 4)
+   ========================================================= */
+.chapter-final-book-section {
+  padding-inline: clamp(12px, 3vw, 24px);
+  background: linear-gradient(180deg, #65596d 0%, #746477 48%, #887680 100%);
+}
+.story-book-head {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.story-book-eyebrow {
+  font:
+    italic 0.88rem 'Playfair Display',
+    'Times New Roman',
+    serif;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #f4d6b5;
+  margin: 0 0 14px;
+}
+.story-book-title {
+  font:
+    500 clamp(1.8rem, 4vw, 2.6rem)/1.3 'Playfair Display',
+    'Times New Roman',
+    serif;
+  color: #fff3e4;
+  margin: 0 0 14px;
+}
+.story-book-hint {
+  font:
+    italic 0.9rem/1.7 'Playfair Display',
+    'Times New Roman',
+    serif;
+  color: #f4e7e5;
+  margin: 0;
+}
+.story-book-wrap {
+  width: 100%;
+  position: relative;
+  padding-block: 12px 28px;
+}
+/* Turn.js tự dịch margin của sách để căn giữa bìa đơn. */
+.story-book-stage {
+  width: var(--book-width, 100%);
+  margin: 0 auto;
+}
+.story-book {
+  position: relative;
+  text-align: left;
+}
+.story-book.is-init {
+  transition: margin-left 450ms ease;
+}
+.story-book:focus-visible {
+  outline: 2px solid #8a5230;
+  outline-offset: 10px;
+}
+.story-book.is-init .page {
+  overflow: hidden;
+}
+.story-book.is-init.shadow,
+.story-book.is-init .shadow {
+  box-shadow:
+    0 18px 32px -12px #38200d66,
+    0 3px 6px #38200d33;
+}
+/* Nếu thư viện không tải được, nội dung vẫn đọc được như album. */
+.story-book:not(.is-init) {
+  max-width: 450px;
+  margin: 0 auto;
+}
+.story-book:not(.is-init) > div {
+  min-height: 560px;
+  margin-bottom: 24px;
+}
+.story-book:not(.is-init) .book-page-inner,
+.story-book:not(.is-init) .book-page-cover-back {
+  display: none;
+}
+
+/* ---------- DA NÂU: hạt da, vết mòn, đường chỉ và dập nhũ ---------- */
+.story-book .book-page-cover {
+  position: relative;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.38 .65' numOctaves='4' stitchTiles='stitch'/%3E%3CfeDiffuseLighting surfaceScale='2' diffuseConstant='.8' lighting-color='%23d9b88a'%3E%3CfeDistantLight azimuth='45' elevation='55'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='.38'/%3E%3C/svg%3E"),
+    linear-gradient(90deg, #1f120bc9, transparent 7%, #e7b77918 10%, transparent 13%),
+    radial-gradient(ellipse at 75% 20%, #835231, #58351f 55%, #301a10);
+  background-blend-mode: soft-light, normal, normal;
+  color: #e5c18a;
+  border-radius: 3px;
+  box-shadow:
+    inset 0 0 0 2px #2e190f,
+    inset 0 0 0 5px #b78b5133,
+    inset 0 0 35px 8px #170c0788;
+}
+.story-book .book-page-cover::before {
+  content: '';
+  position: absolute;
+  inset: 15px;
+  border: 1px dashed #d4ac7266;
+  border-radius: 2px;
+  pointer-events: none;
+}
+.story-book .book-page-cover::after {
+  content: '';
+  position: absolute;
+  inset: 28px;
+  border: 1px solid #c2995c66;
+  box-shadow:
+    0 1px 0 #150b0777,
+    inset 0 1px 0 #150b0777;
+  pointer-events: none;
+}
+.story-book .cover-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: inherit;
+  padding: 50px 38px;
+  text-align: center;
+  box-sizing: border-box;
+}
+.story-book .cover-eyebrow {
+  font: italic 0.95rem var(--font-serif);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin: 0 0 22px;
+  color: #d4ad74;
+}
+.story-book .cover-title {
+  font: 500 clamp(1.8rem, 3.5vw, 2.7rem)/1.3 var(--font-serif);
+  margin: 0 0 28px;
+  color: #ebc990;
+  letter-spacing: 0.02em;
+  text-shadow:
+    0 -1px 1px #160b07,
+    0 1px 0 #f4d9a955,
+    0 4px 10px #14090688;
+}
+.story-book .cover-ornament {
+  font-size: 1.5rem;
+  color: #cda16a;
+  margin-bottom: 30px;
+}
+.story-book .cover-date {
+  font: italic 1rem var(--font-serif);
+  letter-spacing: 0.14em;
+  color: #cfaa77;
+  margin: 0;
+}
+.story-book .book-page-cover-back {
+  background-position: right center;
+}
+
+/* ---------- GIẤY CŨ: sợi giấy, vệt ố và mép sẫm ---------- */
+.story-book .book-page-inner,
+.story-book .book-page-content {
+  position: relative;
+  background:
+    radial-gradient(ellipse at 3% 8%, #99632b30, transparent 35%),
+    radial-gradient(ellipse at 96% 91%, #96552030, transparent 40%),
+    radial-gradient(ellipse at 74% 34%, #b47f3620, transparent 28%),
+    linear-gradient(110deg, #e6cfa3, #f4e5c4 35%, #eedbb5 75%, #dec394);
+  color: #493724;
+  box-shadow:
+    inset 0 0 0 1px #91663155,
+    inset 0 0 26px #8c5c2933;
+}
+.story-book .book-page-inner::before,
+.story-book .book-page-content::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.13;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)' opacity='.7'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+.story-book .book-page-inner::after,
+.story-book .book-page-content::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, #52321930, transparent 8%, transparent 94%, #79502a18);
+}
+.story-book .even.book-page-content::after,
+.story-book .even.book-page-inner::after {
+  background: linear-gradient(90deg, #79502a18, transparent 6%, transparent 92%, #52321938);
+}
+.story-book .page-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: inherit;
+  padding: 30px 34px 22px;
+  box-sizing: border-box;
+}
+.story-book .page-eyebrow {
+  font: italic 0.75rem var(--font-serif);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  text-align: center;
+  color: #8b633e;
+  margin: 0 0 10px;
+}
+.story-book .page-title {
+  font: 500 clamp(1.25rem, 2.4vw, 1.7rem)/1.3 var(--font-serif);
+  text-align: center;
+  color: #4e3622;
+  margin: 0 0 22px;
+}
+.story-book .page-image {
+  flex: 0 1 auto;
+  min-height: 110px;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  padding: 7px 7px 16px;
+  box-sizing: border-box;
+  background: #faf0d5;
+  transform: rotate(-1deg);
+  box-shadow: 1px 4px 10px #55371d33;
+  margin: 0 0 24px;
+}
+.story-book .even .page-image {
+  transform: rotate(1deg);
+}
+.story-book .page-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(0.8) sepia(0.18);
+  user-select: none;
+}
+.story-book .page-text {
+  font: italic clamp(0.94rem, 1.4vw, 1.05rem)/1.75 var(--font-serif);
+  margin: 0;
+  text-align: left;
+  overflow-wrap: break-word;
+}
+.story-book .page-number {
+  font: italic 0.8rem var(--font-serif);
+  text-align: center;
+  color: #927047;
+  margin-top: auto;
+  padding-top: 16px;
+}
+.story-book .page-end-inner {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.story-book .page-end-ornament {
+  font-size: 1.2rem;
+  letter-spacing: 0.4em;
+  color: #956936;
+  margin-bottom: 26px;
+}
+.story-book .page-end-text {
+  font: italic 1.2rem/1.8 var(--font-serif);
+  margin: 0;
+  color: #594027;
+}
+
+/* Opening and closing matter retain the existing chapter numbering. */
+.story-book .page-preface-inner .page-title {
+  margin-bottom: 12px;
+}
+.story-book .page-preface-ornament {
+  margin: 8px 0 26px;
+  text-align: center;
+  color: #956936;
+  font-size: 1.1rem;
+}
+.story-book .page-salutation,
+.story-book .page-signature {
+  font: italic 0.95rem/1.7 var(--font-serif);
+  color: #65472e;
+  margin: 0 0 14px;
+}
+.story-book .page-preface-inner .page-text + .page-text {
+  margin-top: 16px;
+}
+.story-book .page-signature {
+  margin: 24px 0 0;
+  text-align: right;
+}
+.story-book .page-epilogue-inner .page-eyebrow {
+  margin-bottom: 6px;
+}
+.story-book .page-epilogue-inner .page-title {
+  margin-bottom: 12px;
+}
+.story-book .page-epilogue-inner .page-text {
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+.story-book .page-epilogue-inner .page-end-text {
+  margin: 12px 0 0;
+  text-align: center;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+.story-book .book-toc {
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid #95693644;
+  color: #594027;
+}
+.story-book .book-toc h4 {
+  font: 500 1rem/1.3 var(--font-serif);
+  margin: 0 0 10px;
+  text-align: center;
+}
+.story-book .book-toc ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+.story-book .book-toc li {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  font: 0.79rem/1.45 var(--font-serif);
+}
+.story-book .book-toc li::after {
+  content: '';
+  order: 1;
+  flex: 1;
+  min-width: 8px;
+  border-bottom: 1px dotted #95693677;
+}
+.story-book .book-toc-number {
+  order: 2;
+  color: #805c38;
+  font-variant-numeric: tabular-nums;
+}
+.story-book .page-epilogue-inner .page-number {
+  padding-top: 12px;
+}
+
+/* Điều khiển cho chuột, cảm ứng và bàn phím. */
+.story-book-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin: 18px auto 0;
+}
+.story-book-controls[hidden],
+.story-book-error[hidden] {
+  display: none;
+}
+.story-book-controls button {
+  width: 44px;
+  height: 44px;
+  border: 1px solid #986e4266;
+  border-radius: 50%;
+  background: #f1dfbd;
+  color: #654025;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: background 150ms;
+}
+.story-book-controls button:hover:not(:disabled) {
+  background: #e2c99c;
+}
+.story-book-controls button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.story-book-controls button:focus-visible {
+  outline: 2px solid #fff1dd;
+  outline-offset: 4px;
+}
+.story-book-status {
+  min-width: 145px;
+  margin: 0;
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: #413b4c;
+  text-align: center;
+  font:
+    italic 0.9rem/1.5 'Playfair Display',
+    'Times New Roman',
+    serif;
+  color: #fff1dd;
+}
+.story-book-error {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #fff1dd;
+  background: #413b4c;
+  padding: 12px;
+  border-radius: 4px;
+}
+@media (max-width: 767px) {
+  .story-book .page-inner {
+    padding: 24px 22px 20px;
+  }
+  .story-book .page-title {
+    margin-bottom: 18px;
+  }
+  .story-book .page-image {
+    max-height: 235px;
+    margin-bottom: 20px;
+  }
+  .story-book .page-text {
+    font-size: 0.96rem;
+  }
+  .story-book-controls {
+    gap: 12px;
+  }
+  .story-book-status {
+    min-width: 130px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .story-book.is-init,
+  .story-book-controls button {
+    transition: none;
+  }
+}
+
+/* ---------- Độ dày sách và thao tác lật ---------- */
+.story-book.is-init,
+.story-book.is-init * {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+.story-book.is-init img {
+  -webkit-user-drag: none;
+}
+.story-book-stage {
+  position: relative;
+  isolation: isolate;
+}
+.story-book-stage::before {
+  content: '';
+  position: absolute;
+  z-index: -2;
+  top: -4px;
+  left: 50%;
+  width: var(--visible-book-width, 100%);
+  height: calc(var(--book-height, 560px) + 12px);
+  transform: translateX(-50%);
+  border-radius: 5px 7px 9px 5px;
+  background: linear-gradient(90deg, #27160e, #734829 8%, #4a2c19 50%, #734829 92%, #29170d);
+  box-shadow:
+    0 24px 36px -14px #29160980,
+    0 5px 8px #29160955,
+    inset 0 0 0 2px #ad80523d;
+}
+.story-book-stage::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 3px;
+  width: calc(var(--visible-book-width, 100%) - 5px);
+  height: calc(var(--book-height, 560px) + 4px);
+  transform: translateX(-50%) translate(3px, 3px);
+  border-radius: 1px 3px 5px 1px;
+  background: repeating-linear-gradient(0deg, #9b7b4d 0px, #e4cfa7 1px, #f0dfbe 2px, #c0a075 3px);
+  border-right: 3px solid #c7aa7a;
+  box-shadow: 2px 2px 2px #36200d44;
+}
+.story-book.is-init {
+  cursor: grab;
+}
+.story-book-wrap.is-dragging .story-book {
+  cursor: grabbing;
+}
+/* Mặt sau giấy dùng khi Turn.js uốn trang ở chế độ một trang. */
+.story-book .p-temporal {
+  background:
+    radial-gradient(ellipse at 80% 85%, #a0712f20, transparent 45%),
+    repeating-linear-gradient(12deg, #ad8b5608 0, transparent 1px, transparent 3px),
+    linear-gradient(100deg, #dfc79d, #f4e6c8 45%, #e5cfa8);
+}
+.story-book .book-page-cover {
+  background-color: #4b2c1a;
+  box-shadow:
+    inset 0 0 0 2px #27150b,
+    inset 0 0 0 5px #b78b5133,
+    inset 14px 0 16px -10px #0e0706d9,
+    inset -3px 0 8px #efc58920,
+    inset 0 0 45px 8px #170c0766;
+}
+.story-book .book-page-cover::before {
+  border-color: #d5ae7666;
+  box-shadow:
+    inset 0 0 14px #d8ae6120,
+    0 0 8px #10090550;
+}
+.story-book .book-page-cover::after {
+  border-width: 2px;
+  border-color: #c2995c55;
+}
+.story-book .book-page-inner,
+.story-book .book-page-content {
+  background:
+    radial-gradient(ellipse 60% 10% at 48% 0%, #9d6c2730, transparent),
+    radial-gradient(ellipse 30% 14% at 98% 82%, #b7854630, transparent),
+    radial-gradient(ellipse at 4% 94%, #a0753b24, transparent 40%),
+    repeating-linear-gradient(8deg, #97764005 0, transparent 1px, transparent 4px),
+    linear-gradient(100deg, #e2c99e, #f2e3c3 25%, #f5e8cd 60%, #e4cda5);
+  box-shadow:
+    inset 0 0 0 1px #91663144,
+    inset 0 0 18px #8c5c292e;
+}
+.story-book .book-page-inner::after,
+.story-book .book-page-content::after {
+  background: linear-gradient(
+    90deg,
+    #4b2c104a,
+    #80532116 3%,
+    #fff5d62e 9%,
+    transparent 18%,
+    transparent 96%,
+    #78542b20
+  );
+}
+.story-book .even.book-page-content::after,
+.story-book .even.book-page-inner::after {
+  background: linear-gradient(
+    90deg,
+    #78542b20,
+    transparent 4%,
+    transparent 82%,
+    #fff5d62e 91%,
+    #80532116 97%,
+    #4b2c104a
+  );
+}
+.book-touch-edge {
+  display: none;
+}
+@media (pointer: coarse) {
+  .book-touch-edge {
+    display: block;
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    height: var(--book-height, 560px);
+    width: calc(var(--visible-book-width, 100%) * 0.22);
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .book-touch-edge-left {
+    left: calc((100% - var(--visible-book-width, 100%)) / 2);
+  }
+  .book-touch-edge-right {
+    right: calc((100% - var(--visible-book-width, 100%)) / 2);
+  }
+  .story-book {
+    touch-action: pan-y;
+  }
+}
+
+/* =========================================================
+   QUỲNH CONSTELLATION — Một bầu trời, một tên, một dòng cuộn
+   ========================================================= */
+.constellation-section {
+  position: relative;
+  padding: 0;
+  margin-inline: calc(50% - 50vw);
+  background: #050608;
+  color: #e9e6df;
+  --sky-opacity: 0.75;
+  --line-opacity: 0.64;
+  --word-scale: 0.98;
+  --cue-opacity: 1;
+}
+.constellation-section.is-ready {
+  height: 300svh;
+}
+.constellation-sticky {
+  position: relative;
+  min-height: 100svh;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 70% 20%, #18263888, transparent 58%),
+    radial-gradient(ellipse at 20% 75%, #1a203450, transparent 55%),
+    linear-gradient(#050a13, #0a1321 62%, #101820 85%, #060a10);
+}
+.is-ready .constellation-sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 0;
+}
+.constellation-sticky::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  box-shadow: inset 0 0 100px 20px #05060855;
+}
+.constellation-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.constellation-sky {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  fill: #cbd5e8;
+  opacity: var(--sky-opacity);
+}
+.constellation-deep-sky {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  pointer-events: none;
+  opacity: 0.85;
+}
+.constellation-sticky::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 110%, #a2a3b80d, transparent 50%),
+    linear-gradient(transparent 70%, #05080f77);
+}
+.constellation-copy {
+  text-shadow: 0 2px 18px #030610;
+}
+.constellation-art {
+  position: absolute;
+  top: 43%;
+  left: 50%;
+  width: min(84vw, 1200px);
+  transform: translate(-50%, -50%) scale(var(--word-scale));
+  pointer-events: none;
+}
+.constellation-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.constellation-lines {
+  stroke: #d7ddec;
+  stroke-width: var(--constellation-stroke, 1.1);
+  opacity: var(--line-opacity);
+}
+.constellation-lines line,
+.constellation-main-stars circle,
+.constellation-halos circle {
+  opacity: 0;
+}
+.constellation-main-stars {
+  fill: #f5f1e7;
+}
+.constellation-halos {
+  fill: #d2d8f1;
+}
+.constellation-copy {
+  position: relative;
+  margin: 0 auto;
+  max-width: 700px;
+  width: 86%;
+  padding: 70px 0;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: clamp(1.15rem, 2.3vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1.65;
+  letter-spacing: 0.005em;
+}
+.constellation-copy p {
+  margin: 24px 0;
+}
+.is-ready .constellation-copy {
+  position: absolute;
+  left: 50%;
+  bottom: 10svh;
+  min-height: 4.5em;
+  padding: 0;
+  transform: translateX(-50%);
+}
+.is-ready .constellation-copy p {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  opacity: 0;
+  will-change: opacity;
+}
+.constellation-name {
+  font-size: 1.35em;
+  letter-spacing: 0.04em;
+}
+.constellation-ending em {
+  color: #f3ede1;
+  font-style: italic;
+}
+.constellation-scroll-cue {
+  position: absolute;
+  bottom: 3svh;
+  left: 50%;
+  width: 88%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: #a4acba;
+  opacity: var(--cue-opacity);
+}
+.constellation-scroll-cue span {
+  display: block;
+  height: 28px;
+  width: 1px;
+  margin: 0 auto 12px;
+  background: linear-gradient(transparent, #a4acba77);
+}
+.constellation-twinkle,
+.constellation-star-core,
+.constellation-star-aura,
+.constellation-star-flare {
+  animation: constellation-twinkle var(--twinkle-duration, 5s) ease-in-out var(--twinkle-delay, 0s)
+    infinite;
+  animation-play-state: paused;
+}
+.constellation-star-core {
+  animation-name: constellation-core-scintillation;
+}
+.constellation-star-flare {animation-name:constellation-flare-scintillation;}
+.is-in-view .constellation-twinkle,
+.is-in-view .constellation-star-core,
+.is-in-view .constellation-star-aura,
+.is-in-view .constellation-star-flare {
+  animation-play-state: running;
+}
+@keyframes constellation-flare-scintillation {
+  0%,100% {fill-opacity:.15;}
+  24% {fill-opacity:.4;}
+  49% {fill-opacity:.95;}
+  64% {fill-opacity:.25;}
+  82% {fill-opacity:.55;}
+}
+.constellation-main-stars.is-revealing {
+  animation: constellation-bloom 2.4s ease-in-out 1;
+}
+@keyframes constellation-twinkle {
+  0%,
+  100% {
+    fill-opacity: 0.42;
+  }
+  19% {
+    fill-opacity: 0.86;
+  }
+  34% {
+    fill-opacity: 0.52;
+  }
+  49% {
+    fill-opacity: 1;
+  }
+  63% {
+    fill-opacity: 0.67;
+  }
+  81% {
+    fill-opacity: 0.35;
+  }
+}
+@keyframes constellation-core-scintillation {
+  0%,
+  100% {
+    fill-opacity: 0.78;
+  }
+  24% {
+    fill-opacity: 1;
+  }
+  41% {
+    fill-opacity: 0.72;
+  }
+  58% {
+    fill-opacity: 0.96;
+  }
+  77% {
+    fill-opacity: 0.66;
+  }
+}
+@keyframes constellation-bloom {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 1px #dce4f333);
+  }
+  45% {
+    filter: drop-shadow(0 0 3px #dce4f366);
+  }
+}
+@media (max-width: 768px) {
+  .constellation-section.is-ready {
+    height: 320svh;
+  }
+  .constellation-art {
+    top: 42%;
+    width: 96vw;
+  }
+  .constellation-copy {
+    width: 88%;
+    font-size: clamp(1.125rem, 4.8vw, 1.375rem);
+    line-height: 1.65;
+  }
+  .is-ready .constellation-copy {
+    bottom: 10svh;
+  }
+  .constellation-scroll-cue {
+    font-size: 0.6rem;
+    letter-spacing: 0.04em;
+  }
+  .constellation-sticky::after {
+    box-shadow: inset 0 0 50px #05060855;
+  }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .constellation-art {
+    top: 40%;
+    width: min(72vw, 700px);
+  }
+  .is-ready .constellation-copy {
+    bottom: 5svh;
+    font-size: 1rem;
+  }
+  .constellation-scroll-cue {
+    display: none;
+  }
+}
+/* Không ghim và không buộc đọc theo cuộn khi người dùng giảm chuyển động. */
+.constellation-section.is-reduced {
+  height: auto;
+}
+.is-reduced .constellation-sticky {
+  position: relative;
+  height: auto;
+  min-height: 100svh;
+  padding: 70px 0 40px;
+}
+.is-reduced .constellation-art {
+  position: relative;
+  top: auto;
+  left: auto;
+  transform: none;
+  margin: 20px auto 0;
+}
+.is-reduced .constellation-copy {
+  position: relative;
+  left: auto;
+  bottom: auto;
+  transform: none;
+  margin: 0 auto;
+  padding: 0;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+}
+.is-reduced .constellation-copy p {
+  position: relative;
+  opacity: 1;
+  transform: none;
+  margin: 22px 0;
+}
+.is-reduced .constellation-ending {
+  margin-top: 40px;
+}
+.is-reduced .constellation-scroll-cue {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .constellation-twinkle,
+  .constellation-star-core,
+  .constellation-star-aura,
+  .constellation-star-flare,
+  .constellation-main-stars.is-revealing {
+    animation: none;
+  }
+}
+
+/* =========================================================
+   THẤU KÍNH KÝ ỨC — Phòng tối và ba ký ức
+   ========================================================= */
+.memory-lens-section {
+  position: relative;
+  margin-inline: calc(50% - 50vw);
+  padding: 110px 0 90px;
+  background: radial-gradient(ellipse at 65% 50%, #28303a26, transparent 65%), #07090d;
+  color: #f5f4ef;
+}
+.memory-lens-inner {
+  width: calc(100% - 64px);
+  max-width: 1120px;
+  margin: 0 auto;
+}
+.memory-lens-intro {
+  max-width: 660px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+.memory-lens-eyebrow {
+  font: 400 0.7rem/1.6 var(--font-sans);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #a5aaa8;
+  margin: 0 0 20px;
+}
+.memory-lens-intro h2 {
+  font: 400 clamp(2rem, 4.5vw, 3.25rem)/1.2 var(--font-serif);
+  margin: 0 0 24px;
+  color: #ede9df;
+}
+.memory-lens-intro > p:last-child {
+  font: 400 1.02rem/1.9 var(--font-serif);
+  color: #c7c7c2;
+  margin: 0;
+}
+.memory-lens-game {
+  --memory-blur: 18px;
+  --memory-opacity: 0.6;
+  --memory-scale: 1.02;
+  --lens-light: 0.1;
+}
+.memory-lens-level-head {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.memory-lens-fragments {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 22px;
+}
+.memory-lens-fragments li {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #b5c1d023;
+  border-radius: 50%;
+  font: 400 0.65rem var(--font-sans);
+  letter-spacing: 0.04em;
+  color: #7f8995;
+  transition:
+    border-color 400ms,
+    color 400ms,
+    background 400ms;
+}
+.memory-lens-fragments li[aria-current] {
+  border-color: #cfd5dc77;
+  color: #e4e6e9;
+}
+.memory-lens-fragments li.is-collected {
+  color: #e9dbbd;
+  border-color: #d0b98b77;
+  background: #d0b98b12;
+}
+.memory-lens-level-title {
+  font: 400 1.35rem/1.5 var(--font-serif);
+  margin: 0 0 8px;
+  color: #e3dfd5;
+}
+.memory-lens-opening {
+  font: italic 0.95rem/1.7 var(--font-serif);
+  color: #b4b7ba;
+  margin: 0 auto;
+  max-width: 620px;
+  min-height: 1.7em;
+}
+.memory-lens-scene {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 18px;
+}
+.memory-lens-bench {
+  position: relative;
+  width: 100%;
+  height: 300px;
+}
+.memory-lens-optics {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.memory-optical-axis {
+  stroke: #c5ced3;
+  stroke-opacity: 0.17;
+  stroke-width: 1;
+  stroke-dasharray: 3 9;
+}
+.memory-lens-rays {
+  stroke-width: 1.35;
+  opacity: 0.82;
+}
+.memory-lens-rays path {
+  vector-effect: non-scaling-stroke;
+}
+.memory-lens-dust {
+  fill: #d8d6cc;
+}
+.memory-source {
+  fill: #f8e8bf;
+}
+.memory-source circle:first-child {
+  opacity: 0.035;
+}
+.memory-source circle:nth-child(2) {
+  opacity: 0.12;
+}
+.memory-source circle:last-child {
+  opacity: 0.9;
+}
+.memory-projection-plane {
+  stroke: #d1d9e0;
+  stroke-opacity: 0.2;
+  stroke-width: 1;
+}
+.memory-focus-point {
+  fill: #f3e9ce;
+}
+.memory-focal-markers {
+  fill: #bdc9d5;
+  opacity: 0.24;
+  font-family: var(--font-serif);
+  font-size: 12px;
+  text-anchor: middle;
+}
+.memory-source-label,
+.memory-plane-label {
+  position: absolute;
+  top: 83%;
+  font: 0.6rem var(--font-sans);
+  color: #7e8b98;
+  letter-spacing: 0.09em;
+}
+.memory-source-label {
+  left: 3%;
+}
+.memory-plane-label {
+  right: 1%;
+}
+.memory-lens-handle {
+  position: absolute;
+  top: 50%;
+  left: 75%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: 80px;
+  height: 230px;
+  padding: 0;
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  outline: none;
+}
+.memory-lens-handle.is-dragging {
+  cursor: grabbing;
+}
+.memory-lens-handle[aria-disabled='true'] {
+  cursor: default;
+}
+.memory-lens-handle:focus-visible {
+  border-radius: 40px;
+  outline: 1px solid #d5d9df99;
+  outline-offset: 5px;
+}
+.memory-lens-glass {
+  display: block;
+  width: 44px;
+  height: 200px;
+  overflow: visible;
+  filter: drop-shadow(0 0 7px rgba(228, 233, 240, var(--lens-light)));
+}
+.memory-lens-glass > path:first-of-type {
+  stroke: #e3eaf780;
+  stroke-width: 1.2;
+}
+.memory-glass-highlight {
+  stroke: #f3f6fa;
+  stroke-opacity: 0.24;
+  stroke-width: 1;
+}
+.memory-lens-grip {
+  position: absolute;
+  top: calc(100% - 10px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #a1aab4;
+  font: 0.85rem var(--font-serif);
+}
+.memory-lens-grip i {
+  display: block;
+  width: 14px;
+  height: 2px;
+  border-top: 1px solid #a8b4c34d;
+  border-bottom: 1px solid #a8b4c34d;
+}
+.memory-lens-projection {
+  margin: 0;
+  padding: 9px;
+  background: #f0e5cb08;
+  border: 1px solid #c4c6c224;
+  box-shadow: 0 20px 40px -20px #000b;
+  transform: rotate(-0.6deg);
+}
+.memory-lens-photo {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  position: relative;
+  overflow: hidden;
+  background: #11151a;
+}
+.memory-lens-image {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center 46%;
+  opacity: var(--memory-opacity);
+  filter: blur(var(--memory-blur)) saturate(0.82) sepia(0.08);
+  transform: scale(var(--memory-scale));
+  transition:
+    filter 160ms linear,
+    opacity 160ms linear,
+    transform 220ms ease;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.memory-lens-image[hidden] {
+  display: none;
+}
+.memory-lens-image-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  font: italic 1.3rem var(--font-serif);
+  color: #e9e1cf;
+  background: radial-gradient(ellipse at center, #58503b55, #11151a);
+}
+.memory-lens-image-fallback[hidden] {
+  display: none;
+}
+.memory-lens-projection figcaption {
+  text-align: center;
+  margin: 12px 8px 5px;
+  font: italic 0.75rem/1.6 var(--font-serif);
+  color: #a8aba9;
+}
+.memory-lens-hint {
+  margin: 34px 0 8px;
+  text-align: center;
+  font: 0.85rem/1.6 var(--font-sans);
+  color: #c0c6cc;
+}
+.memory-hint-mobile {
+  display: none;
+}
+.memory-lens-feedback {
+  margin: 0;
+  min-height: 1.7em;
+  text-align: center;
+  font: italic 0.85rem/1.7 var(--font-serif);
+  color: #b8c0c8;
+}
+.memory-lens-reward {
+  min-height: 150px;
+  padding-top: 20px;
+  text-align: center;
+  max-width: 670px;
+  margin: 0 auto;
+}
+.memory-lens-success {
+  font: italic 1.1rem/1.8 var(--font-serif);
+  color: #d9d7ce;
+  margin: 0 0 22px;
+  animation: memory-copy-in 700ms ease both;
+}
+.memory-lens-name {
+  font: 400 clamp(2.25rem, 5vw, 3.5rem)/1.25 var(--font-serif);
+  color: #f2e9d5;
+  margin: 24px 0;
+  animation: memory-copy-in 900ms ease both;
+}
+.memory-lens-ending {
+  font: 400 1.1rem/1.9 var(--font-serif);
+  color: #d1d0c9;
+  margin: 24px 0;
+  animation: memory-copy-in 800ms ease both;
+}
+.memory-lens-ending em {
+  color: #f1e8d4;
+}
+.memory-lens-next,
+.memory-lens-replay {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  padding: 12px 22px;
+  border: 1px solid #b8bec24d;
+  border-radius: 2px;
+  background: #cdd1d207;
+  color: #e0e1dc;
+  font: 0.8rem var(--font-sans);
+  cursor: pointer;
+  transition: background 180ms;
+}
+.memory-lens-next:hover,
+.memory-lens-replay:hover {
+  background: #cdd1d216;
+}
+.memory-lens-auto-next {
+  color: #bfc6d0;
+  font-size: 0.75rem;
+  line-height: 1.7;
+  margin: 0 0 14px;
+}
+.memory-lens-next:focus-visible,
+.memory-lens-replay:focus-visible {
+  outline: 2px solid #d8c9a7;
+  outline-offset: 4px;
+}
+.memory-lens-reward [hidden] {
+  display: none;
+}
+.memory-lens-game.is-focused .memory-lens-projection {
+  border-color: #d0b98b5c;
+}
+.memory-lens-game.is-focused .memory-lens-feedback {
+  color: #e1d0a9;
+}
+.memory-lens-handle.is-pulsing .memory-lens-glass {
+  animation: memory-lens-pulse 1.4s ease 1;
+}
+.memory-lens-scene,
+.memory-lens-level-head {
+  transition: opacity 350ms ease;
+}
+.memory-lens-game.is-transitioning .memory-lens-scene,
+.memory-lens-game.is-transitioning .memory-lens-level-head {
+  opacity: 0;
+}
+@keyframes memory-lens-pulse {
+  50% {
+    filter: drop-shadow(0 0 13px #e5e0cd88);
+  }
+}
+@keyframes memory-copy-in {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 768px) {
+  .memory-lens-section {
+    padding: 70px 0 60px;
+  }
+  .memory-lens-inner {
+    width: calc(100% - 40px);
+    max-width: 520px;
+  }
+  .memory-lens-intro {
+    margin-bottom: 34px;
+  }
+  .memory-lens-intro h2 {
+    font-size: clamp(1.9rem, 7vw, 2.5rem);
+    margin-bottom: 18px;
+  }
+  .memory-lens-intro > p:last-child {
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+  .memory-lens-eyebrow {
+    font-size: 0.62rem;
+    margin-bottom: 16px;
+  }
+  .memory-lens-level-head {
+    margin-bottom: 22px;
+  }
+  .memory-lens-level-title {
+    font-size: 1.2rem;
+  }
+  .memory-lens-opening {
+    min-height: 3.4em;
+    font-size: 0.9rem;
+  }
+  .memory-lens-scene {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .memory-lens-projection {
+    order: -1;
+    width: 100%;
+    max-width: 440px;
+    padding: 7px;
+    box-sizing: border-box;
+  }
+  .memory-lens-bench {
+    height: 175px;
+  }
+  .memory-lens-handle {
+    height: 160px;
+    width: 80px;
+  }
+  .memory-lens-glass {
+    height: 140px;
+    width: 38px;
+  }
+  .memory-lens-rays path:nth-child(n + 4) {
+    display: none;
+  }
+  .memory-focal-markers,
+  .memory-source-label,
+  .memory-plane-label {
+    display: none;
+  }
+  .memory-lens-projection figcaption {
+    font-size: 0.68rem;
+    margin: 8px 5px 3px;
+  }
+  .memory-lens-hint {
+    font-size: 0.8rem;
+    margin-top: 18px;
+  }
+  .memory-hint-desktop {
+    display: none;
+  }
+  .memory-hint-mobile {
+    display: inline;
+  }
+  .memory-lens-success,
+  .memory-lens-ending {
+    font-size: 1rem;
+  }
+  .memory-lens-reward {
+    min-height: 140px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .memory-lens-image {
+    transition:
+      filter 60ms linear,
+      opacity 60ms linear;
+  }
+  .memory-lens-handle.is-pulsing .memory-lens-glass,
+  .memory-lens-success,
+  .memory-lens-name,
+  .memory-lens-ending {
+    animation: none;
+  }
+  .memory-lens-scene,
+  .memory-lens-level-head,
+  .memory-lens-fragments li {
+    transition: none;
+  }
+}
+
+/* On phones the memory and its words share one compact reading/play area. */
+@media(max-width:768px) {
+  .memory-lens-inner {width:calc(100% - 24px);}
+  .memory-lens-game {
+    --font-serif:"Playfair Display","Times New Roman",serif;
+    display:grid;
+    grid-template-areas:"head" "photo" "reward" "bench" "hint" "feedback";
+    padding:12px 10px 16px;border:1px solid #c4c6c225;border-radius:8px;
+    background:linear-gradient(145deg,#17202b99,#0a0e14);
+    scroll-margin-top:72px;
+  }
+  .memory-lens-level-head {grid-area:head;margin-bottom:10px;}
+  .memory-lens-fragments {gap:12px;margin-bottom:8px;}
+  .memory-lens-fragments li {width:26px;height:26px;}
+  .memory-lens-level-title {font-size:1.08rem;line-height:1.35;margin-bottom:5px;}
+  .memory-lens-opening {font-size:.83rem;line-height:1.5;min-height:0;}
+  .memory-lens-scene {display:contents;}
+  .memory-lens-projection {grid-area:photo;width:100%;max-width:440px;justify-self:center;padding:5px;transform:none;}
+  .memory-lens-photo {height:clamp(125px,21svh,195px);aspect-ratio:auto;}
+  .memory-lens-image {object-fit:contain;}
+  .memory-lens-projection figcaption {font-size:.67rem;line-height:1.5;margin:5px 3px 1px;}
+  .memory-lens-reward {grid-area:reward;min-height:110px;width:100%;padding:10px 6px 8px;box-sizing:border-box;}
+  .memory-lens-success {font-size:.94rem;line-height:1.6;margin:0 0 8px;color:#eee0c7;}
+  .memory-lens-name {font-size:1.8rem;line-height:1.2;margin:6px 0;}
+  .memory-lens-ending {font-size:.9rem;line-height:1.6;margin:6px 0 10px;}
+  .memory-lens-next,.memory-lens-replay {min-height:48px;padding:9px 18px;font-size:.76rem;}
+  .memory-lens-bench {grid-area:bench;height:90px;margin-top:4px;border-block:1px solid #b5c1d014;}
+  .memory-lens-handle {height:80px;width:80px;}
+  .memory-lens-glass {height:65px;width:30px;}
+  .memory-lens-grip {gap:8px;font-size:.85rem;}
+  .memory-lens-hint {grid-area:hint;font-size:.78rem;line-height:1.5;margin:10px 0 4px;}
+  .memory-lens-feedback {grid-area:feedback;font-size:.82rem;line-height:1.5;min-height:1.5em;}
+  .memory-lens-game.is-transitioning .memory-lens-projection,.memory-lens-game.is-transitioning .memory-lens-bench {opacity:0;}
+  .memory-lens-projection,.memory-lens-bench {transition:opacity 350ms ease;}
+}
+@media(max-width:768px) and (max-height:700px) {
+  .memory-lens-game {padding:10px 8px 12px;}
+  .memory-lens-level-title {font-size:1rem;}
+  .memory-lens-opening {font-size:.8rem;}
+  .memory-lens-photo {height:125px;}
+  .memory-lens-bench {height:78px;}
+  .memory-lens-handle {height:72px;}
+  .memory-lens-glass {height:56px;}
+  .memory-lens-reward {min-height:100px;padding-top:8px;}
+  .memory-lens-success {font-size:.88rem;}
+  .memory-lens-ending {font-size:.86rem;}
+}
+@media(max-width:768px) and (prefers-reduced-motion:reduce) {
+  .memory-lens-projection,.memory-lens-bench {transition:none;}
 }
