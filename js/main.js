@@ -10,7 +10,7 @@
   'use strict';
 
   /* ---------- Config ---------- */
-  const TARGET_DATE = new Date('2025-10-09T00:00:00+07:00');
+  const TARGET_DATE = new Date('2026-10-09T00:00:00+07:00');
 
   /* ---------- Elements ---------- */
   const el = {
@@ -38,9 +38,43 @@
   let unlocked = false;
   let timerId = null;
 
+  async function loadFinalChapterScripts() {
+    const template = document.getElementById('chapter-final-scripts-template');
+    const chapter = document.getElementById('chapter-final');
+    if (!template || !chapter) return;
+    chapter.dataset.contentState = 'loading';
+    let failed = false;
+    // Keep Turn.js and the game helpers ahead of the sections that use them.
+    for (const source of template.content.querySelectorAll('script[src]')) {
+      try {
+        await new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = source.getAttribute('src');
+          script.async = false;
+          script.onload = resolve;
+          script.onerror = () => reject(new Error(`Cannot load ${script.src}`));
+          document.body.appendChild(script);
+        });
+      } catch (error) {
+        failed = true;
+        console.error('[chapter-final]', error);
+      }
+    }
+    chapter.dataset.contentState = failed ? 'error' : 'ready';
+  }
+
   function unlockTimeline() {
     if (unlocked) return;
     unlocked = true;
+
+    // The book and everything after it share the timeline's release date.
+    // Template content stays inert until now: no game, image or audio is started.
+    const contentTemplate = document.getElementById('chapter-final-content-template');
+    const lockedContainer = document.getElementById('chapter-final-lock');
+    if (contentTemplate && lockedContainer) {
+      lockedContainer.replaceWith(contentTemplate.content.cloneNode(true));
+      void loadFinalChapterScripts();
+    }
 
     /* ---- 1. Render nav link "Kỉ niệm" (đã bàn ở bước 1) ---- */
     const navTemplate = document.getElementById('nav-timeline-template');
@@ -469,7 +503,7 @@
   }
 
   updateCountdown();
-  timerId = setInterval(updateCountdown, 1000);
+  if (!unlocked) timerId = setInterval(updateCountdown, 1000);
 
   /* =========================================================
      REVEAL HERO ON LOAD

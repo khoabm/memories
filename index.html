@@ -19,9 +19,6 @@
     <link rel="stylesheet" href="./css/observatory.css" />
     <link rel="stylesheet" href="./css/future-museum.css" />
     <link rel="stylesheet" href="./css/timeline-dawn.css" />
-    <!-- Turn.js dependencies -->
-    <script src="./js/vendor/jquery-3.7.1.min.js" defer></script>
-    <script src="./js/vendor/turn.js" defer></script>
 </head>
 
 <body>
@@ -575,6 +572,37 @@
             </div>
         </div>
 
+        <!-- Sách và toàn bộ nội dung phía sau chỉ mở lúc 00:00 ngày 09/10/2026 (UTC+7). -->
+        <div id="chapter-final-lock" class="chapter-final-section chapter-final-timeline-section">
+            <section id="timeline-locked" class="timeline-locked" aria-label="Chưa mở khóa">
+                <div class="locked-inner">
+                    <div class="locked-icon" aria-hidden="true">
+                        <svg viewBox="0 0 64 64" width="56" height="56" fill="none">
+                            <rect x="12" y="28" width="40" height="30" rx="5" stroke="currentColor" stroke-width="2.5"
+                                fill="rgba(231, 183, 160, 0.08)" />
+                            <path d="M22 28 V20 A10 10 0 0 1 42 20 V28" stroke="currentColor" stroke-width="2.5"
+                                stroke-linecap="round" />
+                            <circle cx="32" cy="42" r="3.5" fill="currentColor" />
+                            <rect x="30.5" y="45" width="3" height="7" rx="1.5" fill="currentColor" />
+                        </svg>
+                    </div>
+
+                    <p class="locked-eyebrow">Khoảnh khắc chưa đến</p>
+
+                    <h2 class="locked-title">
+                        Kỉ niệm sẽ được mở khóa vào
+                    </h2>
+
+                    <p class="locked-date">09 · 10 · 2026</p>
+
+                    <p class="locked-note">
+                        Hãy quay lại khi đồng hồ đếm ngược kết thúc.
+                    </p>
+                </div>
+            </section>
+        </div>
+
+        <template id="chapter-final-content-template">
         <!-- ===== Phần 2: Sách ===== -->
         <div class="chapter-final-section chapter-final-book-section">
             <div class="chapter-final-inner">
@@ -931,46 +959,17 @@
             </noscript>
         </section>
 
-        <!-- ===== Phần 5: Timeline (di chuyển từ ngoài vào) ===== -->
+        <!-- ===== Phần 5: Timeline — cùng ngày mở khóa với sách ===== -->
         <div class="chapter-final-section chapter-final-timeline-section">
-
-            <!-- Placeholder ổ khoá — trước 09/10 -->
-            <section id="timeline-locked" class="timeline-locked" aria-label="Chưa mở khóa">
-                <div class="locked-inner">
-                    <div class="locked-icon" aria-hidden="true">
-                        <svg viewBox="0 0 64 64" width="56" height="56" fill="none">
-                            <rect x="12" y="28" width="40" height="30" rx="5" stroke="currentColor" stroke-width="2.5"
-                                fill="rgba(231, 183, 160, 0.08)" />
-                            <path d="M22 28 V20 A10 10 0 0 1 42 20 V28" stroke="currentColor" stroke-width="2.5"
-                                stroke-linecap="round" />
-                            <circle cx="32" cy="42" r="3.5" fill="currentColor" />
-                            <rect x="30.5" y="45" width="3" height="7" rx="1.5" fill="currentColor" />
-                        </svg>
-                    </div>
-
-                    <p class="locked-eyebrow">Khoảnh khắc chưa đến</p>
-
-                    <h2 class="locked-title">
-                        Kỉ niệm sẽ được mở khóa vào
-                    </h2>
-
-                    <p class="locked-date">09 · 10 · 2026</p>
-
-                    <p class="locked-note">
-                        Hãy quay lại khi đồng hồ đếm ngược kết thúc.
-                    </p>
-                </div>
-            </section>
-
-            <!-- Timeline — render động bằng JS khi countdown = 0 -->
-            <!-- Timeline sẽ được chèn vào đây (không phải trong HTML tĩnh) -->
-
+            <!-- Timeline được chèn khi countdown = 0. -->
         </div>
 
         <!-- ===== Phần 6: Chỗ trống cho content tương lai ===== -->
         <div class="chapter-final-section chapter-final-extra-section">
             <!-- Content tương lai -->
         </div>
+
+        </template>
 
     </section>
 
@@ -2971,14 +2970,19 @@
     <script src="./js/week1.js"></script>
     <script src="./js/week2.js"></script>
     <script src="./js/week3.js"></script>
-    <script src="./js/story-book.js"></script>
-    <script src="./js/constellation.js"></script>
-    <script src="./js/memory-lens.js"></script>
-    <script src="./js/observatory-art.js"></script>
-    <script src="./js/observatory-audio.js"></script>
-    <script src="./js/observatory.js"></script>
-    <script src="./js/museum-audio.js"></script>
-    <script src="./js/future-museum.js"></script>
+    <!-- Inert until the final chapter unlocks; loaded in dependency order by main.js. -->
+    <template id="chapter-final-scripts-template">
+        <script src="./js/vendor/jquery-3.7.1.min.js"></script>
+        <script src="./js/vendor/turn.js"></script>
+        <script src="./js/story-book.js"></script>
+        <script src="./js/constellation.js"></script>
+        <script src="./js/memory-lens.js"></script>
+        <script src="./js/observatory-art.js"></script>
+        <script src="./js/observatory-audio.js"></script>
+        <script src="./js/observatory.js"></script>
+        <script src="./js/museum-audio.js"></script>
+        <script src="./js/future-museum.js"></script>
+    </template>
     <script src="./js/main.js"></script>
 </body>
 

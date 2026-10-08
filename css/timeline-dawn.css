@@ -72,6 +72,13 @@
 .chapter-final-timeline-section .timeline-locked {position:relative;z-index:1;}
 .chapter-final-timeline-section .locked-title {color:#eee4d7;}
 .chapter-final-timeline-section .locked-note {color:#c5cbd6;}
+#chapter-final-lock .locked-inner {
+  background:linear-gradient(160deg,#172235eb,#39364beb);
+  border-color:#e6c5a74a;
+  box-shadow:0 30px 60px -30px #040a19aa,0 1px 0 #fff2dd12 inset;
+}
+#chapter-final-lock .locked-icon {color:#ecccad;background:linear-gradient(160deg,#e7b7a022,#b9a7ff22);border-color:#e6c5a74a;}
+#chapter-final-lock .locked-eyebrow {color:#ddbfab;}
 @media(max-width:768px) {
   .chapter-final-timeline-section {padding:55px 0 50px;}
   .chapter-final-timeline-section .timeline-section {padding-top:15px;}
