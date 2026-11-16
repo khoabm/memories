@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f7f5f0"><meta name="description" content="Bộ flashcard từ vựng JLPT N4 Nhật–Việt.">
+<title>Flashcards JLPT N4 · Memories</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/flashcards.css">
+</head>
+<body>
+<main class="app">
+<header class="top"><div><p class="eyebrow">MEMORIES <span>·</span> HỌC TIẾNG NHẬT</p><h1>Từ vựng JLPT N4</h1><p class="sub">Một bộ thẻ tích lũy · Nhật – Việt</p></div><div class="overall"><strong id="known-percent">0%</strong><span>đã ghi nhớ</span><div class="progress"><i id="overall-progress"></i></div></div></header>
+<section class="stats" aria-label="Tiến độ"><div><span>Tổng từ</span><b id="stat-total">0</b></div><div><span>Đã nhớ</span><b id="stat-known">0</b></div><div><span>Đang học</span><b id="stat-learning">0</b></div><div><span>Chưa học</span><b id="stat-new">0</b></div></section>
+<section class="workspace">
+<aside class="sidebar">
+<label class="search-label" for="search">Tìm từ vựng</label><input id="search" type="search" placeholder="Kanji, hiragana hoặc nghĩa tiếng Việt">
+<div class="filter-grid"><label>Trạng thái<select id="status-filter"><option value="all">Tất cả trạng thái</option><option value="new">Chưa học</option><option value="learning">Đang học</option><option value="known">Đã nhớ</option></select></label><label>Từ loại<select id="pos-filter"><option value="all">Tất cả từ loại</option></select></label></div>
+<label class="mode-label" for="study-mode">Bộ thẻ đang học</label><select id="study-mode"><option value="all">Tất cả từ</option><option value="new">Từ chưa học</option><option value="learning">Từ đang học</option><option value="known">Từ đã nhớ</option></select>
+<div class="list-head"><span>Kết quả lọc</span><b id="result-count">0 từ</b></div><ul id="word-list" class="word-list"></ul>
+</aside>
+<div class="study">
+<div class="study-top"><div class="mode-pills" id="mode-pills"><button type="button" data-mode="all" class="selected">Tất cả</button><button type="button" data-mode="new">Chưa học</button><button type="button" data-mode="learning">Đang học</button><button type="button" data-mode="known">Đã nhớ</button></div><button type="button" class="quiet" id="shuffle">↻ Trộn thẻ</button></div>
+<div class="card-wrap"><button id="flashcard" class="flashcard" type="button" aria-label="Lật thẻ">
+<div class="face front"><span class="face-tag">TIẾNG NHẬT <i id="card-pos"></i></span><strong id="card-kanji">読み込み中</strong><span class="tap-hint">Chạm hoặc nhấn Space để lật</span></div>
+<div class="face back"><span class="face-tag">NGHĨA TIẾNG VIỆT</span><span class="reading" id="card-reading"></span><strong id="card-meaning"></strong><div class="example"><p id="card-example"></p><span id="card-example-meaning"></span></div></div></button></div>
+<div class="card-meta"><span id="card-index">0 / 0</span><span class="status-badge" id="card-status">Chưa học</span></div>
+<div class="controls"><button type="button" class="outline" id="previous">← Trước</button><button type="button" class="primary" id="flip">Lật thẻ <kbd>Space</kbd></button><button type="button" class="outline" id="next">Tiếp →</button></div>
+<div class="status-actions"><button type="button" class="state-btn learning" id="mark-learning">Đang học</button><button type="button" class="state-btn known" id="mark-known">Đã nhớ ✓</button><button type="button" class="text-btn" id="reset-card">Đặt lại</button></div>
+<div class="session-progress"><div class="progress"><i id="session-progress"></i></div><span id="session-label">Tiến độ bộ thẻ</span></div>
+<div class="bottom-actions"><span>← → di chuyển <span>·</span> Space lật thẻ</span><button class="text-btn" id="reset-progress">Xóa toàn bộ tiến độ</button></div>
+<p class="source-note">Bộ sưu tập học tập do biên soạn, không phải danh sách chính thức của JLPT.</p>
+</div>
+</section>
+</main>
+<dialog id="confirm-reset"><form method="dialog"><h2>Xóa tiến độ học?</h2><p>Trạng thái ghi nhớ và vị trí học sẽ được đặt lại trên thiết bị này.</p><div><button class="outline" value="cancel">Giữ lại</button><button class="danger" value="confirm">Xóa tiến độ</button></div></form></dialog>
+<script src="../js/flashcards-data.js"></script><script src="../js/flashcards.js"></script>
+</body></html>
